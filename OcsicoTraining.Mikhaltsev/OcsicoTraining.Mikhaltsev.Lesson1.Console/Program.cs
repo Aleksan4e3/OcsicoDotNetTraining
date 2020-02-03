@@ -23,5 +23,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
                 WriteLine("Invalid values entered!!!");
             }
         }
+
+        static string ReadValue()
+        {
+            WriteLine("Enter number:");
+            var value = ReadLine();
+            return value;
+        }
     }
 }
