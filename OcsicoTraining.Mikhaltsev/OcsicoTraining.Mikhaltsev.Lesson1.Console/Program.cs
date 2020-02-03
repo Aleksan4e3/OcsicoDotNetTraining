@@ -8,15 +8,21 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
     {
         static void Main(string[] args)
         {
-            WriteLine("Enter number a:");
-            var resultParseA = int.TryParse(ReadLine(), out int a);
-            WriteLine("Enter number b:");
-            var resultParseB = int.TryParse(ReadLine(), out int b);
+            //WriteLine("Enter number a:");
+            //var resultParseA = int.TryParse(ReadLine(), out int a);
+            //WriteLine("Enter number b:");
+            //var resultParseB = int.TryParse(ReadLine(), out int b);
 
-            if (resultParseA && resultParseB)
+            var value1 = ReadValue();
+            var value2 = ReadValue();
+
+            var resultParseValue1 = ParseValue(value1, out int number1);
+            var resultParseValue2 = ParseValue(value2, out int number2);
+
+            if (resultParseValue1 && resultParseValue2)
             {
-                int nod = Nod.FindNOD(a, b);
-                WriteLine($"For numbers a = {a} and b = {b} NOD = {nod}");
+                int nod = Nod.FindNOD(number1, number2);
+                WriteLine($"For numbers {number1} and {number2} NOD = {nod}");
             }
             else
             {
