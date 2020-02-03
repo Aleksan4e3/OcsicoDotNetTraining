@@ -30,5 +30,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
             var value = ReadLine();
             return value;
         }
+
+        static bool ParseValue(string value, out int number)
+        {
+            var parseResult = int.TryParse(value, out int a);
+            number = a;
+            return parseResult;
+        }
     }
 }
