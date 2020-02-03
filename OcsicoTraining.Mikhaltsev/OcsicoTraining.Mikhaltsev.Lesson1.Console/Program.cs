@@ -9,9 +9,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
         static void Main(string[] args)
         {
             WriteLine("Enter number a:");
-            bool resultParseA = int.TryParse(ReadLine(), out int a);
+            var resultParseA = int.TryParse(ReadLine(), out int a);
             WriteLine("Enter number b:");
-            bool resultParseB = int.TryParse(ReadLine(), out int b);
+            var resultParseB = int.TryParse(ReadLine(), out int b);
 
             if (resultParseA && resultParseB)
             {
