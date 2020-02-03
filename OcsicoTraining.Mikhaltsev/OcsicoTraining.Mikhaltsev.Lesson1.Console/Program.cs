@@ -8,11 +8,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
     {
         static void Main(string[] args)
         {
-            //WriteLine("Enter number a:");
-            //var resultParseA = int.TryParse(ReadLine(), out int a);
-            //WriteLine("Enter number b:");
-            //var resultParseB = int.TryParse(ReadLine(), out int b);
-
             var value1 = ReadValue();
             var value2 = ReadValue();
 
