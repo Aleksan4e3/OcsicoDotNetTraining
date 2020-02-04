@@ -13,7 +13,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.BubbleSort
             {
                 for (int j = i + 1; j < array.Length; j++)
                 {
-                    (array[i], array[j]) = sortOption(array[i]) > sortOption(array[j]) ? (array[j], array[i]) : (array[i], array[j]);
+                    if (sortOption(array[i]) > sortOption(array[j]))
+                    {
+                        (array[i], array[j]) = (array[j], array[i]);
+                    }
                 }
             }
 
