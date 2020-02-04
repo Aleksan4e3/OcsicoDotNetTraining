@@ -13,16 +13,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
 
         private static void RunFindGdcTask()
         {
-            var value1 = ReadValue();
-            var value2 = ReadValue();
+            var firstValue = ReadValue();
+            var secondValue = ReadValue();
 
-            var resultParseValue1 = ParseValue(value1, out int number1);
-            var resultParseValue2 = ParseValue(value2, out int number2);
+            var resultParseFirstValue = ParseValue(firstValue, out int firstNumber);
+            var resultParseSecondValue = ParseValue(secondValue, out int secondNumber);
 
-            if (resultParseValue1 && resultParseValue2)
+            if (resultParseFirstValue && resultParseSecondValue)
             {
-                int nod = Nod.FindNOD(number1, number2);
-                WriteLine($"For numbers {number1} and {number2} NOD = {nod}");
+                var nod = Nod.FindNOD(firstNumber, secondNumber);
+                WriteLine($"For numbers {firstNumber} and {secondNumber} NOD = {nod}");
             }
             else
             {
