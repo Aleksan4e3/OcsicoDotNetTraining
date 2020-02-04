@@ -1,5 +1,4 @@
-﻿using System;
-using OcsicoTraining.Mikhaltsev.Lesson1.NOD;
+﻿using static OcsicoTraining.Mikhaltsev.Lesson1.NOD.Nod;
 using static System.Console;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
@@ -21,7 +20,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
 
             if (resultParseFirstValue && resultParseSecondValue)
             {
-                var nod = Nod.FindNOD(firstNumber, secondNumber);
+                var nod = FindNOD(firstNumber, secondNumber);
                 WriteLine($"For numbers {firstNumber} and {secondNumber} NOD = {nod}");
             }
             else
