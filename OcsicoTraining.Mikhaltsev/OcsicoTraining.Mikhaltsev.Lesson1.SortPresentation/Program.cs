@@ -48,7 +48,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.SortPresentation
             PrintJaggedArray(randomArray);
 
             Console.WriteLine("Array after sorting:");
-            var sortedArray = Sort(randomArray, array => array.Sum(), SortingDirection.Descending);
+            var sortedArray = Sort(randomArray, (a, b) => a.Sum() > b.Sum());
             PrintJaggedArray(sortedArray);
         }
     }
