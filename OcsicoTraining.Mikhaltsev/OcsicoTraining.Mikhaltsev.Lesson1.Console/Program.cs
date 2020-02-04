@@ -8,6 +8,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
     {
         static void Main(string[] args)
         {
+            RunFindGdcTask();
+        }
+
+        private static void RunFindGdcTask()
+        {
             var value1 = ReadValue();
             var value2 = ReadValue();
 
