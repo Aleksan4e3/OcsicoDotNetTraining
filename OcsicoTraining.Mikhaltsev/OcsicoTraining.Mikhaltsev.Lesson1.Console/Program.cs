@@ -33,8 +33,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
         static string ReadValue()
         {
             WriteLine("Enter number:");
-            var value = ReadLine();
-            return value;
+            return ReadLine();
         }
 
         static bool ParseValue(string value, out int number)
