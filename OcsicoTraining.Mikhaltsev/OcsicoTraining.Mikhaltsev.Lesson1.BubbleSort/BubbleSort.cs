@@ -7,15 +7,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.BubbleSort
 {
     public static class BubbleSort
     {
-        static int GetSumElements(int[] array) => array.Sum();
+        public static int GetSumElements(int[] array) => array.Sum();
 
-        static int GetMaxElement(int[] array) => array.Max();
+        public static int GetMaxElement(int[] array) => array.Max();
 
-        static int GetMinElement(int[] array) => array.Min();
+        public static int GetMinElement(int[] array) => array.Min();
 
-        static void Swap(int[] a, int[] b) => (a, b) = (b, a);
+        public static void Swap(ref int[] a, ref int[] b) => (a, b) = (b, a);
 
-        static int[][] SortAsc(int[][] array, Func<int[], int> sortOption)
+        public static int[][] SortAsc(int[][] array, Func<int[], int> sortOption)
         {
             for (int i = 0; i < array.Length; i++)
             {
@@ -23,14 +23,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.BubbleSort
                 {
                     if (sortOption(array[i]) > sortOption(array[j]))
                     {
-                        Swap(array[i], array[j]);
+                        Swap(ref array[i], ref array[j]);
                     }
                 }
             }
             return array;
         }
 
-        static int[][] SortDesc(int[][] array, Func<int[], int> sortOption)
+        public static int[][] SortDesc(int[][] array, Func<int[], int> sortOption)
         {
             for (int i = 0; i < array.Length; i++)
             {
@@ -38,7 +38,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.BubbleSort
                 {
                     if (sortOption(array[i]) < sortOption(array[j]))
                     {
-                        Swap(array[i], array[j]);
+                        Swap(ref array[i], ref array[j]);
                     }
                 }
             }
