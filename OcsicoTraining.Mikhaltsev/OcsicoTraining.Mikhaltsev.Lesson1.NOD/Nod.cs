@@ -4,16 +4,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.NOD
 {
     public static class Nod
     {
-        public static int FindNOD(int number1, int number2)
+        public static int FindNOD(int firstNumber, int secondNumber)
         {
-            while (number1 != 0)
+            while (firstNumber != 0)
             {
-                int temp = number1;
-                number1 = number2 % number1;
-                number2 = temp;
+                int temp = firstNumber;
+                firstNumber = secondNumber % firstNumber;
+                secondNumber = temp;
             }
 
-            return number2;
+            return secondNumber;
         }
     }
 }
