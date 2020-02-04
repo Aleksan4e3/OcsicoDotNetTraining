@@ -16,8 +16,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
             var firstValue = ReadValue();
             var secondValue = ReadValue();
 
-            var resultParseFirstValue = ParseValue(firstValue, out int firstNumber);
-            var resultParseSecondValue = ParseValue(secondValue, out int secondNumber);
+            var resultParseFirstValue = int.TryParse(firstValue, out var firstNumber);
+            var resultParseSecondValue = int.TryParse(secondValue, out var secondNumber);
 
             if (resultParseFirstValue && resultParseSecondValue)
             {
@@ -34,13 +34,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.Console
         {
             WriteLine("Enter number:");
             return ReadLine();
-        }
-
-        static bool ParseValue(string value, out int number)
-        {
-            var parseResult = int.TryParse(value, out int a);
-            number = a;
-            return parseResult;
         }
     }
 }
