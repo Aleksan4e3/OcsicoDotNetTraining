@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using OcsicoTraining.Mikhaltsev.Lesson1.BubbleSort;
 using static OcsicoTraining.Mikhaltsev.Lesson1.BubbleSort.BubbleSort;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson1.SortPresentation
@@ -46,7 +48,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.SortPresentation
             PrintJaggedArray(randomArray);
 
             Console.WriteLine("Array after sorting:");
-            var sortedArray = SortAsc(randomArray, GetSumElements);
+            var sortedArray = Sort(randomArray, array => array.Sum(), SortingDirection.Descending);
             PrintJaggedArray(sortedArray);
         }
     }
