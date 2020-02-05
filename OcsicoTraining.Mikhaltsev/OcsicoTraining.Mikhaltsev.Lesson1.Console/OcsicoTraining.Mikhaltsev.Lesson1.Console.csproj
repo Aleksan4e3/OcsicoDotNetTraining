@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson1.BubbleSort\OcsicoTraining.Mikhaltsev.Lesson1.BubbleSort.csproj" />
     <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson1.NOD\OcsicoTraining.Mikhaltsev.Lesson1.NOD.csproj" />
   </ItemGroup>
 
