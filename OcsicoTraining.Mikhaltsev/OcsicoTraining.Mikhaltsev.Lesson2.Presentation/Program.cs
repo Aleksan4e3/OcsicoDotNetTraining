@@ -1,5 +1,5 @@
 using System;
-using static OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN.NewtonSoft;
+using static OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN.NewtonMethod;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
 {
