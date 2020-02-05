@@ -10,7 +10,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson1.NOD
         {
             while (firstNumber != 0)
             {
-                int temp = firstNumber;
+                var temp = firstNumber;
                 firstNumber = secondNumber % firstNumber;
                 secondNumber = temp;
             }
