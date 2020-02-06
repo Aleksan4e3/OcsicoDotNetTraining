@@ -20,7 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN", "OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN\OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN.csproj", "{CAF02488-3147-4270-9E04-637C6EAABCE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN", "OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN\OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN.csproj", "{CAF02488-3147-4270-9E04-637C6EAABCE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lesson4", "Lesson4", "{E234FB43-990F-4F6F-9C97-D645656D90E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson4.Presentation", "OcsicoTraining.Mikhaltsev.Lesson4.Presentation\OcsicoTraining.Mikhaltsev.Lesson4.Presentation.csproj", "{C8E6AB9C-8A9F-40ED-87EF-15BAC9E903B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +52,10 @@ Global
 		{CAF02488-3147-4270-9E04-637C6EAABCE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAF02488-3147-4270-9E04-637C6EAABCE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAF02488-3147-4270-9E04-637C6EAABCE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8E6AB9C-8A9F-40ED-87EF-15BAC9E903B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8E6AB9C-8A9F-40ED-87EF-15BAC9E903B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8E6AB9C-8A9F-40ED-87EF-15BAC9E903B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8E6AB9C-8A9F-40ED-87EF-15BAC9E903B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +66,7 @@ Global
 		{201C3B38-591A-43C2-9A3B-26620197CF67} = {8299D771-3D06-44A0-B258-73B3D5BDF925}
 		{E5390BD0-98B3-4D41-99EC-69EA0660B936} = {E1004257-1D69-4D04-BAD8-0CA27D90D81F}
 		{CAF02488-3147-4270-9E04-637C6EAABCE1} = {E1004257-1D69-4D04-BAD8-0CA27D90D81F}
+		{C8E6AB9C-8A9F-40ED-87EF-15BAC9E903B7} = {E234FB43-990F-4F6F-9C97-D645656D90E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {570C607E-40DA-4CE3-BCFC-F7A77DC92CF6}
