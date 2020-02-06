@@ -20,12 +20,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
         }
 
         private static IEnumerable<User> CreateListUsers() => new List<User>()
-            {
-                new User() {Name = "Alex", Age = 29},
-                new User() {Name = "Sergei", Age = 25},
-                new User() {Name = "Ivan", Age = 22},
-                new User() {Name = "Andrew", Age = 35}
-            };
+        {
+        };
 
         private static void PrintUsers(IEnumerable<User> users)
         {
@@ -37,7 +33,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
         private static void RunSortUsersTask()
         {
             var users = CreateListUsers();
-            var sortedUsers = users.SortCollection();
+            var sortedUsers = users.SortDesc();
 
             Console.WriteLine("Before sorting:");
             PrintUsers(users);
