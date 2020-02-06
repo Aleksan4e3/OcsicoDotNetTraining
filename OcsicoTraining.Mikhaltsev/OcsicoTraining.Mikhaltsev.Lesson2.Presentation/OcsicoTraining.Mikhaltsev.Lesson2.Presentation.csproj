@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN\OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN.csproj" />
+  </ItemGroup>
+
 </Project>
