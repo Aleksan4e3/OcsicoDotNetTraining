@@ -21,19 +21,24 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
 
         private static IEnumerable<User> CreateListUsers() => new List<User>()
         {
+            new User() {Name = "Alex", Age = 29},
+            null,
+            new User() {Name = "Ivan", Age = 22},
+            new User() {Name = "Sergei", Age = 28},
+            new User() {Name = "Andrew", Age = 30},
         };
 
         private static void PrintUsers(IEnumerable<User> users)
         {
             foreach (var user in users)
             {
-                Console.WriteLine($"{user.Name} {user.Age}");
+                Console.WriteLine($"{user?.Name} {user?.Age}");
             }
         }
         private static void RunSortUsersTask()
         {
             var users = CreateListUsers();
-            var sortedUsers = users.SortDesc();
+            var sortedUsers = users.SortAsc();
 
             Console.WriteLine("Before sorting:");
             PrintUsers(users);

@@ -8,6 +8,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
         public string Name { get; set; }
         public int Age { get; set; }
 
-        public int CompareTo([AllowNull] User other) => Age.CompareTo(other.Age);
+        public int CompareTo([AllowNull] User other) => other == null ? 1 : Age.CompareTo(other.Age);
     }
 }
