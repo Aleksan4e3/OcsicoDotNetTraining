@@ -9,7 +9,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
     {
         private static void Main()
         {
-            RunSortUsersTask();
+            RunRootPowerNTask();
             _ = Console.ReadKey();
         }
 
