@@ -27,26 +27,41 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Tests
         [Test]
         public void RootPowerN_InputRoot4AndNegativeNumber_ExceptionShould()
         {
+            //arrange
             var inputValue = random.Next(int.MinValue, -1);
-            _ = Assert.Throws<NumberArgumentException>(() => CalculateRootPowerN(4, inputValue),
-                "Should be NumberArgumentException");
+
+            //act
+            void GetException() => CalculateRootPowerN(4, inputValue);
+
+            //assert
+            _ = Assert.Throws<NumberArgumentException>(GetException, "Should be NumberArgumentException");
         }
 
 
         [Test]
         public void RootPowerN_InputRootLessThan1_ExceptionShould()
         {
+            //arrange
             var inputValue = random.Next(int.MinValue, 1);
-            _ = Assert.Throws<PowerArgumentException>(() => CalculateRootPowerN(inputValue, 10),
-                "Should be PowerArgumentException");
+
+            //act
+            void GetException() => CalculateRootPowerN(inputValue, 10);
+
+            //assert
+            _ = Assert.Throws<PowerArgumentException>(GetException, "Should be PowerArgumentException");
         }
 
         [Test]
         public void RootPowerN_InputNegativePrecision_ExceptionShould()
         {
+            //arrange
             var inputValue = random.Next(int.MinValue, -1);
-            _ = Assert.Throws<PrecisionArgumentException>(() => CalculateRootPowerN(4, 46, inputValue),
-                "Should be PrecisionArgumentException");
+
+            //act
+            void GetException() => CalculateRootPowerN(4, 46, inputValue);
+
+            //assert
+            _ = Assert.Throws<PrecisionArgumentException>(GetException, "Should be PrecisionArgumentException");
         }
     }
 }
