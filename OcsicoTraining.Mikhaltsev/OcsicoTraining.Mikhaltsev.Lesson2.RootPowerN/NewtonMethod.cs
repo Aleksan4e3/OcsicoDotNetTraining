@@ -8,17 +8,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN
         {
             if (power <= 1)
             {
-                throw new PowerArgumentException();
+                throw new PowerArgumentException("The root power should be greater than 1");
             }
 
             if (precision <= 0)
             {
-                throw new PrecisionArgumentException();
+                throw new PrecisionArgumentException("The precision should be positive");
             }
 
             if (number < 0 && power % 2 == 0)
             {
-                throw new NumberArgumentException();
+                throw new NumberArgumentException("When number is negative, root power should be odd");
             }
 
             var approximationOne = number / power;
