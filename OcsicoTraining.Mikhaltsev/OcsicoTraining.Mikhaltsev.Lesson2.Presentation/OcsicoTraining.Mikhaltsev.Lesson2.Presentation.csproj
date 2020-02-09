@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson2.GenericSortMethod\OcsicoTraining.Mikhaltsev.Lesson2.GenericSortMethod.csproj" />
     <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue\OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue.csproj" />
     <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN\OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN.csproj" />
   </ItemGroup>
