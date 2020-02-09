@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using OcsicoTraining.Mikhaltsev.Lesson2.GenericSortMethod;
-using OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue;
 using static OcsicoTraining.Mikhaltsev.Lesson2.RootPowerN.NewtonMethod;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
@@ -50,7 +49,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
 
         private static void RunQueueTask()
         {
-            var queue = new Queue<int>(2);
+            var queue = new GenericQueue.Queue<int>(2);
             queue.Enqueue(1);
             queue.Enqueue(2);
             _ = queue.Dequeue();
