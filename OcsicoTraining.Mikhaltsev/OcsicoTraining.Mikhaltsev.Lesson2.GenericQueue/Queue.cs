@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue
 {
-    public class Queue<T> : IEnumerable<T>
+    public class Queue<T>
     {
         private int head = -1;
         private int tail = -1;
@@ -19,15 +16,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue
             array = new T[size];
         }
 
-        public bool IsFull() => tail == size - 1;
-
-        public bool IsEmpty() => Count == 0;
-
         public void Enqueue(T item)
         {
             if (IsFull())
             {
-                throw new Exception("Queue is full");
+                TrimToSize();
             }
 
             array[++tail] = item;
@@ -71,19 +64,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue
             tail = -1;
         }
 
-        public IEnumerator<T> GetEnumerator()
+        private bool IsFull() => tail == size - 1;
+
+        private bool IsEmpty() => Count == 0;
+
+        private void TrimToSize()
         {
-            if (IsEmpty())
-            {
-                throw new Exception("Queue is empty");
-            }
-
-            for (var i = head + 1; i <= tail; i++)
-            {
-                yield return array[i];
-            }
+            var newArray = new T[size * 2];
+            Array.Copy(array, newArray, array.Length);
+            array = newArray;
         }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
