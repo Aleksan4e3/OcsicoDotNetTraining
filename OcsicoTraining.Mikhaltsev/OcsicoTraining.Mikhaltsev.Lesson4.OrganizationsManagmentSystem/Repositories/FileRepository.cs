@@ -8,9 +8,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 {
     public class FileRepository : IFileRepository<Employee>
     {
-        private readonly EmployeeConnectionContext context;
+        private readonly ConnectionContext<Employee> context;
 
-        public FileRepository() => context = new EmployeeConnectionContext();
+        public FileRepository() => context = new ConnectionContext<Employee>();
         public void Add(Employee entity)
         {
             var json = JsonSerializer.Serialize(entity);
@@ -38,9 +38,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         public void Remove(Employee entity)
         {
+            var employees = GetAll();
             using (var sw = context.StreamReWriter)
             {
-                var employees = GetAll();
                 for (var i = 0; i < employees.Count; i++)
                 {
                     if (employees[i].Id != entity.Id)
@@ -54,9 +54,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         public void Update(Employee entity)
         {
+            var employees = GetAll();
             using (var sw = context.StreamReWriter)
             {
-                var employees = GetAll();
                 for (var i = 0; i < employees.Count; i++)
                 {
                     if (employees[i].Id == entity.Id)

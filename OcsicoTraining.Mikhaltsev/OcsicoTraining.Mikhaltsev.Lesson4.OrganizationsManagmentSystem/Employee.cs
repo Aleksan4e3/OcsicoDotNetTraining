@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Attributes;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem
 {
+    [Path("Employees.json")]
     public class Employee
     {
         public int Id { get; set; }
