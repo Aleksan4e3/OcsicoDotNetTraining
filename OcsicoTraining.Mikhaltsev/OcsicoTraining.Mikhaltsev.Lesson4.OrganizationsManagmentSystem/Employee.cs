@@ -10,14 +10,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IList<Organization> Organizations { get; set; }
         public IList<Role> Roles { get; set; }
 
-        public Employee()
-        {
-            Organizations = new List<Organization>();
-            Roles = new List<Role>();
-        }
+        public Employee() => Roles = new List<Role>();
 
         public int GetHashCode([DisallowNull] Employee obj) => obj.Id;
 
