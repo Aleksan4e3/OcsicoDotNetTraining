@@ -1,17 +1,17 @@
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ConnectionContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public class FileRepository : IFileRepository<Employee>
+    public class FileRepository<T> : IFileRepository<T> where T : class, IEquatable<T>
     {
-        private readonly ConnectionContext<Employee> context;
+        private readonly ConnectionContext<T> context;
 
-        public FileRepository() => context = new ConnectionContext<Employee>();
-        public void Add(Employee entity)
+        public FileRepository() => context = new ConnectionContext<T>();
+        public void Add(T entity)
         {
             var json = JsonSerializer.Serialize(entity);
 
@@ -21,50 +21,55 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             }
         }
 
-        public IList<Employee> GetAll()
+        public IList<T> GetAll()
         {
-            var employees = new List<Employee>();
+            var entities = new List<T>();
             using (var sr = context.StreamReader)
             {
                 while (!sr.EndOfStream)
                 {
-                    var employee = JsonSerializer.Deserialize<Employee>(sr.ReadLine());
-                    employees.Add(employee);
+                    var employee = JsonSerializer.Deserialize<T>(sr.ReadLine());
+                    entities.Add(employee);
                 }
             }
 
-            return employees;
+            return entities;
         }
 
-        public void Remove(Employee entity)
+        public void Remove(T entity)
         {
-            var employees = GetAll();
+            var entities = GetAll();
+
+            if (entities.Contains(entity))
+            {
+                _ = entities.Remove(entity);
+            }
+
             using (var sw = context.StreamReWriter)
             {
-                for (var i = 0; i < employees.Count; i++)
+                foreach (var e in entities)
                 {
-                    if (employees[i].Id != entity.Id)
-                    {
-                        var json = JsonSerializer.Serialize(employees[i]);
-                        sw.WriteLine(json);
-                    }
+                    var json = JsonSerializer.Serialize(e);
+                    sw.WriteLine(json);
                 }
             }
         }
 
-        public void Update(Employee entity)
+        public void Update(T entity)
         {
-            var employees = GetAll();
+            var entities = GetAll();
+
+            if (entities.Contains(entity))
+            {
+                _ = entities.Remove(entity);
+                entities.Add(entity);
+            }
+
             using (var sw = context.StreamReWriter)
             {
-                for (var i = 0; i < employees.Count; i++)
+                foreach (var e in entities)
                 {
-                    if (employees[i].Id == entity.Id)
-                    {
-                        employees[i] = entity;
-                    }
-
-                    var json = JsonSerializer.Serialize(employees[i]);
+                    var json = JsonSerializer.Serialize(e);
                     sw.WriteLine(json);
                 }
             }

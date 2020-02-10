@@ -10,7 +10,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 
         private static void Initialize()
         {
-            var repository = new FileRepository();
+            var repository = new FileRepository<Employee>();
 
             var role1 = new Role { Id = 1, Name = "Manager" };
             var role2 = new Role { Id = 2, Name = "Developer" };
@@ -21,12 +21,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var emp2 = new Employee { Id = 2, Name = "Andrew", Organizations = { company2 }, Roles = { role1 } };
             var emp3 = new Employee { Id = 3, Name = "Bob", Organizations = { company1, company2 }, Roles = { role2, role3 } };
 
-            //repository.Add(emp1);
-            //repository.Add(emp2);
-            //repository.Add(emp3);
+            repository.Add(emp1);
+            repository.Add(emp2);
+            repository.Add(emp3);
             Console.WriteLine($"{emp1},{emp3}");
             //emp3.Name = "Rename";
-            repository.Remove(emp2);
+            repository.Remove(emp3);
             var employees = repository.GetAll();
             foreach (var employee in employees)
             {
