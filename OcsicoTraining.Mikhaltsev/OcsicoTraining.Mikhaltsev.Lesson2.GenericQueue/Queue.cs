@@ -8,6 +8,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue
         private int tail = -1;
         private readonly int size;
         private T[] array;
+
         public int Count { get; set; } = 0;
 
         public Queue(int size)
@@ -59,7 +60,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue
 
         public void Clear()
         {
-            array = new T[0];
+            array = new T[size];
             head = -1;
             tail = -1;
         }
