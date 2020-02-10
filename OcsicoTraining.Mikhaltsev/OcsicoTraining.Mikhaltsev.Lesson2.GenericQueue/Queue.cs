@@ -4,18 +4,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.GenericQueue
 {
     public class Queue<T>
     {
+        private readonly int size;
         private int head = -1;
         private int tail = -1;
-        private readonly int size;
         private T[] array;
-
-        public int Count { get; set; } = 0;
 
         public Queue(int size)
         {
             this.size = size;
             array = new T[size];
         }
+
+        public int Count { get; set; } = 0;
 
         public void Enqueue(T item)
         {
