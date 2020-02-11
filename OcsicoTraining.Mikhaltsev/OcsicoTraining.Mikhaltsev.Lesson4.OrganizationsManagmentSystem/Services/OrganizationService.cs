@@ -8,13 +8,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     public class OrganizationService
     {
         private readonly IFileRepository<Organization> orgRepository;
-        private readonly IFileRepository<Employee> empRepository;
 
-        public OrganizationService(IFileRepository<Organization> orgRep, IFileRepository<Employee> empRep)
-        {
-            orgRepository = orgRep;
-            empRepository = empRep;
-        }
+        public OrganizationService(IFileRepository<Organization> orgRep) => orgRepository = orgRep;
 
         public List<Employee> GetEmployees(Organization organization)
         {
