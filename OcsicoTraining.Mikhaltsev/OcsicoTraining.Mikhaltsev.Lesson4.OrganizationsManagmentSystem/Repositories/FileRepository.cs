@@ -21,7 +21,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             }
         }
 
-        public IList<T> GetAll()
+        public List<T> GetAll()
         {
             var entities = new List<T>();
             using (var sr = context.StreamReader)

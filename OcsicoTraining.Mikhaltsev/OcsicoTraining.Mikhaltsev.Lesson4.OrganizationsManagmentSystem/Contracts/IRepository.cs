@@ -7,6 +7,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
         void Add(T entity);
         void Remove(T entity);
         void Update(T entity);
-        IList<T> GetAll();
+        List<T> GetAll();
     }
 }
