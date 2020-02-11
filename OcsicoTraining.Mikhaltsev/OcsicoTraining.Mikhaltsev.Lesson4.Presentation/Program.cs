@@ -19,6 +19,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             _ = builder.RegisterGeneric(typeof(FileRepository<>)).As(typeof(IFileRepository<>));
             _ = builder.RegisterType<OrganizationService>();
             _ = builder.RegisterType<EmployeeService>();
+            _ = builder.RegisterAssemblyTypes(typeof(IMemoryRepository<>).Assembly)
+                .AsClosedTypesOf(typeof(IMemoryRepository<>)).InstancePerDependency();
 
             var container = builder.Build();
 
@@ -26,6 +28,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             {
                 var orgService = scope.Resolve<OrganizationService>();
                 var empService = scope.Resolve<EmployeeService>();
+                var memRepository = scope.Resolve<MemoryRepository>();
+
                 orgService.AddOrganization(1, "Ocsico");
                 orgService.AddOrganization(2, "Microsoft");
                 var emp1 = empService.CreateEmployee(1, "Alex", new List<Role>() { new Role { Id = 1, Name = "Developer" } });
@@ -40,6 +44,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
                 empService.RemoveEmployee(emp1);
                 emp2.Name = "Updated";
                 empService.UpdateEmployee(emp2);
+
+                var roles = memRepository.GetAll();
+                foreach (var role in roles)
+                {
+                    Console.WriteLine($"{role.Id} {role.Name}");
+                }
             }
         }
 

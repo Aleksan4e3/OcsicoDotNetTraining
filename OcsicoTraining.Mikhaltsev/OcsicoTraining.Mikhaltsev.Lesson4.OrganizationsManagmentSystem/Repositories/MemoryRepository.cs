@@ -12,7 +12,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
         public void Add(Role entity)
         {
             var uniEncoding = new UnicodeEncoding();
-
             var bytes = uniEncoding.GetBytes(entity.ToString());
 
             memory.Write(bytes, 0, bytes.Length);
