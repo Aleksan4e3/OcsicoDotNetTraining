@@ -34,12 +34,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
                 orgService.AddEmployee(1, emp1);
                 orgService.AddEmployee(1, emp2);
                 orgService.AddEmployee(2, emp3);
-                var list = orgService.GetEmployees(2);
 
-                foreach (var employee in list)
-                {
-                    Console.WriteLine($"{employee.Id} {employee.Name}");
-                }
+                orgService.RemoveEmployee(1, 2);
+                orgService.AssignNewRole(1, emp1, new Role { Id = 2, Name = "QA" });
+                empService.RemoveEmployee(emp1);
+                emp2.Name = "Updated";
+                empService.UpdateEmployee(emp2);
             }
         }
 

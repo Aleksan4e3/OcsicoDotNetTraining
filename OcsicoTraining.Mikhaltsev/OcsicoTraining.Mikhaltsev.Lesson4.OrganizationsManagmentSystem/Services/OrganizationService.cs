@@ -11,33 +11,36 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public OrganizationService(IFileRepository<Organization> orgRep) => orgRepository = orgRep;
 
-        public void AddOrganization(int id, string name) => orgRepository.Add(new Organization { Id = id, Name = name });
+        public void AddOrganization(int id, string name)
+        {
+            var organization = new Organization { Id = id, Name = name };
+            var organizations = orgRepository.GetAll();
+            if (organizations.Contains(organization))
+            {
+                throw new ArgumentException("Organization with same Id already exist");
+            }
+            orgRepository.Add(organization);
+        }
 
         public List<Employee> GetEmployees(int organizationId)
         {
-            var organizations = orgRepository.GetAll();
-            var requestedOrganization = organizations.FirstOrDefault(o => o.Id == organizationId);
-            if (requestedOrganization == null)
-            {
-                throw new Exception("Organization not found");
-            }
-            return requestedOrganization.Employees;
+            var organization = GetOrganizationById(organizationId);
+            return organization.Employees;
         }
 
-        public void RemoveEmployee(int organizationId, Employee employee)
+        public void RemoveEmployee(int organizationId, int employeeId)
         {
-            var organization = orgRepository.GetAll().FirstOrDefault(o => o.Id == organizationId);
-
-            if (organization==null)
-            {
-                throw new ArgumentException("Organization with same Id is`t exist");
-            }
-
+            var organization = GetOrganizationById(organizationId);
             var employees = GetEmployees(organizationId);
+            var employee = employees.FirstOrDefault(emp => emp.Id == employeeId);
 
-            if (employees.Contains(employee))
+            if (employee != null)
             {
                 _ = employees.Remove(employee);
+            }
+            else
+            {
+                throw new ArgumentException($"Employee with Id = {employeeId} isn`t exist");
             }
 
             organization.Employees = employees;
@@ -46,14 +49,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public void AddEmployee(int organizationId, Employee employee)
         {
-            var organization = orgRepository.GetAll().FirstOrDefault(o => o.Id == organizationId);
+            var organization = GetOrganizationById(organizationId);
+            var employees = GetEmployees(organizationId);
 
-            if (organization == null)
+            if (employees.Contains(employee))
             {
-                throw new ArgumentException("Organization with same Id is`t exist");
+                throw new ArgumentException("Employee already exist");
             }
 
-            var employees = GetEmployees(organizationId);
             employees.Add(employee);
             organization.Employees = employees;
             orgRepository.Update(organization);
@@ -61,14 +64,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public void AssignNewRole(int organizationId, Employee employee, Role role)
         {
-            var organization = orgRepository.GetAll().FirstOrDefault(o => o.Id == organizationId);
-
-            if (organization == null)
-            {
-                throw new ArgumentException("Organization with same Id is`t exist");
-            }
-
+            var organization = GetOrganizationById(organizationId);
             var employees = GetEmployees(organizationId);
+
             for (var i = 0; i < employees.Count; i++)
             {
                 if (employees[i].Id == employee.Id)
@@ -80,6 +78,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             organization.Employees = employees;
             orgRepository.Update(organization);
+        }
+
+        private Organization GetOrganizationById(int organizationId)
+        {
+            var organization = orgRepository.GetAll().FirstOrDefault(o => o.Id == organizationId);
+
+            if (organization == null)
+            {
+                throw new ArgumentException("Organization with same Id is`t exist");
+            }
+
+            return organization;
         }
     }
 }
