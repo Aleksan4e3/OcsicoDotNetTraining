@@ -11,10 +11,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public OrganizationService(IFileRepository<Organization> orgRep) => orgRepository = orgRep;
 
-        public List<Employee> GetEmployees(Organization organization)
+        public void AddOrganization(int id, string name) => orgRepository.Add(new Organization { Id = id, Name = name });
+
+        public List<Employee> GetEmployees(int organizationId)
         {
             var organizations = orgRepository.GetAll();
-            var requestedOrganization = organizations.FirstOrDefault(o => o.Id == organization.Id);
+            var requestedOrganization = organizations.FirstOrDefault(o => o.Id == organizationId);
             if (requestedOrganization == null)
             {
                 throw new Exception("Organization not found");
@@ -22,9 +24,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return requestedOrganization.Employees;
         }
 
-        public void RemoveEmployee(Organization organization, Employee employee)
+        public void RemoveEmployee(int organizationId, Employee employee)
         {
-            var employees = GetEmployees(organization);
+            var organization = orgRepository.GetAll().FirstOrDefault(o => o.Id == organizationId);
+
+            if (organization==null)
+            {
+                throw new ArgumentException("Organization with same Id is`t exist");
+            }
+
+            var employees = GetEmployees(organizationId);
 
             if (employees.Contains(employee))
             {
@@ -35,17 +44,31 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             orgRepository.Update(organization);
         }
 
-        public void AddEmployee(Organization organization, Employee employee)
+        public void AddEmployee(int organizationId, Employee employee)
         {
-            var employees = GetEmployees(organization);
+            var organization = orgRepository.GetAll().FirstOrDefault(o => o.Id == organizationId);
+
+            if (organization == null)
+            {
+                throw new ArgumentException("Organization with same Id is`t exist");
+            }
+
+            var employees = GetEmployees(organizationId);
             employees.Add(employee);
             organization.Employees = employees;
             orgRepository.Update(organization);
         }
 
-        public void AssignNewRole(Organization organization, Employee employee, Role role)
+        public void AssignNewRole(int organizationId, Employee employee, Role role)
         {
-            var employees = GetEmployees(organization);
+            var organization = orgRepository.GetAll().FirstOrDefault(o => o.Id == organizationId);
+
+            if (organization == null)
+            {
+                throw new ArgumentException("Organization with same Id is`t exist");
+            }
+
+            var employees = GetEmployees(organizationId);
             for (var i = 0; i < employees.Count; i++)
             {
                 if (employees[i].Id == employee.Id)

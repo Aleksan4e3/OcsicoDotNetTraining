@@ -8,12 +8,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     {
         private readonly IFileRepository<Employee> empRepository;
 
-        public EmployeeService(FileRepository<Employee> empRep) => empRepository = empRep;
+        public EmployeeService(IFileRepository<Employee> empRep) => empRepository = empRep;
 
         public List<Employee> GetAllEmployees() => empRepository.GetAll();
 
-        public void CreateEmployee(int id, string name, List<Role> roles) =>
-            empRepository.Add(new Employee { Id = id, Name = name, Roles = roles });
+        public Employee CreateEmployee(int id, string name, List<Role> roles)
+        {
+            var employee = new Employee {Id = id, Name = name, Roles = roles};
+            empRepository.Add(employee);
+            return employee;
+        }
 
         public void RemoveEmployee(Employee employee) => empRepository.Remove(employee);
 
