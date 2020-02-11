@@ -9,7 +9,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
     {
         private static void Main()
         {
-            RunRootPowerNTask();
+            RunQueueTask();
             _ = Console.ReadKey();
         }
 
@@ -45,6 +45,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson2.Presentation
 
             Console.WriteLine("After sorting");
             PrintUsers(sortedUsers);
+        }
+
+        private static void RunQueueTask()
+        {
+            var queue = new GenericQueue.Queue<int>(2);
+            queue.Enqueue(1);
+            queue.Enqueue(2);
+            _ = queue.Dequeue();
+            queue.Enqueue(3);
+            queue.Enqueue(4);
+            Console.WriteLine($"First element in Queue: {queue.Peek()}");
+            Console.WriteLine($"Count: {queue.Count}");
         }
     }
 }

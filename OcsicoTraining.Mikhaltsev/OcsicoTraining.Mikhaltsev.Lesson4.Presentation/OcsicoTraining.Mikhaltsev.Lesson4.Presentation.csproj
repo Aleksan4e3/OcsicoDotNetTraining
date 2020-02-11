@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter\OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter.csproj" />
+  </ItemGroup>
+
 </Project>
