@@ -13,4 +13,8 @@
     <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem\OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter\OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter.csproj" />
+  </ItemGroup>
+
 </Project>

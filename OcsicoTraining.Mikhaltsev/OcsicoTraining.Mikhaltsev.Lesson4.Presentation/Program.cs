@@ -1,4 +1,5 @@
 using System;
+using OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter;
 using System.Collections.Generic;
 using Autofac;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem;
@@ -53,5 +54,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             }
         }
 
+        private static void RunUserPrintTask()
+        {
+            var user = new User { Name = "Alex", PhoneNumber = "+375(44)744-52-41", Salary = 1000 };
+
+            Console.WriteLine(user.PrintInfo(new NamePrinter()));
+            Console.WriteLine(user.PrintInfo(new NameSalaryPrinter()));
+            Console.WriteLine(user.PrintInfo(new AllUserInfoPrinter()));
+        }
     }
 }
