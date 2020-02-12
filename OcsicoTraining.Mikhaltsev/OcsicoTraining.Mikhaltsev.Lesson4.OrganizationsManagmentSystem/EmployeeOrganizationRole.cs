@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Attributes;
 
@@ -7,11 +8,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem
     [Path("EmployeeOrganizationRole.json")]
     public class EmployeeOrganizationRole : IEquatable<EmployeeOrganizationRole>
     {
-        public Employee Employee { get; set; }
-        public Organization Organization { get; set; }
-        public Role Role { get; set; }
+        public EmployeeOrganizationRole() => Roles = new List<Role>();
+        public int EmployeeId { get; set; }
+        public int OrganizationId { get; set; }
+        public List<Role> Roles { get; set; }
 
-        public int GetHashCode([DisallowNull] EmployeeOrganizationRole obj) => obj.Employee.Id ^ obj.Organization.Id;
+        public int GetHashCode([DisallowNull] EmployeeOrganizationRole obj) => obj.EmployeeId ^ obj.OrganizationId;
 
         public bool Equals([AllowNull] EmployeeOrganizationRole other)
         {
@@ -20,7 +22,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem
                 return false;
             }
 
-            return Employee.Id == other.Employee.Id && Organization.Id == other.Organization.Id;
+            return EmployeeId == other.EmployeeId && OrganizationId == other.OrganizationId;
         }
     }
 }

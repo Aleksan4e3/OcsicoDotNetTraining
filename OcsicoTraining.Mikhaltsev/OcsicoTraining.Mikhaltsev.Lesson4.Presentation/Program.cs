@@ -33,15 +33,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 
                 orgService.AddOrganization(1, "Ocsico");
                 orgService.AddOrganization(2, "Microsoft");
-                var emp1 = empService.CreateEmployee(1, "Alex", new List<Role>() { new Role { Id = 1, Name = "Developer" } });
-                var emp2 = empService.CreateEmployee(2, "Ivan", new List<Role>() { new Role { Id = 2, Name = "QA" } });
+                var role1 = new Role { Id = 1, Name = "Developer" };
+                var role2 = new Role { Id = 2, Name = "QA" };
+                var emp1 = empService.CreateEmployee(1, "Alex", new List<Role>() { role1 });
+                var emp2 = empService.CreateEmployee(2, "Ivan", new List<Role>() { role2 });
                 var emp3 = empService.CreateEmployee(3, "Vadim", new List<Role>() { new Role { Id = 1, Name = "Developer" } });
                 orgService.AddEmployee(1, emp1);
                 orgService.AddEmployee(1, emp2);
                 orgService.AddEmployee(2, emp3);
 
                 orgService.RemoveEmployee(1, 2);
-                orgService.AssignNewRole(1, emp1, new Role { Id = 2, Name = "QA" });
+                orgService.AssignNewRole(1, 1, 1, role2);
                 empService.RemoveEmployee(emp1);
                 emp2.Name = "Updated";
                 empService.UpdateEmployee(emp2);

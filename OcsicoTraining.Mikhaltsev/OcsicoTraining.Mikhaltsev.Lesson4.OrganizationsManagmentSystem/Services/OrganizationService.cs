@@ -8,8 +8,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     public class OrganizationService
     {
         private readonly IFileRepository<Organization> orgRepository;
+        private readonly IFileRepository<EmployeeOrganizationRole> empOrgRepository;
 
-        public OrganizationService(IFileRepository<Organization> orgRep) => orgRepository = orgRep;
+        public OrganizationService(IFileRepository<Organization> orgRep, IFileRepository<EmployeeOrganizationRole> empOrgRep)
+        {
+            orgRepository = orgRep;
+            empOrgRepository = empOrgRep;
+        }
 
         public void AddOrganization(int id, string name)
         {
@@ -45,6 +50,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             organization.Employees = employees;
             orgRepository.Update(organization);
+
+            var empOrgRole = new EmployeeOrganizationRole { OrganizationId = organizationId, EmployeeId = employeeId };
+            empOrgRepository.Remove(empOrgRole);
         }
 
         public void AddEmployee(int organizationId, Employee employee)
@@ -60,24 +68,40 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             employees.Add(employee);
             organization.Employees = employees;
             orgRepository.Update(organization);
+            empOrgRepository.Add(new EmployeeOrganizationRole { OrganizationId = organizationId, EmployeeId = employee.Id, Roles = employee.Roles });
         }
 
-        public void AssignNewRole(int organizationId, Employee employee, Role role)
+        public void AssignNewRole(int organizationId, int employeeId, int roleFrom, Role roleTo)
         {
             var organization = GetOrganizationById(organizationId);
             var employees = GetEmployees(organizationId);
+            var employee = employees.FirstOrDefault(emp => emp.Id == employeeId);
 
-            for (var i = 0; i < employees.Count; i++)
+            if (employee == null)
             {
-                if (employees[i].Id == employee.Id)
-                {
-                    //What was the role in the company???.....
-                    employees[i].Roles.Add(role);
-                }
+                throw new ArgumentException("This employee don`t work in this company");
             }
+
+            var role = employee.Roles.FirstOrDefault(r => r.Id == roleFrom);
+
+            if (role == null)
+            {
+                throw new ArgumentException("This employee doesn`t have this position");
+            }
+
+            _ = employee.Roles.Remove(role);
+            employee.Roles.Add(roleTo);
 
             organization.Employees = employees;
             orgRepository.Update(organization);
+
+            var empOrgRole = new EmployeeOrganizationRole
+            {
+                OrganizationId = organizationId,
+                EmployeeId = employeeId,
+                Roles = employee.Roles
+            };
+            empOrgRepository.Update(empOrgRole);
         }
 
         private Organization GetOrganizationById(int organizationId)
