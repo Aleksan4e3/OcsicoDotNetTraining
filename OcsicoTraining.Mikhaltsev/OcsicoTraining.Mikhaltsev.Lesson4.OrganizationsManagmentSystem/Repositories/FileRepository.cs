@@ -6,7 +6,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public class FileRepository<T> : IFileRepository<T> where T : class, IEquatable<T>
+    public class FileRepository<T> : IRepository<T> where T : class, IEquatable<T>
     {
         private readonly ConnectionContext<T> context;
 

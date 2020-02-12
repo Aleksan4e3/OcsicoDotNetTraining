@@ -6,10 +6,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 {
     public class EmployeeService
     {
-        private readonly IFileRepository<Employee> empRepository;
-        private readonly IMemoryRepository<Role> memRepository;
+        private readonly IRepository<Employee> empRepository;
+        private readonly IRepository<Role> memRepository;
 
-        public EmployeeService(IFileRepository<Employee> empRep, IMemoryRepository<Role> memRep)
+        public EmployeeService(IRepository<Employee> empRep, IRepository<Role> memRep)
         {
             empRepository = empRep;
             memRepository = memRep;

@@ -17,11 +17,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
         {
             var builder = new ContainerBuilder();
 
-            _ = builder.RegisterGeneric(typeof(FileRepository<>)).As(typeof(IFileRepository<>));
+            _ = builder.RegisterGeneric(typeof(FileRepository<>)).As(typeof(IRepository<>));
             _ = builder.RegisterType<OrganizationService>();
             _ = builder.RegisterType<EmployeeService>();
-            _ = builder.RegisterAssemblyTypes(typeof(IMemoryRepository<>).Assembly)
-                .AsClosedTypesOf(typeof(IMemoryRepository<>)).InstancePerDependency();
+            _ = builder.RegisterAssemblyTypes(typeof(IRepository<>).Assembly)
+                .AsClosedTypesOf(typeof(IRepository<>));
 
             var container = builder.Build();
 

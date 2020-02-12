@@ -6,9 +6,9 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public class MemoryRepository : IMemoryRepository<Role>
+    public class MemoryRepository : IRepository<Role>
     {
-        MemoryStream memory = new MemoryStream();
+        private readonly MemoryStream memory = new MemoryStream();
         public void Add(Role entity)
         {
             var uniEncoding = new UnicodeEncoding();
