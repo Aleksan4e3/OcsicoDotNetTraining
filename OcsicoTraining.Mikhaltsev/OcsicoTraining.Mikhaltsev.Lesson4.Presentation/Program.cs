@@ -1,11 +1,11 @@
 using System;
-using OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter;
 using System.Collections.Generic;
 using Autofac;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services;
+using OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 {
@@ -33,11 +33,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 
                 orgService.AddOrganization(1, "Ocsico");
                 orgService.AddOrganization(2, "Microsoft");
-                var role1 = new Role { Id = 1, Name = "Developer" };
+                //var role1 = new Role { Id = 1, Name = "Developer" };
                 var role2 = new Role { Id = 2, Name = "QA" };
-                var emp1 = empService.CreateEmployee(1, "Alex", new List<Role>() { role1 });
-                var emp2 = empService.CreateEmployee(2, "Ivan", new List<Role>() { role2 });
-                var emp3 = empService.CreateEmployee(3, "Vadim", new List<Role>() { new Role { Id = 1, Name = "Developer" } });
+                var emp1 = empService.CreateEmployee(1, "Alex", new List<int> { 1 });
+                var emp2 = empService.CreateEmployee(2, "Ivan", new List<int> { 2 });
+                var emp3 = empService.CreateEmployee(3, "Vadim", new List<int> { 1 });
                 orgService.AddEmployee(1, emp1);
                 orgService.AddEmployee(1, emp2);
                 orgService.AddEmployee(2, emp3);

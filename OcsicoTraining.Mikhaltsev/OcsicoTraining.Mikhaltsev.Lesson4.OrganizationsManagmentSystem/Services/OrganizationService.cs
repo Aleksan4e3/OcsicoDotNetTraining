@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services
 {
@@ -9,10 +10,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     {
         private readonly IRepository<Organization> orgRepository;
         private readonly IRepository<EmployeeOrganizationRole> empOrgRepository;
+        private readonly IRepository<Employee> empRepository;
 
-        public OrganizationService(IRepository<Organization> orgRep, IRepository<EmployeeOrganizationRole> empOrgRep)
+        public OrganizationService(IRepository<Organization> orgRep, IRepository<Employee> empRep, IRepository<EmployeeOrganizationRole> empOrgRep)
         {
             orgRepository = orgRep;
+            empRepository = empRep;
             empOrgRepository = empOrgRep;
         }
 
@@ -30,7 +33,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         public List<Employee> GetEmployees(int organizationId)
         {
             var organization = GetOrganizationById(organizationId);
-            return organization.Employees;
+            var employeesId = organization.EmployeesId;
+            return empRepository.GetAll().FindAll(emp => employeesId.Contains(emp.Id));
         }
 
         public void RemoveEmployee(int organizationId, int employeeId)
@@ -41,18 +45,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             if (employee != null)
             {
-                _ = employees.Remove(employee);
+                _ = organization.EmployeesId.Remove(employeeId);
+                _ = employee.CompaniesId.Remove(organizationId);
             }
             else
             {
                 throw new ArgumentException($"Employee with Id = {employeeId} isn`t exist");
             }
 
-            organization.Employees = employees;
             orgRepository.Update(organization);
-
-            var empOrgRole = new EmployeeOrganizationRole { OrganizationId = organizationId, EmployeeId = employeeId };
-            empOrgRepository.Remove(empOrgRole);
+            empRepository.Update(employee);
+            empOrgRepository.Remove(new EmployeeOrganizationRole { OrganizationId = organizationId, EmployeeId = employeeId });
         }
 
         public void AddEmployee(int organizationId, Employee employee)
@@ -65,10 +68,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 throw new ArgumentException("Employee already exist");
             }
 
-            employees.Add(employee);
-            organization.Employees = employees;
+            organization.EmployeesId.Add(employee.Id);
+            employee.CompaniesId.Add(organizationId);
             orgRepository.Update(organization);
-            empOrgRepository.Add(new EmployeeOrganizationRole { OrganizationId = organizationId, EmployeeId = employee.Id, Roles = employee.Roles });
+            empRepository.Update(employee);
+            empOrgRepository.Add(new EmployeeOrganizationRole { OrganizationId = organizationId, EmployeeId = employee.Id, Roles = employee.RolesId });
         }
 
         public void AssignNewRole(int organizationId, int employeeId, int roleFrom, Role roleTo)
@@ -82,25 +86,20 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 throw new ArgumentException("This employee don`t work in this company");
             }
 
-            var role = employee.Roles.FirstOrDefault(r => r.Id == roleFrom);
-
-            if (role == null)
+            if (!employee.RolesId.Contains(roleFrom))
             {
                 throw new ArgumentException("This employee doesn`t have this position");
             }
 
-            _ = employee.Roles.Remove(role);
-            employee.Roles.Add(roleTo);
+            _ = employee.RolesId.Remove(roleFrom);
+            employee.RolesId.Add(roleTo.Id);
+            empRepository.Update(employee);
 
-            organization.Employees = employees;
-            orgRepository.Update(organization);
+            var empOrgRole = empOrgRepository.GetAll()
+                .FirstOrDefault(e => e.EmployeeId == employeeId && e.OrganizationId == organizationId);
 
-            var empOrgRole = new EmployeeOrganizationRole
-            {
-                OrganizationId = organizationId,
-                EmployeeId = employeeId,
-                Roles = employee.Roles
-            };
+            _ = empOrgRole.Roles.Remove(roleFrom);
+            empOrgRole.Roles.Add(roleTo.Id);
             empOrgRepository.Update(empOrgRole);
         }
 

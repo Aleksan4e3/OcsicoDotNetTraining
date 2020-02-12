@@ -11,6 +11,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
         private readonly ConnectionContext<T> context;
 
         public FileRepository() => context = new ConnectionContext<T>();
+
         public void Add(T entity)
         {
             var json = JsonSerializer.Serialize(entity);
@@ -24,6 +25,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
         public List<T> GetAll()
         {
             var entities = new List<T>();
+
             using (var sr = context.StreamReader)
             {
                 while (!sr.EndOfStream)

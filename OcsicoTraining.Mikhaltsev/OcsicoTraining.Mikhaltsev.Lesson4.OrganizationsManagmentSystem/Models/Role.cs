@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem
+namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models
 {
     public class Role
     {
