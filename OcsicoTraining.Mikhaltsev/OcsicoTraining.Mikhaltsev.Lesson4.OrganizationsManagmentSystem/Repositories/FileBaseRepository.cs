@@ -6,11 +6,11 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public class FileRepository<T> : IRepository<T> where T : class, IEquatable<T>
+    public abstract class FileBaseRepository<T> : IRepository<T> where T : class, IEquatable<T>
     {
         private readonly ConnectionContext<T> context;
 
-        public FileRepository() => context = new ConnectionContext<T>();
+        public FileBaseRepository() => context = new ConnectionContext<T>();
 
         public void Add(T entity)
         {

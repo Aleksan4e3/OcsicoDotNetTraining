@@ -8,14 +8,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 {
     public class EmployeeService
     {
-        private readonly IRepository<Employee> empRepository;
-        private readonly IRepository<Organization> orgRepository;
-        private readonly IRepository<EmployeeOrganizationRole> empOrgRepository;
+        private readonly IEmployeeRepository empRepository;
+        private readonly IEmployeeOrganizationRoleRepository empOrgRepository;
 
-        public EmployeeService(IRepository<Employee> empRep, IRepository<Organization> orgRep, IRepository<EmployeeOrganizationRole> empOrgRep)
+        public EmployeeService(IEmployeeRepository empRep, IEmployeeOrganizationRoleRepository empOrgRep)
         {
             empRepository = empRep;
-            orgRepository = orgRep;
             empOrgRepository = empOrgRep;
         }
 
@@ -39,17 +37,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             }
 
             empRepository.Remove(employee);
-
-            var organizations = orgRepository.GetAll().FindAll(org => org.EmployeesId.Contains(employeeId));
-
-            if (organizations.Count != 0)
-            {
-                foreach (var organization in organizations)
-                {
-                    _ = organization.EmployeesId.Remove(employeeId);
-                    orgRepository.Update(organization);
-                }
-            }
 
             var empOrgRoles = empOrgRepository.GetAll().FindAll(e => e.EmployeeId == employeeId);
 

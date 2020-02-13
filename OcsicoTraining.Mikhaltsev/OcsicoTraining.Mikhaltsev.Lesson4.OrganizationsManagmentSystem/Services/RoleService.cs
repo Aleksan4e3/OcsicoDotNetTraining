@@ -9,7 +9,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     {
         private readonly IRepository<Role> roleRepository;
 
-        public RoleService() => roleRepository = new MemoryRepository();
+        public RoleService() => roleRepository = new MemoryBaseRepository();
 
         public void AddRole(Role role) => roleRepository.Add(role);
 

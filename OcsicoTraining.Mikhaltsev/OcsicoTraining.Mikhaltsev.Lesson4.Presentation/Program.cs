@@ -17,7 +17,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             //when testing, FILES with entities DON`T delete, but DELETE CONTENTS inside the file
             var builder = new ContainerBuilder();
 
-            _ = builder.RegisterGeneric(typeof(FileRepository<>)).As(typeof(IRepository<>));
+            _ = builder.RegisterType<RoleRepository>().As<IRoleRepository>();
+
+
+          //  _ = builder.RegisterGeneric(typeof(FileRepository<>)).As(typeof(IRepository<>));
             _ = builder.RegisterType<OrganizationService>();
             _ = builder.RegisterType<EmployeeService>();
             _ = builder.RegisterType<RoleService>();
