@@ -74,23 +74,33 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             empRepository.Update(employee);
         }
 
+        // roleFrom = 0 for new employees in company
         public void AssignNewRole(int organizationId, int employeeId, int roleTo, int roleFrom = 0)
         {
-            var empOrgRole = empOrgRepository.GetAll()
-                .FirstOrDefault(e => e.EmployeeId == employeeId && e.OrganizationId == organizationId);
+            var employee = GetEmployees(organizationId).FirstOrDefault(emp => emp.Id == employeeId);
 
-            if (empOrgRole == null)
+            if (employee == null)
             {
-                throw new ArgumentException("Organization or employee doesn`t exist");
+                throw new ArgumentException("Employee doesn`t exist");
             }
 
-            if (roleFrom != 0)
+            if (roleFrom == 0)
             {
+                empOrgRepository.Add(new EmployeeOrganizationRole { OrganizationId = organizationId, EmployeeId = employeeId, Roles = { roleTo } });
+            }
+            else
+            {
+                var empOrgRole = empOrgRepository.GetAll()
+                    .FirstOrDefault(e => e.EmployeeId == employeeId && e.OrganizationId == organizationId);
+                if (empOrgRole == null)
+                {
+                    throw new ArgumentException("Organization doesn`t exist");
+                }
+
                 _ = empOrgRole.Roles.Remove(roleFrom);
+                empOrgRole.Roles.Add(roleTo);
+                empOrgRepository.Update(empOrgRole);
             }
-
-            empOrgRole.Roles.Add(roleTo);
-            empOrgRepository.Update(empOrgRole);
         }
 
         private Organization GetOrganizationById(int organizationId)

@@ -46,9 +46,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
                 orgService.AssignNewRole(1, 1, 2);
                 orgService.AssignNewRole(1, 2, 1);
                 orgService.AssignNewRole(2, 3, 1);
-                //empService.RemoveEmployee(1);
-                //emp2.Name = "Updated";
-                //empService.UpdateEmployee(emp2);
+                orgService.AssignNewRole(1,1,1,2);
+                empService.RemoveEmployee(1);
+                emp2.Name = "Updated";
+                empService.UpdateEmployee(emp2);
 
                 var roles = memRepository.GetAll();
                 foreach (var role in roles)
