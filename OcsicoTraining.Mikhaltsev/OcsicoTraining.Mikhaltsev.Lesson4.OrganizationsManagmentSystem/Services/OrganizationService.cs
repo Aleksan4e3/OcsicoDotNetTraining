@@ -72,34 +72,24 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             employee.CompaniesId.Add(organizationId);
             orgRepository.Update(organization);
             empRepository.Update(employee);
-            empOrgRepository.Add(new EmployeeOrganizationRole { OrganizationId = organizationId, EmployeeId = employee.Id, Roles = employee.RolesId });
         }
 
-        public void AssignNewRole(int organizationId, int employeeId, int roleFrom, Role roleTo)
+        public void AssignNewRole(int organizationId, int employeeId, int roleTo, int roleFrom = 0)
         {
-            var organization = GetOrganizationById(organizationId);
-            var employees = GetEmployees(organizationId);
-            var employee = employees.FirstOrDefault(emp => emp.Id == employeeId);
-
-            if (employee == null)
-            {
-                throw new ArgumentException("This employee don`t work in this company");
-            }
-
-            if (!employee.RolesId.Contains(roleFrom))
-            {
-                throw new ArgumentException("This employee doesn`t have this position");
-            }
-
-            _ = employee.RolesId.Remove(roleFrom);
-            employee.RolesId.Add(roleTo.Id);
-            empRepository.Update(employee);
-
             var empOrgRole = empOrgRepository.GetAll()
                 .FirstOrDefault(e => e.EmployeeId == employeeId && e.OrganizationId == organizationId);
 
-            _ = empOrgRole.Roles.Remove(roleFrom);
-            empOrgRole.Roles.Add(roleTo.Id);
+            if (empOrgRole == null)
+            {
+                throw new ArgumentException("Organization or employee doesn`t exist");
+            }
+
+            if (roleFrom != 0)
+            {
+                _ = empOrgRole.Roles.Remove(roleFrom);
+            }
+
+            empOrgRole.Roles.Add(roleTo);
             empOrgRepository.Update(empOrgRole);
         }
 

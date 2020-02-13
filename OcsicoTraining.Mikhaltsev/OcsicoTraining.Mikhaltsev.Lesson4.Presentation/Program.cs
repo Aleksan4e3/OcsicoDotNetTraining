@@ -34,19 +34,21 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
                 orgService.AddOrganization(1, "Ocsico");
                 orgService.AddOrganization(2, "Microsoft");
                 //var role1 = new Role { Id = 1, Name = "Developer" };
-                var role2 = new Role { Id = 2, Name = "QA" };
-                var emp1 = empService.CreateEmployee(1, "Alex", new List<int> { 1 });
-                var emp2 = empService.CreateEmployee(2, "Ivan", new List<int> { 2 });
-                var emp3 = empService.CreateEmployee(3, "Vadim", new List<int> { 1 });
+                //var role2 = new Role { Id = 2, Name = "QA" };
+                var emp1 = empService.CreateEmployee(1, "Alex");
+                var emp2 = empService.CreateEmployee(2, "Ivan");
+                var emp3 = empService.CreateEmployee(3, "Vadim");
+
                 orgService.AddEmployee(1, emp1);
                 orgService.AddEmployee(1, emp2);
                 orgService.AddEmployee(2, emp3);
 
-                orgService.RemoveEmployee(1, 2);
-                orgService.AssignNewRole(1, 1, 1, role2);
-                empService.RemoveEmployee(emp1);
-                emp2.Name = "Updated";
-                empService.UpdateEmployee(emp2);
+                orgService.AssignNewRole(1, 1, 2);
+                orgService.AssignNewRole(1, 2, 1);
+                orgService.AssignNewRole(2, 3, 1);
+                //empService.RemoveEmployee(1);
+                //emp2.Name = "Updated";
+                //empService.UpdateEmployee(emp2);
 
                 var roles = memRepository.GetAll();
                 foreach (var role in roles)
