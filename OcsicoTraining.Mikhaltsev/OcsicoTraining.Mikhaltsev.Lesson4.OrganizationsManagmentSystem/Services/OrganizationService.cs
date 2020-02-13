@@ -6,7 +6,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services
 {
-    public class OrganizationService
+    public class OrganizationService : IOrganizationService
     {
         private readonly IOrganizationRepository orgRepository;
         private readonly IEmployeeOrganizationRoleRepository empOrgRoleRepository;

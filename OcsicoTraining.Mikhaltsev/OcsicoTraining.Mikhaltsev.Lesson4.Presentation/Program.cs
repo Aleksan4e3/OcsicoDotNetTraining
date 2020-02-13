@@ -1,5 +1,7 @@
 using System;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories;
@@ -80,6 +82,19 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             Console.WriteLine(user.PrintInfo(new NamePrinter()));
             Console.WriteLine(user.PrintInfo(new NameSalaryPrinter()));
             Console.WriteLine(user.PrintInfo(new AllUserInfoPrinter()));
+        }
+
+        private static void RunServicesTask()
+        {
+            var serviceCollection = new ServiceCollection();
+            var containerBuilder = new ContainerBuilder();
+
+            containerBuilder.Populate(serviceCollection);
+            _ = containerBuilder.RegisterType<RoleRepository>().As<IRoleRepository>();
+            _ = containerBuilder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
+            _ = containerBuilder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
+            _ = containerBuilder.RegisterType<EmployeeOrganizationRoleRepository>().As<IEmployeeOrganizationRoleRepository>();
+
         }
     }
 }
