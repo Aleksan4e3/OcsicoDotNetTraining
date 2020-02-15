@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -5,10 +6,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
 {
     public interface IOrganizationService
     {
-        void AddOrganization(int id, string name);
-        List<Employee> GetEmployees(int organizationId);
-        void RemoveEmployee(int organizationId, int employeeId);
-        void AddEmployee(int organizationId, Employee employee, int roleId);
-        void AssignNewRole(int organizationId, int employeeId, int roleAdd, int roleRemove = 0);
+        Organization CreateOrganization(string name);
+        List<Employee> GetEmployees(Guid organizationId);
+        void RemoveEmployee(Guid organizationId, Guid employeeId);
+        void AddEmployeeToOrganization(Guid organizationId, Guid employeeId, Guid roleId);
+        void AssignNewRole(Guid organizationId, Guid employeeId, Guid roleAdd, Guid roleRemove = default);
     }
 }

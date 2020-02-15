@@ -19,20 +19,22 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             empOrgRoleRepository = empOrgRoleRep;
         }
 
-        public void AddOrganization(int id, string name)
+        public Organization CreateOrganization(string name)
         {
-            var organization = new Organization { Id = id, Name = name };
+            var organization = new Organization { Name = name };
             var organizations = orgRepository.GetAll();
 
-            if (organizations.Contains(organization))
+            if (organizations.Any(org => org.Id == organization.Id))
             {
                 throw new ArgumentException("Organization with same Id already exist");
             }
 
             orgRepository.Add(organization);
+
+            return organization;
         }
 
-        public List<Employee> GetEmployees(int organizationId)
+        public List<Employee> GetEmployees(Guid organizationId)
         {
             var empOrgRoles = empOrgRoleRepository.GetAll().FindAll(e => e.OrganizationId == organizationId);
             var employees = empRepository.GetAll()
@@ -41,7 +43,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return employees;
         }
 
-        public void RemoveEmployee(int organizationId, int employeeId)
+        public void RemoveEmployee(Guid organizationId, Guid employeeId)
         {
             var empOrgRoles = empOrgRoleRepository.GetAll()
                 .FindAll(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
@@ -52,11 +54,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             }
         }
 
-        public void AddEmployee(int organizationId, Employee employee, int roleId)
+        public void AddEmployeeToOrganization(Guid organizationId, Guid employeeId, Guid roleId)
         {
             var empOrgRole = new EmployeeOrganizationRole
             {
-                EmployeeId = employee.Id,
+                EmployeeId = employeeId,
                 OrganizationId = organizationId,
                 RoleId = roleId
             };
@@ -65,9 +67,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         }
 
         // if roleRemove = 0 new position is added to the employee
-        public void AssignNewRole(int organizationId, int employeeId, int roleAdd, int roleRemove = 0)
+        public void AssignNewRole(Guid organizationId, Guid employeeId, Guid roleAdd, Guid roleRemove = default)
         {
-            if (roleRemove != 0)
+            if (roleRemove == default)
             {
                 var empOrgRoleRemove = new EmployeeOrganizationRole
                 {
@@ -87,18 +89,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             };
 
             empOrgRoleRepository.Add(empOrgRoleAdd);
-        }
-
-        private Organization GetOrganizationById(int organizationId)
-        {
-            var organization = orgRepository.GetAll().FirstOrDefault(o => o.Id == organizationId);
-
-            if (organization == null)
-            {
-                throw new ArgumentException("Organization with same Id is`t exist");
-            }
-
-            return organization;
         }
     }
 }

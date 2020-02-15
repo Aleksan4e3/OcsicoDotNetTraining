@@ -10,7 +10,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public RoleService(IRoleRepository roleRep) => roleRepository = roleRep;
 
-        public void AddRole(Role role) => roleRepository.Add(role);
+        public void CreateRole(Role role) => roleRepository.Add(role);
 
         public void RemoveRole(Role role) => roleRepository.Remove(role);
 

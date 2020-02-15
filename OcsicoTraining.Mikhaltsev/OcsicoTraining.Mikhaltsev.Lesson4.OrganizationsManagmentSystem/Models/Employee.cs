@@ -7,10 +7,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models
     [Path("Employees.json")]
     public class Employee : IEquatable<Employee>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public int GetHashCode([DisallowNull] Employee obj) => obj.Id;
+        public Employee() => Id = Guid.NewGuid();
+
+        public int GetHashCode([DisallowNull] Employee obj) => obj.Id.GetHashCode();
 
         public bool Equals([AllowNull] Employee other)
         {

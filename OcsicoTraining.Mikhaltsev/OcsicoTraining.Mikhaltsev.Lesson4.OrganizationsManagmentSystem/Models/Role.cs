@@ -5,10 +5,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models
 {
     public class Role : IEquatable<Role>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public int GetHashCode([DisallowNull] Role obj) => obj.Id;
+        public Role() => Id = Guid.NewGuid();
+
+        public int GetHashCode([DisallowNull] Role obj) => obj.Id.GetHashCode();
 
         public bool Equals([AllowNull] Role other)
         {

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Attributes;
 
@@ -8,12 +7,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models
     [Path("EmployeeOrganizationRole.json")]
     public class EmployeeOrganizationRole : IEquatable<EmployeeOrganizationRole>
     {
-        public int EmployeeId { get; set; }
-        public int OrganizationId { get; set; }
-        public int RoleId { get; set; }
+        public Guid EmployeeId { get; set; }
+        public Guid OrganizationId { get; set; }
+        public Guid RoleId { get; set; }
 
         public int GetHashCode([DisallowNull] EmployeeOrganizationRole obj) =>
-            obj.EmployeeId ^ obj.OrganizationId ^ obj.RoleId;
+            obj.EmployeeId.GetHashCode() ^ obj.OrganizationId.GetHashCode() ^ obj.RoleId.GetHashCode();
 
         public bool Equals([AllowNull] EmployeeOrganizationRole other)
         {

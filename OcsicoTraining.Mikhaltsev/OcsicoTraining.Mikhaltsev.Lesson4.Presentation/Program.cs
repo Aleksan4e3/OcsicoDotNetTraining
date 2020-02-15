@@ -18,24 +18,32 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var empService = GetServiceProvider().GetService<IEmployeeService>();
             var roleService = GetServiceProvider().GetService<IRoleService>();
 
-            var role1 = new Role { Id = 1, Name = "Developer" };
-            var role2 = new Role { Id = 2, Name = "QA" };
-            var role3 = new Role { Id = 3, Name = "Manager" };
+            var developerRole = new Role { Name = "Developer" };
+            var qaRole = new Role { Name = "QA" };
+            var managerRole = new Role { Name = "Manager" };
+            var orgOcsico = orgService.CreateOrganization("Ocsico");
+            var orgMicrosoft = orgService.CreateOrganization("Microsoft");
+            var employeeAlex = new Employee { Name = "Alex" };
+            var employeeIvan = new Employee { Name = "Ivan" };
+            var employeeVadim = new Employee { Name = "Vadim" };
 
-            roleService.AddRole(role1);
-            roleService.AddRole(role2);
-            roleService.AddRole(role3);
+            roleService.CreateRole(developerRole);
+            roleService.CreateRole(qaRole);
+            roleService.CreateRole(managerRole);
+            empService.CreateEmployee(employeeAlex);
+            empService.CreateEmployee(employeeIvan);
+            empService.CreateEmployee(employeeVadim);
+            orgService.AddEmployeeToOrganization(orgOcsico.Id, employeeAlex.Id, qaRole.Id);
+            orgService.AddEmployeeToOrganization(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
+            orgService.AddEmployeeToOrganization(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
+            orgService.AssignNewRole(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id);
 
-            orgService.AddOrganization(1, "Ocsico");
-            orgService.AddOrganization(2, "Microsoft");
+            var employees = orgService.GetEmployees(orgOcsico.Id);
 
-            var emp1 = empService.CreateEmployee(1, "Alex");
-            var emp2 = empService.CreateEmployee(2, "Ivan");
-            var emp3 = empService.CreateEmployee(3, "Vadim");
-
-            orgService.AddEmployee(1, emp1, 2);
-            orgService.AddEmployee(1, emp2, 1);
-            orgService.AddEmployee(2, emp3, 3);
+            foreach (var employee in employees)
+            {
+                Console.WriteLine($"{employee.Id} {employee.Name}");
+            }
         }
 
         private static IServiceProvider GetServiceProvider()

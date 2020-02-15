@@ -19,15 +19,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public List<Employee> GetAllEmployees() => empRepository.GetAll();
 
-        public Employee CreateEmployee(int id, string name)
-        {
-            var employee = new Employee { Id = id, Name = name };
-            empRepository.Add(employee);
+        public void CreateEmployee(Employee employee) => empRepository.Add(employee);
 
-            return employee;
-        }
-
-        public void RemoveEmployee(int employeeId)
+        public void RemoveEmployee(Guid employeeId)
         {
             var employee = GetAllEmployees().FirstOrDefault(emp => emp.Id == employeeId);
 
@@ -40,13 +34,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             var empOrgRoles = empOrgRepository.GetAll().FindAll(e => e.EmployeeId == employeeId);
 
-            if (empOrgRoles.Count != 0)
+            foreach (var empOrgRole in empOrgRoles)
             {
-                foreach (var e in empOrgRoles)
-                {
-                    empOrgRepository.Remove(e);
-                }
+                empOrgRepository.Remove(empOrgRole);
             }
+
         }
 
         public void UpdateEmployee(Employee employee) => empRepository.Update(employee);
