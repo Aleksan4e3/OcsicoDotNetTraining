@@ -1,30 +1,24 @@
-using System;
 using System.Collections.Generic;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public abstract class MemoryBaseRepository<T> : IRepository<T> where T : class, IEquatable<T>
+    public abstract class MemoryBaseRepository<T> : IRepository<T> where T : class
     {
-        private readonly List<T> entities;
+        protected readonly List<T> Entities;
 
-        protected MemoryBaseRepository() => entities = new List<T>();
+        protected MemoryBaseRepository() => Entities = new List<T>();
 
-        public void Add(T entity) => entities.Add(entity);
+        public void Add(T entity) => Entities.Add(entity);
 
-        public List<T> GetAll() => entities;
+        public List<T> GetAll() => Entities;
 
-        public void Remove(T entity) => entities.Remove(entity);
+        public virtual void Remove(T entity) => Entities.Remove(entity);
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
-            if (!entities.Contains(entity))
-            {
-                throw new ArgumentException("Entity does not exist");
-            }
-
-            _ = entities.Remove(entity);
-            entities.Add(entity);
+            _ = Entities.Remove(entity);
+            Entities.Add(entity);
         }
     }
 }

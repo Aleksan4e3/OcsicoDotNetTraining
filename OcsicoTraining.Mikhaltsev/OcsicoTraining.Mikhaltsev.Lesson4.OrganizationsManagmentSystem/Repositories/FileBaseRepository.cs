@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ConnectionContexts;
@@ -6,17 +5,17 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public abstract class FileBaseRepository<T> : IRepository<T> where T : class, IEquatable<T>
+    public abstract class FileBaseRepository<T> : IRepository<T> where T : class
     {
-        private readonly ConnectionContext<T> context;
+        protected readonly ConnectionContext<T> Context;
 
-        public FileBaseRepository() => context = new ConnectionContext<T>();
+        protected FileBaseRepository() => Context = new ConnectionContext<T>();
 
         public void Add(T entity)
         {
             var json = JsonSerializer.Serialize(entity);
 
-            using (var sw = context.StreamAppendWriter)
+            using (var sw = Context.StreamAppendWriter)
             {
                 sw.WriteLine(json);
             }
@@ -26,7 +25,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
         {
             var entities = new List<T>();
 
-            using (var sr = context.StreamReader)
+            using (var sr = Context.StreamReader)
             {
                 while (!sr.EndOfStream)
                 {
@@ -38,43 +37,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             return entities;
         }
 
-        public void Remove(T entity)
-        {
-            var entities = GetAll();
-
-            if (entities.Contains(entity))
-            {
-                _ = entities.Remove(entity);
-            }
-
-            using (var sw = context.StreamReWriter)
-            {
-                foreach (var e in entities)
-                {
-                    var json = JsonSerializer.Serialize(e);
-                    sw.WriteLine(json);
-                }
-            }
-        }
-
-        public void Update(T entity)
-        {
-            var entities = GetAll();
-
-            if (entities.Contains(entity))
-            {
-                _ = entities.Remove(entity);
-                entities.Add(entity);
-            }
-
-            using (var sw = context.StreamReWriter)
-            {
-                foreach (var e in entities)
-                {
-                    var json = JsonSerializer.Serialize(e);
-                    sw.WriteLine(json);
-                }
-            }
-        }
+        public abstract void Update(T entity);
+        public abstract void Remove(T entity);
     }
 }

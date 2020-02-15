@@ -38,11 +38,19 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             orgService.AddEmployeeToOrganization(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
             orgService.AssignNewRole(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id);
 
+            qaRole.Name = "Tester";
+            roleService.UpdateRole(qaRole);
+
             var employees = orgService.GetEmployees(orgOcsico.Id);
 
             foreach (var employee in employees)
             {
                 Console.WriteLine($"{employee.Id} {employee.Name}");
+            }
+
+            foreach (var role in roleService.GetAllRoles())
+            {
+                Console.WriteLine($"{role.Id} {role.Name}");
             }
         }
 
