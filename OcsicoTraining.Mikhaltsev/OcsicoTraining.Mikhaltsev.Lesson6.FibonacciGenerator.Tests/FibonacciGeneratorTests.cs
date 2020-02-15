@@ -46,7 +46,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests
             void GetException() => Generate(inputValue).ToList();
 
             //assert
-            _ = Assert.Throws<ArgumentException>(GetException, "Should be ArgumentException");
+            Assert.Throws<ArgumentException>(GetException, "Should be ArgumentException");
         }
     }
 }
