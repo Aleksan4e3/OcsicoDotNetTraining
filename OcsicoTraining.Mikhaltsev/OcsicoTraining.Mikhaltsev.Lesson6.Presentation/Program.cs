@@ -7,10 +7,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
     {
         private static void Main()
         {
-            var fibonacci = Generate(-1);
-            foreach (var i in fibonacci)
+            TaskFibonacciRun();
+            _ = Console.ReadKey();
+        }
+
+        private static void TaskFibonacciRun()
+        {
+            var fibonacci = Generate(15);
+
+            foreach (var number in fibonacci)
             {
-                Console.WriteLine(i);
+                Console.WriteLine(number);
             }
         }
     }

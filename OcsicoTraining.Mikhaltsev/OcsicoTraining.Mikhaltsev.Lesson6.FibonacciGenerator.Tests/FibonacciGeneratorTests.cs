@@ -35,7 +35,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests
             //assert
             Assert.AreEqual(expected, actual, "Fifteenth number should be 987");
         }
-        
+
         [Test]
         public void GenerateNumbers_InputNegativeCountOfNumber_ExceptionShould()
         {
@@ -43,7 +43,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests
             var inputValue = random.Next(int.MinValue, -1);
 
             //act
-            void GetException() => Generate(inputValue);
+            void GetException() => Generate(inputValue).ToList();
 
             //assert
             _ = Assert.Throws<ArgumentException>(GetException, "Should be ArgumentException");
