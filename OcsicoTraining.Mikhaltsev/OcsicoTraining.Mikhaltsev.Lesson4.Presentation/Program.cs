@@ -2,6 +2,7 @@ using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Configurations;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories;
@@ -60,6 +61,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var containerBuilder = new ContainerBuilder();
 
             containerBuilder.Populate(serviceCollection);
+            _ = containerBuilder.RegisterType<EmployeeConfiguration>().As<IEmployeeConfiguration>();
+            _ = containerBuilder.RegisterType<OrganizationConfiguration>().As<IOrganizationConfiguration>();
+            _ = containerBuilder.RegisterType<EmployeeOrganizationRolesConfiguration>().As<IEmployeeOrganizationRoleConfiguration>();
             _ = containerBuilder.RegisterType<RoleRepository>().As<IRoleRepository>();
             _ = containerBuilder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
             _ = containerBuilder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
@@ -67,6 +71,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             _ = containerBuilder.RegisterType<RoleService>().As<IRoleService>();
             _ = containerBuilder.RegisterType<EmployeeService>().As<IEmployeeService>();
             _ = containerBuilder.RegisterType<OrganizationService>().As<IOrganizationService>();
+            
 
             var container = containerBuilder.Build();
 

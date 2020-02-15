@@ -9,7 +9,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
     {
         protected readonly ConnectionContext<T> Context;
 
-        protected FileBaseRepository() => Context = new ConnectionContext<T>();
+        protected FileBaseRepository(string path) => Context = new ConnectionContext<T>(path);
 
         public void Add(T entity)
         {

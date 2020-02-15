@@ -7,6 +7,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 {
     public class EmployeeOrganizationRoleRepository : FileBaseRepository<EmployeeOrganizationRole>, IEmployeeOrganizationRoleRepository
     {
+        public EmployeeOrganizationRoleRepository(IEmployeeOrganizationRoleConfiguration configuration) : base(configuration.Path) { }
+
         public override void Update(EmployeeOrganizationRole entity)
         {
             var entities = GetAll();

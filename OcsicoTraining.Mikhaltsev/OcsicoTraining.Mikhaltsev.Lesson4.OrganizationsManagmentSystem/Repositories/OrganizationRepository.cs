@@ -7,6 +7,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 {
     public class OrganizationRepository : FileBaseRepository<Organization>, IOrganizationRepository
     {
+        public OrganizationRepository(IOrganizationConfiguration configuration) : base(configuration.Path) { }
+
         public override void Update(Organization entity)
         {
             var entities = GetAll();
