@@ -97,6 +97,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set
             return union.ExceptWith(intersection);
         }
 
+        public bool IsSubsetOf(Set<T> other)
+        {
+            var result = new Set<T>(items);
+
+            foreach (var item in other.items)
+            {
+                result.Remove(item);
+            }
+
+            return result.Count == 0;
+        }
+
         public IEnumerator<T> GetEnumerator() => items.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => items.GetEnumerator();
