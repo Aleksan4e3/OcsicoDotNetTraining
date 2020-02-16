@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.FibonacciNumbersGenerator;
+using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.FibonacciNumbersGenerator;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests
 {
