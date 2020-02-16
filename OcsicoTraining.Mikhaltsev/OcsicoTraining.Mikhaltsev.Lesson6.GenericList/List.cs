@@ -1,14 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.GenericList
 {
-    public class List<T>
+    public class List<T> : IEnumerable<T>
     {
         private T[] array;
         private int size;
 
-        public List() : this(10) { }
+        public List() : this(0) { }
 
         public List(int capacity)
         {
@@ -24,7 +25,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.GenericList
         {
             if (IsFull())
             {
-                throw new ArgumentOutOfRangeException("List is full");
+                TrimToSize();
             }
 
             array[size++] = item;
@@ -46,10 +47,27 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.GenericList
 
         public void RemoveRange(int index, int count)
         {
-            Array.Copy(array, index + count, array, index, size - index - count);
+            var length = size - index - count;
+
+            if (index < 0 || index >= size || length < 0)
+            {
+                throw new IndexOutOfRangeException("The index was out of range");
+            }
+
+            Array.Copy(array, index + count, array, index, length);
             Array.Clear(array, size - count, count);
             size -= count;
         }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (var i = 0; i < size; i++)
+            {
+                yield return array[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         private int IndexOf(T item) => Array.IndexOf(array, item);
 
@@ -60,5 +78,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.GenericList
         }
 
         private bool IsFull() => size == array.Length;
+
+        private void TrimToSize()
+        {
+            var newArray = new T[(size + 1) * 2];
+            Array.Copy(array, newArray, size);
+            array = newArray;
+        }
     }
 }
