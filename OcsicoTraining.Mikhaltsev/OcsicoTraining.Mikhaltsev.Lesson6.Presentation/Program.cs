@@ -25,7 +25,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
         private static void TaskOperationWithSetRun()
         {
             var firstSet = new Set<int>(new[] { 1, 2, 3, 4, 5 });
-            var secondSet = new Set<int>(new[] {3, 4, 5, 6, 7});
+            var secondSet = new Set<int>(new[] { 3, 4, 5, 6, 7 });
 
             var resultSet = firstSet.SymmetricExcept(secondSet);
 
@@ -33,6 +33,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
             {
                 Console.WriteLine(item);
             }
+
+            Console.WriteLine(firstSet.IsSubsetOf(secondSet));
         }
     }
 }

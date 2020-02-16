@@ -15,6 +15,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set
             AddRange(items);
         }
 
+        public T this[int index] => items[index];
+
         public int Count => items.Count;
 
         public void Add(T item)
@@ -109,8 +111,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set
             return result.Count == 0;
         }
 
-        public IEnumerator<T> GetEnumerator() => items.GetEnumerator();
+        public IEnumerator<T> GetEnumerator() => new SetEnumerator<T>(this).GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => items.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
