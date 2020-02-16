@@ -1,5 +1,5 @@
 using System;
-using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.FibonacciNumbersGenerator;
+using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.FibonacciNumbersGenerator;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
 {

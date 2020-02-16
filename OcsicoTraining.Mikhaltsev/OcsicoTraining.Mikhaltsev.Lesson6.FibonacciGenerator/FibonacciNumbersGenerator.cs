@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator
+namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator
 {
     public static class FibonacciNumbersGenerator
     {
