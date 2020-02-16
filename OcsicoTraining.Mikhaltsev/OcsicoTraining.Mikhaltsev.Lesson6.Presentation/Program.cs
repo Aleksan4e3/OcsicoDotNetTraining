@@ -1,4 +1,5 @@
 using System;
+using OcsicoTraining.Mikhaltsev.Lesson6.GenericList;
 using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.FibonacciNumbersGenerator;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
@@ -7,7 +8,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
     {
         private static void Main()
         {
-            TaskFibonacciNumbersRun();
+            TaskGenericListRun();
             Console.ReadKey();
         }
 
@@ -18,6 +19,22 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
             foreach (var number in fibonacciNumbers)
             {
                 Console.WriteLine(number);
+            }
+        }
+
+        private static void TaskGenericListRun()
+        {
+            var genericList = new List<int>();
+
+            genericList.AddRange(new[] { 1, 2, 3, 4, 5, 6 });
+            genericList.Add(7);
+            genericList.Add(8);
+            genericList.Remove(7);
+            genericList.RemoveRange(2, 3);
+
+            foreach (var element in genericList)
+            {
+                Console.WriteLine(element);
             }
         }
     }
