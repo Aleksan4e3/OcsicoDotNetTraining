@@ -40,11 +40,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.L
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lesson6", "Lesson6", "{BDD8238F-87AA-41C0-BF8D-5B106BB2D000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator", "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.csproj", "{7790FFBE-EA36-4179-9C84-49E2DD00CC05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator", "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.csproj", "{7790FFBE-EA36-4179-9C84-49E2DD00CC05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson6.Presentation", "OcsicoTraining.Mikhaltsev.Lesson6.Presentation\OcsicoTraining.Mikhaltsev.Lesson6.Presentation.csproj", "{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.Presentation", "OcsicoTraining.Mikhaltsev.Lesson6.Presentation\OcsicoTraining.Mikhaltsev.Lesson6.Presentation.csproj", "{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests.csproj", "{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests.csproj", "{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

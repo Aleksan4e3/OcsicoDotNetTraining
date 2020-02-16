@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.csproj" />
+    <ProjectReference Include="..\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.csproj" />
   </ItemGroup>
 
 </Project>
