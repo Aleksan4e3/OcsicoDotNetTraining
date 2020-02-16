@@ -33,7 +33,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests
             var actual = Generate(15).Last();
 
             //assert
-            Assert.AreEqual(expected, actual, "Fifteenth number should be 987");
+            Assert.AreEqual(expected, actual, "Fifteenth number should be 377");
         }
 
         [Test]
