@@ -107,7 +107,7 @@ csharp_style_var_elsewhere                                               = true 
 # Expression-bodied members
 # https://docs.microsoft.com/visualstudio/ide/editorconfig-language-conventions#expression-bodied-members
 csharp_style_expression_bodied_methods                                   = true : error
-csharp_style_expression_bodied_constructors                              = true : error
+csharp_style_expression_bodied_constructors                              = false : warning
 csharp_style_expression_bodied_operators                                 = true : error
 csharp_style_expression_bodied_properties                                = true : error
 csharp_style_expression_bodied_indexers                                  = true : error
@@ -133,7 +133,7 @@ csharp_style_conditional_delegate_call                                   = true 
 csharp_prefer_braces                                                     = true : error
 # Unused value preferences
 # https://docs.microsoft.com/visualstudio/ide/editorconfig-language-conventions#unused-value-preferences
-csharp_style_unused_value_expression_statement_preference                = discard_variable : error
+csharp_style_unused_value_expression_statement_preference                = discard_variable
 csharp_style_unused_value_assignment_preference                          = discard_variable : error
 # Index and range preferences
 # https://docs.microsoft.com/visualstudio/ide/editorconfig-language-conventions#index-and-range-preferences
