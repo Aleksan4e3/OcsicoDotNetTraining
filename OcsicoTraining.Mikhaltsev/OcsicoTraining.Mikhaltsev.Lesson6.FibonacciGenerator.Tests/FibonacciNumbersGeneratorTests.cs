@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.FibonacciGenerator;
+using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.FibonacciNumbersGenerator;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests
 {
     [TestFixture]
-    public class FibonacciGeneratorTests
+    public class FibonacciNumbersGeneratorTests
     {
         private readonly Random random = new Random();
 

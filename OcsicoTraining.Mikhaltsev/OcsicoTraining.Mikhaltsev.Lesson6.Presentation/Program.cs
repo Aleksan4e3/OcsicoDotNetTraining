@@ -1,5 +1,5 @@
 using System;
-using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.FibonacciGenerator;
+using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.FibonacciNumbersGenerator;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
 {
@@ -7,15 +7,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
     {
         private static void Main()
         {
-            TaskFibonacciRun();
+            TaskFibonacciNumbersRun();
             Console.ReadKey();
         }
 
-        private static void TaskFibonacciRun()
+        private static void TaskFibonacciNumbersRun()
         {
-            var numbersFibonacci = Generate(15);
+            var fibonacciNumbers = Generate(15);
 
-            foreach (var number in numbersFibonacci)
+            foreach (var number in fibonacciNumbers)
             {
                 Console.WriteLine(number);
             }

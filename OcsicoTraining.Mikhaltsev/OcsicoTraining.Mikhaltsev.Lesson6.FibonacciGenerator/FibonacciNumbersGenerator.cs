@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator
 {
-    public static class FibonacciGenerator
+    public static class FibonacciNumbersGenerator
     {
         public static IEnumerable<int> Generate(int countOfNumbers)
         {
