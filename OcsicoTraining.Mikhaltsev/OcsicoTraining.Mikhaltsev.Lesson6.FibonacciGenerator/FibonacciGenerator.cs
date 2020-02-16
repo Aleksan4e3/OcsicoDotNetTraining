@@ -12,15 +12,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator
                 throw new ArgumentException("Count of number must not be less than zero");
             }
 
-            var a = 0;
-            var b = 1;
+            var firstNumber = 0;
+            var secondNumber = 1;
 
             for (var i = 0; i < countOfNumbers; i++)
             {
-                var current = a;
+                var current = firstNumber;
 
-                a = b;
-                b += current;
+                firstNumber = secondNumber;
+                secondNumber += current;
 
                 yield return current;
             }

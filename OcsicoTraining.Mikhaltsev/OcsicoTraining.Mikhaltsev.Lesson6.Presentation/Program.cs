@@ -8,14 +8,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
         private static void Main()
         {
             TaskFibonacciRun();
-            _ = Console.ReadKey();
+            Console.ReadKey();
         }
 
         private static void TaskFibonacciRun()
         {
-            var fibonacci = Generate(15);
+            var numbersFibonacci = Generate(15);
 
-            foreach (var number in fibonacci)
+            foreach (var number in numbersFibonacci)
             {
                 Console.WriteLine(number);
             }
