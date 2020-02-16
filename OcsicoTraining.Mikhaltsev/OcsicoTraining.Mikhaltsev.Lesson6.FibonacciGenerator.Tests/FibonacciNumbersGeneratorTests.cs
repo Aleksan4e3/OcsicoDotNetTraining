@@ -24,7 +24,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests
         }
 
         [Test]
-        public void GenerateNumbers_InputCountOfNumbersIs15_ReturnFifteenthNumberIs987()
+        public void GenerateNumbers_InputCountOfNumbersIs15_ReturnFifteenthNumberIs377()
         {
             //arrange
             var expected = 377;
