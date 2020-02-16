@@ -11,10 +11,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         private readonly IEmployeeRepository employeeRepository;
         private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
 
-        public EmployeeService(IEmployeeRepository empRep, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRep)
+        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository)
         {
-            employeeRepository = empRep;
-            employeeOrganizationRoleRepository = employeeOrganizationRoleRep;
+            this.employeeRepository = employeeRepository;
+            this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
         }
 
         public List<Employee> GetAllEmployees() => employeeRepository.GetAll();

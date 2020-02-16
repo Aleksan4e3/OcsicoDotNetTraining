@@ -12,11 +12,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
         private readonly IEmployeeRepository employeeRepository;
 
-        public OrganizationService(IOrganizationRepository organizationRep, IEmployeeRepository employeeRep, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRep)
+        public OrganizationService(IOrganizationRepository organizationRepository, IEmployeeRepository employeeRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository)
         {
-            organizationRepository = organizationRep;
-            employeeRepository = employeeRep;
-            employeeOrganizationRoleRepository = employeeOrganizationRoleRep;
+            this.organizationRepository = organizationRepository;
+            this.employeeRepository = employeeRepository;
+            this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
         }
 
         public Organization CreateOrganization(string name)
