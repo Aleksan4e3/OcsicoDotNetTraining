@@ -8,18 +8,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly IEmployeeRepository empRepository;
-        private readonly IEmployeeOrganizationRoleRepository empOrgRepository;
+        private readonly IEmployeeRepository employeeRepository;
+        private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
 
-        public EmployeeService(IEmployeeRepository empRep, IEmployeeOrganizationRoleRepository empOrgRep)
+        public EmployeeService(IEmployeeRepository empRep, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRep)
         {
-            empRepository = empRep;
-            empOrgRepository = empOrgRep;
+            employeeRepository = empRep;
+            employeeOrganizationRoleRepository = employeeOrganizationRoleRep;
         }
 
-        public List<Employee> GetAllEmployees() => empRepository.GetAll();
+        public List<Employee> GetAllEmployees() => employeeRepository.GetAll();
 
-        public void CreateEmployee(Employee employee) => empRepository.Add(employee);
+        public void CreateEmployee(Employee employee) => employeeRepository.Add(employee);
 
         public void RemoveEmployee(Guid employeeId)
         {
@@ -30,17 +30,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 throw new ArgumentException("Employee with the same Id doesn`t exist");
             }
 
-            empRepository.Remove(employee);
+            employeeRepository.Remove(employee);
 
-            var empOrgRoles = empOrgRepository.GetAll().FindAll(e => e.EmployeeId == employeeId);
+            var empOrgRoles = employeeOrganizationRoleRepository.GetAll().FindAll(e => e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
             {
-                empOrgRepository.Remove(empOrgRole);
+                employeeOrganizationRoleRepository.Remove(empOrgRole);
             }
 
         }
 
-        public void UpdateEmployee(Employee employee) => empRepository.Update(employee);
+        public void UpdateEmployee(Employee employee) => employeeRepository.Update(employee);
     }
 }

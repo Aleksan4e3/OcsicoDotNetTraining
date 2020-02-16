@@ -10,6 +10,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
         List<Employee> GetEmployees(Guid organizationId);
         void RemoveEmployee(Guid organizationId, Guid employeeId);
         void AddEmployeeToOrganization(Guid organizationId, Guid employeeId, Guid roleId);
-        void AssignNewRole(Guid organizationId, Guid employeeId, Guid roleAdd, Guid roleRemove = default);
+        void AssignNewRole(Guid organizationId, Guid employeeId, Guid roleAdd, Guid? roleRemove);
     }
 }

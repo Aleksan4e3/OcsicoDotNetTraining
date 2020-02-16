@@ -15,15 +15,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
     {
         private static void Main()
         {
-            var orgService = GetServiceProvider().GetService<IOrganizationService>();
-            var empService = GetServiceProvider().GetService<IEmployeeService>();
-            var roleService = GetServiceProvider().GetService<IRoleService>();
+            var serviceProvider = GetServiceProvider();
+            var organizationService = serviceProvider.GetService<IOrganizationService>();
+            var employeeService = serviceProvider.GetService<IEmployeeService>();
+            var roleService = serviceProvider.GetService<IRoleService>();
 
             var developerRole = new Role { Name = "Developer" };
             var qaRole = new Role { Name = "QA" };
             var managerRole = new Role { Name = "Manager" };
-            var orgOcsico = orgService.CreateOrganization("Ocsico");
-            var orgMicrosoft = orgService.CreateOrganization("Microsoft");
+            var orgOcsico = organizationService.CreateOrganization("Ocsico");
+            var orgMicrosoft = organizationService.CreateOrganization("Microsoft");
             var employeeAlex = new Employee { Name = "Alex" };
             var employeeIvan = new Employee { Name = "Ivan" };
             var employeeVadim = new Employee { Name = "Vadim" };
@@ -31,18 +32,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             roleService.CreateRole(developerRole);
             roleService.CreateRole(qaRole);
             roleService.CreateRole(managerRole);
-            empService.CreateEmployee(employeeAlex);
-            empService.CreateEmployee(employeeIvan);
-            empService.CreateEmployee(employeeVadim);
-            orgService.AddEmployeeToOrganization(orgOcsico.Id, employeeAlex.Id, qaRole.Id);
-            orgService.AddEmployeeToOrganization(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
-            orgService.AddEmployeeToOrganization(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
-            orgService.AssignNewRole(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id);
+            employeeService.CreateEmployee(employeeAlex);
+            employeeService.CreateEmployee(employeeIvan);
+            employeeService.CreateEmployee(employeeVadim);
+            organizationService.AddEmployeeToOrganization(orgOcsico.Id, employeeAlex.Id, qaRole.Id);
+            organizationService.AddEmployeeToOrganization(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
+            organizationService.AddEmployeeToOrganization(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
+            organizationService.AssignNewRole(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
+            roleService.RemoveRole(qaRole);
+            employeeService.RemoveEmployee(employeeIvan.Id);
 
-            qaRole.Name = "Tester";
-            roleService.UpdateRole(qaRole);
-
-            var employees = orgService.GetEmployees(orgOcsico.Id);
+            var employees = organizationService.GetEmployees(orgOcsico.Id);
 
             foreach (var employee in employees)
             {
@@ -71,7 +71,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             _ = containerBuilder.RegisterType<RoleService>().As<IRoleService>();
             _ = containerBuilder.RegisterType<EmployeeService>().As<IEmployeeService>();
             _ = containerBuilder.RegisterType<OrganizationService>().As<IOrganizationService>();
-            
+
 
             var container = containerBuilder.Build();
 

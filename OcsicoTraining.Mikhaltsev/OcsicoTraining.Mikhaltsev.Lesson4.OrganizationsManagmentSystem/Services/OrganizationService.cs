@@ -8,36 +8,36 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 {
     public class OrganizationService : IOrganizationService
     {
-        private readonly IOrganizationRepository orgRepository;
-        private readonly IEmployeeOrganizationRoleRepository empOrgRoleRepository;
-        private readonly IEmployeeRepository empRepository;
+        private readonly IOrganizationRepository organizationRepository;
+        private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
+        private readonly IEmployeeRepository employeeRepository;
 
-        public OrganizationService(IOrganizationRepository orgRep, IEmployeeRepository empRep, IEmployeeOrganizationRoleRepository empOrgRoleRep)
+        public OrganizationService(IOrganizationRepository organizationRep, IEmployeeRepository employeeRep, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRep)
         {
-            orgRepository = orgRep;
-            empRepository = empRep;
-            empOrgRoleRepository = empOrgRoleRep;
+            organizationRepository = organizationRep;
+            employeeRepository = employeeRep;
+            employeeOrganizationRoleRepository = employeeOrganizationRoleRep;
         }
 
         public Organization CreateOrganization(string name)
         {
             var organization = new Organization { Name = name };
-            var organizations = orgRepository.GetAll();
+            var organizations = organizationRepository.GetAll();
 
             if (organizations.Any(org => org.Id == organization.Id))
             {
                 throw new ArgumentException("Organization with same Id already exist");
             }
 
-            orgRepository.Add(organization);
+            organizationRepository.Add(organization);
 
             return organization;
         }
 
         public List<Employee> GetEmployees(Guid organizationId)
         {
-            var empOrgRoles = empOrgRoleRepository.GetAll().FindAll(e => e.OrganizationId == organizationId);
-            var employees = empRepository.GetAll()
+            var empOrgRoles = employeeOrganizationRoleRepository.GetAll().FindAll(e => e.OrganizationId == organizationId);
+            var employees = employeeRepository.GetAll()
                 .FindAll(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
 
             return employees;
@@ -45,12 +45,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public void RemoveEmployee(Guid organizationId, Guid employeeId)
         {
-            var empOrgRoles = empOrgRoleRepository.GetAll()
+            var empOrgRoles = employeeOrganizationRoleRepository.GetAll()
                 .FindAll(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
             {
-                empOrgRoleRepository.Remove(empOrgRole);
+                employeeOrganizationRoleRepository.Remove(empOrgRole);
             }
         }
 
@@ -63,32 +63,29 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 RoleId = roleId
             };
 
-            empOrgRoleRepository.Add(empOrgRole);
+            employeeOrganizationRoleRepository.Add(empOrgRole);
         }
 
-        // if roleRemove = 0 new position is added to the employee
-        public void AssignNewRole(Guid organizationId, Guid employeeId, Guid roleAdd, Guid roleRemove = default)
+        public void AssignNewRole(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
         {
-            if (roleRemove == default)
+            if (roleIdRemove != null)
             {
-                var empOrgRoleRemove = new EmployeeOrganizationRole
-                {
-                    EmployeeId = employeeId,
-                    OrganizationId = organizationId,
-                    RoleId = roleRemove
-                };
+                var empOrgRoleRemove = CreateEmployeeOrganizationRole(organizationId, employeeId, (Guid)roleIdRemove);
 
-                empOrgRoleRepository.Remove(empOrgRoleRemove);
+                employeeOrganizationRoleRepository.Remove(empOrgRoleRemove);
             }
 
-            var empOrgRoleAdd = new EmployeeOrganizationRole
+            var empOrgRoleAdd = CreateEmployeeOrganizationRole(organizationId, employeeId, roleIdAdd);
+
+            employeeOrganizationRoleRepository.Add(empOrgRoleAdd);
+        }
+
+        private EmployeeOrganizationRole CreateEmployeeOrganizationRole(Guid organizationId, Guid employeeId,
+            Guid roleId) => new EmployeeOrganizationRole
             {
                 EmployeeId = employeeId,
                 OrganizationId = organizationId,
-                RoleId = roleAdd
+                RoleId = roleId
             };
-
-            empOrgRoleRepository.Add(empOrgRoleAdd);
-        }
     }
 }

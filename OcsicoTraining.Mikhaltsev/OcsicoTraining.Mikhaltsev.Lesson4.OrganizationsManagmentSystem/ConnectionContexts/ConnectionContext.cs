@@ -4,7 +4,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Connect
 {
     public class ConnectionContext<T>
     {
-        public ConnectionContext(string path) => Path = path;//((PathAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(PathAttribute))).Path;
+        public ConnectionContext(string path) => Path = path;
 
         public string Path { get; set; }
         public StreamReader StreamReader => new StreamReader(Path);

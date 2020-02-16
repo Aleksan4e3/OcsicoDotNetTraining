@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text.Json;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
@@ -13,11 +12,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
         {
             var entities = GetAll();
 
-            if (entities.Any(e => e.Id == entity.Id))
-            {
-                _ = entities.Remove(entity);
-                entities.Add(entity);
-            }
+            _ = entities.RemoveAll(e => e.Id == entity.Id);
+            entities.Add(entity);
 
             using (var sw = Context.StreamReWriter)
             {
@@ -33,10 +29,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
         {
             var entities = GetAll();
 
-            if (entities.Any(e => e.Id == entity.Id))
-            {
-                _ = entities.Remove(entity);
-            }
+            _ = entities.RemoveAll(e => e.Id == entity.Id);
 
             using (var sw = Context.StreamReWriter)
             {
