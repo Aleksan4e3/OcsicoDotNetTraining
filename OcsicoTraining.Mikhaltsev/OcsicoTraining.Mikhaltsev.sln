@@ -38,6 +38,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson4.Tests", "OcsicoTraining.Mikhaltsev.Lesson4.Tests\OcsicoTraining.Mikhaltsev.Lesson4.Tests.csproj", "{27927928-50EA-424C-A6B0-B99E62970946}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lesson6", "Lesson6", "{BDD8238F-87AA-41C0-BF8D-5B106BB2D000}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator", "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.csproj", "{7790FFBE-EA36-4179-9C84-49E2DD00CC05}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.Presentation", "OcsicoTraining.Mikhaltsev.Lesson6.Presentation\OcsicoTraining.Mikhaltsev.Lesson6.Presentation.csproj", "{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests.csproj", "{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +96,18 @@ Global
 		{27927928-50EA-424C-A6B0-B99E62970946}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27927928-50EA-424C-A6B0-B99E62970946}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27927928-50EA-424C-A6B0-B99E62970946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7790FFBE-EA36-4179-9C84-49E2DD00CC05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7790FFBE-EA36-4179-9C84-49E2DD00CC05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7790FFBE-EA36-4179-9C84-49E2DD00CC05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7790FFBE-EA36-4179-9C84-49E2DD00CC05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +124,9 @@ Global
 		{681C9475-515E-4B7C-AE47-C56F9F9CA850} = {E1004257-1D69-4D04-BAD8-0CA27D90D81F}
 		{FC75AC20-3091-4F08-9ECD-9FA7D0512604} = {E234FB43-990F-4F6F-9C97-D645656D90E4}
 		{27927928-50EA-424C-A6B0-B99E62970946} = {E234FB43-990F-4F6F-9C97-D645656D90E4}
+		{7790FFBE-EA36-4179-9C84-49E2DD00CC05} = {BDD8238F-87AA-41C0-BF8D-5B106BB2D000}
+		{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8} = {BDD8238F-87AA-41C0-BF8D-5B106BB2D000}
+		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3} = {BDD8238F-87AA-41C0-BF8D-5B106BB2D000}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {570C607E-40DA-4CE3-BCFC-F7A77DC92CF6}
