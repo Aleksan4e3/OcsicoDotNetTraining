@@ -12,10 +12,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Factorial.Tests
         [TestCase(5, 120)]
         [TestCase(6, 720)]
         [TestCase(8, 40320)]
-        public void ComputeFactorialTest(int number, int expectedFactorial)
+        public void ComputeFactorialTest_ShouldReturnCorrectValue(int number, int expectedFactorial)
         {
+            //act
             var actual = ComputeFactorial(number);
-            Assert.AreEqual(expectedFactorial, actual);
+
+            //assert
+            Assert.AreEqual(expectedFactorial, actual, $"Factorial number {number} should be {expectedFactorial}");
         }
 
         [Test]
