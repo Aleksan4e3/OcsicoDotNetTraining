@@ -15,7 +15,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.GenericList
         {
             if (capacity < 0)
             {
-                throw new ArgumentException("Capacity must not be negative");
+                throw new ArgumentException("Capacity must be positive");
             }
 
             array = new T[capacity];
