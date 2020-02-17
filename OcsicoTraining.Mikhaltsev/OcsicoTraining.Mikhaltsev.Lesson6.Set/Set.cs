@@ -23,7 +23,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set
         {
             if (Contains(item))
             {
-                throw new InvalidOperationException("This item already exist");
+                throw new ArgumentException("This item already exist");
             }
 
             items.Add(item);
