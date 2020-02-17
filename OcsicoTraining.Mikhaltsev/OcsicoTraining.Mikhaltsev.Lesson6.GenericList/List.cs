@@ -9,7 +9,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.GenericList
         private T[] array;
         private int size;
 
-        public List() : this(0) { }
+        public List() : this(16) { }
 
         public List(int capacity)
         {
@@ -81,7 +81,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.GenericList
 
         private void TrimToSize()
         {
-            var newArray = new T[(size + 1) * 2];
+            var newArray = new T[size * 2];
             Array.Copy(array, newArray, size);
             array = newArray;
         }
