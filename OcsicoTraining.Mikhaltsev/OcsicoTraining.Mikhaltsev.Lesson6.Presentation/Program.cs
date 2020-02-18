@@ -1,6 +1,7 @@
 using System;
 using OcsicoTraining.Mikhaltsev.Lesson6.GenericList;
 using static OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.FibonacciNumbersGenerator;
+using static OcsicoTraining.Mikhaltsev.Lesson6.Factorial.FactorialNumber;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
 {
@@ -37,5 +38,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
                 Console.WriteLine(element);
             }
         }
+
+        private static void TaskComputeFactorialRun() => Console.WriteLine(ComputeFactorial(7));
     }
 }
