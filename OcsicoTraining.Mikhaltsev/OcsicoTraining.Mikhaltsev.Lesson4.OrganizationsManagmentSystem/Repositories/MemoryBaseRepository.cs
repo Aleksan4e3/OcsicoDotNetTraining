@@ -9,13 +9,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         protected MemoryBaseRepository() => Entities = new List<T>();
 
-        public void Add(T entity) => Entities.Add(entity);
+        public void AddAsync(T entity) => Entities.Add(entity);
 
         public List<T> GetAll() => Entities;
 
-        public virtual void Remove(T entity) => Entities.Remove(entity);
+        public virtual void RemoveAsync(T entity) => Entities.Remove(entity);
 
-        public virtual void Update(T entity)
+        public virtual void UpdateAsync(T entity)
         {
             _ = Entities.Remove(entity);
             Entities.Add(entity);

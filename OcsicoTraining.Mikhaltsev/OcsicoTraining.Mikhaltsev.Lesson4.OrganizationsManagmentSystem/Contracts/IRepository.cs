@@ -4,9 +4,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
 {
     public interface IRepository<T> where T : class
     {
-        void Add(T entity);
-        void Remove(T entity);
-        void Update(T entity);
+        void AddAsync(T entity);
+        void RemoveAsync(T entity);
+        void UpdateAsync(T entity);
         List<T> GetAll();
     }
 }

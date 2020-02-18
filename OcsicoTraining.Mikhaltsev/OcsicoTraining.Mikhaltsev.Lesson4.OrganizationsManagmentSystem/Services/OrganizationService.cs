@@ -29,7 +29,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 throw new ArgumentException("Organization with same Id already exist");
             }
 
-            organizationRepository.Add(organization);
+            organizationRepository.AddAsync(organization);
 
             return organization;
         }
@@ -50,7 +50,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             foreach (var empOrgRole in empOrgRoles)
             {
-                employeeOrganizationRoleRepository.Remove(empOrgRole);
+                employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
         }
 
@@ -63,7 +63,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 RoleId = roleId
             };
 
-            employeeOrganizationRoleRepository.Add(empOrgRole);
+            employeeOrganizationRoleRepository.AddAsync(empOrgRole);
         }
 
         public void AssignNewRole(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
@@ -72,12 +72,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             {
                 var empOrgRoleRemove = CreateEmployeeOrganizationRole(organizationId, employeeId, (Guid)roleIdRemove);
 
-                employeeOrganizationRoleRepository.Remove(empOrgRoleRemove);
+                employeeOrganizationRoleRepository.RemoveAsync(empOrgRoleRemove);
             }
 
             var empOrgRoleAdd = CreateEmployeeOrganizationRole(organizationId, employeeId, roleIdAdd);
 
-            employeeOrganizationRoleRepository.Add(empOrgRoleAdd);
+            employeeOrganizationRoleRepository.AddAsync(empOrgRoleAdd);
         }
 
         private EmployeeOrganizationRole CreateEmployeeOrganizationRole(Guid organizationId, Guid employeeId,

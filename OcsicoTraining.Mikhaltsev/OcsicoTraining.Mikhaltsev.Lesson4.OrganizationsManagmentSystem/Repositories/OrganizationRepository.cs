@@ -8,7 +8,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
     {
         public OrganizationRepository(IOrganizationConfiguration configuration) : base(configuration.Path) { }
 
-        public override async void Update(Organization entity)
+        public override async void UpdateAsync(Organization entity)
         {
             var entities = GetAll();
 
@@ -25,7 +25,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             }
         }
 
-        public override async void Remove(Organization entity)
+        public override async void RemoveAsync(Organization entity)
         {
             var entities = GetAll();
 

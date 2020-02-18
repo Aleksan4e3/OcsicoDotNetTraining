@@ -8,7 +8,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
     {
         public EmployeeRepository(IEmployeeConfiguration configuration) : base(configuration.Path) { }
 
-        public override async void Update(Employee entity)
+        public override async void UpdateAsync(Employee entity)
         {
             var entities = GetAll();
 
@@ -25,7 +25,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             }
         }
 
-        public override async void Remove(Employee entity)
+        public override async void RemoveAsync(Employee entity)
         {
             var entities = GetAll();
 

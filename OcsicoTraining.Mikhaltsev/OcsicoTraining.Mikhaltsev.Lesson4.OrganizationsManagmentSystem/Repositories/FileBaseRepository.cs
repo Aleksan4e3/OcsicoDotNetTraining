@@ -11,7 +11,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         protected FileBaseRepository(string path) => Context = new ConnectionContext<T>(path);
 
-        public async void Add(T entity)
+        public async void AddAsync(T entity)
         {
             var json = JsonSerializer.Serialize(entity);
 
@@ -37,7 +37,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             return entities;
         }
 
-        public abstract void Update(T entity);
-        public abstract void Remove(T entity);
+        public abstract void UpdateAsync(T entity);
+        public abstract void RemoveAsync(T entity);
     }
 }

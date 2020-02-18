@@ -19,7 +19,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public List<Employee> GetAllEmployees() => employeeRepository.GetAll();
 
-        public void CreateEmployee(Employee employee) => employeeRepository.Add(employee);
+        public void CreateEmployee(Employee employee) => employeeRepository.AddAsync(employee);
 
         public void RemoveEmployee(Guid employeeId)
         {
@@ -30,17 +30,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 throw new ArgumentException("Employee with the same Id doesn`t exist");
             }
 
-            employeeRepository.Remove(employee);
+            employeeRepository.RemoveAsync(employee);
 
             var empOrgRoles = employeeOrganizationRoleRepository.GetAll().FindAll(e => e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
             {
-                employeeOrganizationRoleRepository.Remove(empOrgRole);
+                employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
 
         }
 
-        public void UpdateEmployee(Employee employee) => employeeRepository.Update(employee);
+        public void UpdateEmployee(Employee employee) => employeeRepository.UpdateAsync(employee);
     }
 }

@@ -8,7 +8,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
     {
         public EmployeeOrganizationRoleRepository(IEmployeeOrganizationRoleConfiguration configuration) : base(configuration.Path) { }
 
-        public override async void Update(EmployeeOrganizationRole entity)
+        public override async void UpdateAsync(EmployeeOrganizationRole entity)
         {
             var entities = GetAll();
 
@@ -25,7 +25,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             }
         }
 
-        public override async void Remove(EmployeeOrganizationRole entity)
+        public override async void RemoveAsync(EmployeeOrganizationRole entity)
         {
             var entities = GetAll();
 
