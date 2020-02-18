@@ -46,6 +46,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests.csproj", "{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem", "OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem\OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.csproj", "{A1B13208-0D48-46EB-9F1D-4567659C8B25}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson6.GenericList", "OcsicoTraining.Mikhaltsev.Lesson6.GenericList\OcsicoTraining.Mikhaltsev.Lesson6.GenericList.csproj", "{DD5271F8-C8C4-4F47-8484-1342242AA07C}"
 EndProject
 Global
@@ -110,6 +112,10 @@ Global
 		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B13208-0D48-46EB-9F1D-4567659C8B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B13208-0D48-46EB-9F1D-4567659C8B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B13208-0D48-46EB-9F1D-4567659C8B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B13208-0D48-46EB-9F1D-4567659C8B25}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD5271F8-C8C4-4F47-8484-1342242AA07C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD5271F8-C8C4-4F47-8484-1342242AA07C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD5271F8-C8C4-4F47-8484-1342242AA07C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -133,6 +139,7 @@ Global
 		{7790FFBE-EA36-4179-9C84-49E2DD00CC05} = {BDD8238F-87AA-41C0-BF8D-5B106BB2D000}
 		{C35DFDC7-5ADF-4957-A90A-B06448E4F1C8} = {BDD8238F-87AA-41C0-BF8D-5B106BB2D000}
 		{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3} = {BDD8238F-87AA-41C0-BF8D-5B106BB2D000}
+		{A1B13208-0D48-46EB-9F1D-4567659C8B25} = {E234FB43-990F-4F6F-9C97-D645656D90E4}
 		{DD5271F8-C8C4-4F47-8484-1342242AA07C} = {BDD8238F-87AA-41C0-BF8D-5B106BB2D000}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
