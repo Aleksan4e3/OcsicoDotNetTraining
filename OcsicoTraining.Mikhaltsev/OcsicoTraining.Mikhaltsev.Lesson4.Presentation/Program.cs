@@ -42,18 +42,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeAlex.Id, qaRole.Id);
             await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
             await organizationService.AddEmployeeToOrganizationAsync(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
-            await organizationService.AssignNewRole(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
-            await roleService.RemoveRole(qaRole);
-            await employeeService.RemoveEmployee(employeeIvan.Id);
+            await organizationService.AssignNewRoleAsync(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
+            await roleService.RemoveRoleAsync(qaRole);
+            await employeeService.RemoveEmployeeAsync(employeeIvan.Id);
 
-            var employees = organizationService.GetEmployees(orgOcsico.Id);
+            var employees = await organizationService.GetEmployeesAsync(orgOcsico.Id);
 
             foreach (var employee in employees)
             {
                 Console.WriteLine($"{employee.Id} {employee.Name}");
             }
 
-            foreach (var role in roleService.GetAllRoles())
+            foreach (var role in await roleService.GetAllRolesAsync())
             {
                 Console.WriteLine($"{role.Id} {role.Name}");
             }
@@ -65,16 +65,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var containerBuilder = new ContainerBuilder();
 
             containerBuilder.Populate(serviceCollection);
-            _ = containerBuilder.RegisterType<EmployeeConfiguration>().As<IEmployeeConfiguration>();
-            _ = containerBuilder.RegisterType<OrganizationConfiguration>().As<IOrganizationConfiguration>();
-            _ = containerBuilder.RegisterType<EmployeeOrganizationRolesConfiguration>().As<IEmployeeOrganizationRoleConfiguration>();
-            _ = containerBuilder.RegisterType<RoleRepository>().As<IRoleRepository>();
-            _ = containerBuilder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
-            _ = containerBuilder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
-            _ = containerBuilder.RegisterType<EmployeeOrganizationRoleRepository>().As<IEmployeeOrganizationRoleRepository>();
-            _ = containerBuilder.RegisterType<RoleService>().As<IRoleService>();
-            _ = containerBuilder.RegisterType<EmployeeService>().As<IEmployeeService>();
-            _ = containerBuilder.RegisterType<OrganizationService>().As<IOrganizationService>();
+            containerBuilder.RegisterType<EmployeeConfiguration>().As<IEmployeeConfiguration>();
+            containerBuilder.RegisterType<OrganizationConfiguration>().As<IOrganizationConfiguration>();
+            containerBuilder.RegisterType<EmployeeOrganizationRolesConfiguration>().As<IEmployeeOrganizationRoleConfiguration>();
+            containerBuilder.RegisterType<RoleRepository>().As<IRoleRepository>();
+            containerBuilder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
+            containerBuilder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
+            containerBuilder.RegisterType<EmployeeOrganizationRoleRepository>().As<IEmployeeOrganizationRoleRepository>();
+            containerBuilder.RegisterType<RoleService>().As<IRoleService>();
+            containerBuilder.RegisterType<EmployeeService>().As<IEmployeeService>();
+            containerBuilder.RegisterType<OrganizationService>().As<IOrganizationService>();
 
 
             var container = containerBuilder.Build();

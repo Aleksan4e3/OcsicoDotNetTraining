@@ -8,6 +8,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
         Task AddAsync(T entity);
         Task RemoveAsync(T entity);
         Task UpdateAsync(T entity);
-        List<T> GetAll();
+        Task<List<T>> GetAllAsync();
     }
 }

@@ -12,7 +12,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         public async Task AddAsync(T entity) => await Task.Run(() => Entities.Add(entity));
 
-        public List<T> GetAll() => Entities;
+        public async Task<List<T>> GetAllAsync() => await Task.Run(() => Entities);
 
         public virtual async Task RemoveAsync(T entity) => await Task.Run(() => Entities.Remove(entity));
 

@@ -7,9 +7,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
 {
     public interface IEmployeeService
     {
-        List<Employee> GetAllEmployees();
+        Task<List<Employee>> GetAllEmployeesAsync();
         Task CreateEmployeeAsync(Employee employee);
-        Task RemoveEmployee(Guid employeeId);
-        Task UpdateEmployee(Employee employee);
+        Task RemoveEmployeeAsync(Guid employeeId);
+        Task UpdateEmployeeAsync(Employee employee);
     }
 }

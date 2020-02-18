@@ -18,13 +18,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
         }
 
-        public List<Employee> GetAllEmployees() => employeeRepository.GetAll();
+        public async Task<List<Employee>> GetAllEmployeesAsync() => await employeeRepository.GetAllAsync();
 
         public async Task CreateEmployeeAsync(Employee employee) => await employeeRepository.AddAsync(employee);
 
-        public async Task RemoveEmployee(Guid employeeId)
+        public async Task RemoveEmployeeAsync(Guid employeeId)
         {
-            var employee = GetAllEmployees().FirstOrDefault(emp => emp.Id == employeeId);
+            var employees = await GetAllEmployeesAsync();
+            var employee = employees.FirstOrDefault(emp => emp.Id == employeeId);
 
             if (employee == null)
             {
@@ -33,15 +34,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             await employeeRepository.RemoveAsync(employee);
 
-            var empOrgRoles = employeeOrganizationRoleRepository.GetAll().FindAll(e => e.EmployeeId == employeeId);
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRoles = empOrgRolesAll.FindAll(e => e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
             {
                 await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
-
         }
 
-        public Task UpdateEmployee(Employee employee) => employeeRepository.UpdateAsync(employee);
+        public async Task UpdateEmployeeAsync(Employee employee) => await employeeRepository.UpdateAsync(employee);
     }
 }

@@ -11,7 +11,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         public override async Task UpdateAsync(EmployeeOrganizationRole entity)
         {
-            var entities = GetAll();
+            var entities = await GetAllAsync();
 
             _ = entities.RemoveAll(e => e.EmployeeId == entity.EmployeeId && e.OrganizationId == entity.OrganizationId && e.RoleId == entity.RoleId);
             entities.Add(entity);
@@ -28,7 +28,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         public override async Task RemoveAsync(EmployeeOrganizationRole entity)
         {
-            var entities = GetAll();
+            var entities = await GetAllAsync();
 
             _ = entities.RemoveAll(e => e.EmployeeId == entity.EmployeeId && e.OrganizationId == entity.OrganizationId && e.RoleId == entity.RoleId);
 

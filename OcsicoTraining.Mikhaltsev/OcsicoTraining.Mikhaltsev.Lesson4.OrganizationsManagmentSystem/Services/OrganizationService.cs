@@ -23,7 +23,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         public async Task<Organization> CreateOrganizationAsync(string name)
         {
             var organization = new Organization { Name = name };
-            var organizations = organizationRepository.GetAll();
+            var organizations = await organizationRepository.GetAllAsync();
 
             if (organizations.Any(org => org.Id == organization.Id))
             {
@@ -35,19 +35,20 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return organization;
         }
 
-        public List<Employee> GetEmployees(Guid organizationId)
+        public async Task<List<Employee>> GetEmployeesAsync(Guid organizationId)
         {
-            var empOrgRoles = employeeOrganizationRoleRepository.GetAll().FindAll(e => e.OrganizationId == organizationId);
-            var employees = employeeRepository.GetAll()
-                .FindAll(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRoles = empOrgRolesAll.FindAll(e => e.OrganizationId == organizationId);
+            var employeesAll = await employeeRepository.GetAllAsync();
+            var employees = employeesAll.FindAll(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
 
             return employees;
         }
 
-        public async Task RemoveEmployee(Guid organizationId, Guid employeeId)
+        public async Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId)
         {
-            var empOrgRoles = employeeOrganizationRoleRepository.GetAll()
-                .FindAll(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRoles = empOrgRolesAll.FindAll(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
             {
@@ -67,7 +68,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await employeeOrganizationRoleRepository.AddAsync(empOrgRole);
         }
 
-        public async Task AssignNewRole(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
+        public async Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
         {
             if (roleIdRemove != null)
             {

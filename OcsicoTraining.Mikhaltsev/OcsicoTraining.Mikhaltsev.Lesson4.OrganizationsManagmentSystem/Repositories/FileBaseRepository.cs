@@ -22,7 +22,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             }
         }
 
-        public List<T> GetAll()
+        public async Task<List<T>> GetAllAsync()
         {
             var entities = new List<T>();
 
@@ -30,7 +30,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             {
                 while (!sr.EndOfStream)
                 {
-                    var employee = JsonSerializer.Deserialize<T>(sr.ReadLine());
+                    var employee = JsonSerializer.Deserialize<T>(await sr.ReadLineAsync());
                     entities.Add(employee);
                 }
             }
