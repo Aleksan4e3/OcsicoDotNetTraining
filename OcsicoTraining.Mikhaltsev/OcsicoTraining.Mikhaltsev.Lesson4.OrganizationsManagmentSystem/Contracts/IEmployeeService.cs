@@ -7,7 +7,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
     public interface IEmployeeService
     {
         List<Employee> GetAllEmployees();
-        void CreateEmployee(Employee employee);
+        void CreateEmployeeAsync(Employee employee);
         void RemoveEmployee(Guid employeeId);
         void UpdateEmployee(Employee employee);
     }

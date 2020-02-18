@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 {
     internal class Program
     {
-        private static void Main()
+        private static async Task Main()
         {
             var serviceProvider = GetServiceProvider();
             var organizationService = serviceProvider.GetService<IOrganizationService>();
@@ -23,18 +24,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var developerRole = new Role { Name = "Developer" };
             var qaRole = new Role { Name = "QA" };
             var managerRole = new Role { Name = "Manager" };
-            var orgOcsico = organizationService.CreateOrganization("Ocsico");
-            var orgMicrosoft = organizationService.CreateOrganization("Microsoft");
+            var orgOcsico = await organizationService.CreateOrganizationAsync("Ocsico");
+            var orgMicrosoft = await organizationService.CreateOrganizationAsync("Microsoft");
             var employeeAlex = new Employee { Name = "Alex" };
             var employeeIvan = new Employee { Name = "Ivan" };
             var employeeVadim = new Employee { Name = "Vadim" };
 
-            roleService.CreateRole(developerRole);
-            roleService.CreateRole(qaRole);
-            roleService.CreateRole(managerRole);
-            employeeService.CreateEmployee(employeeAlex);
-            employeeService.CreateEmployee(employeeIvan);
-            employeeService.CreateEmployee(employeeVadim);
+            roleService.CreateRoleAsync(developerRole);
+            roleService.CreateRoleAsync(qaRole);
+            roleService.CreateRoleAsync(managerRole);
+            employeeService.CreateEmployeeAsync(employeeAlex);
+            employeeService.CreateEmployeeAsync(employeeIvan);
+            employeeService.CreateEmployeeAsync(employeeVadim);
             organizationService.AddEmployeeToOrganization(orgOcsico.Id, employeeAlex.Id, qaRole.Id);
             organizationService.AddEmployeeToOrganization(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
             organizationService.AddEmployeeToOrganization(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);

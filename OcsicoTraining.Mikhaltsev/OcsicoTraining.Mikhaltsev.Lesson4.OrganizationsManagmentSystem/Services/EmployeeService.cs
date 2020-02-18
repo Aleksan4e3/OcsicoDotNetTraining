@@ -19,7 +19,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public List<Employee> GetAllEmployees() => employeeRepository.GetAll();
 
-        public void CreateEmployee(Employee employee) => employeeRepository.AddAsync(employee);
+        public async void CreateEmployeeAsync(Employee employee) => await employeeRepository.AddAsync(employee);
 
         public void RemoveEmployee(Guid employeeId)
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -19,7 +20,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
         }
 
-        public Organization CreateOrganization(string name)
+        public async Task<Organization> CreateOrganizationAsync(string name)
         {
             var organization = new Organization { Name = name };
             var organizations = organizationRepository.GetAll();
@@ -29,7 +30,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 throw new ArgumentException("Organization with same Id already exist");
             }
 
-            organizationRepository.AddAsync(organization);
+            await organizationRepository.AddAsync(organization);
 
             return organization;
         }

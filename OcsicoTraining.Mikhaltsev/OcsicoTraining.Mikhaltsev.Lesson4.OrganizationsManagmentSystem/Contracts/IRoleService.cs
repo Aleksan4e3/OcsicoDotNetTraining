@@ -5,7 +5,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
 {
     public interface IRoleService
     {
-        void CreateRole(Role role);
+        void CreateRoleAsync(Role role);
         void RemoveRole(Role role);
         void UpdateRole(Role role);
         List<Role> GetAllRoles();
