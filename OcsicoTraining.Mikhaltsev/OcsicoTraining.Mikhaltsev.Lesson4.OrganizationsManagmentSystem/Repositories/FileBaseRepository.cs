@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ConnectionContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
@@ -11,7 +12,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         protected FileBaseRepository(string path) => Context = new ConnectionContext<T>(path);
 
-        public async void AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
             var json = JsonSerializer.Serialize(entity);
 
