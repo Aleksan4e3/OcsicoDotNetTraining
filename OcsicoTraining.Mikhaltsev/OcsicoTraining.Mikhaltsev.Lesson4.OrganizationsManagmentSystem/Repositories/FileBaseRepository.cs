@@ -38,7 +38,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             return entities;
         }
 
-        public abstract void UpdateAsync(T entity);
-        public abstract void RemoveAsync(T entity);
+        public abstract Task UpdateAsync(T entity);
+        public abstract Task RemoveAsync(T entity);
     }
 }

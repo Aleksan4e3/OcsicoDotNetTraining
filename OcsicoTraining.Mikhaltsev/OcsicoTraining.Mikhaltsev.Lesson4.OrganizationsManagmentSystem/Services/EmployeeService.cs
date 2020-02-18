@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -19,9 +20,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public List<Employee> GetAllEmployees() => employeeRepository.GetAll();
 
-        public async void CreateEmployeeAsync(Employee employee) => await employeeRepository.AddAsync(employee);
+        public async Task CreateEmployeeAsync(Employee employee) => await employeeRepository.AddAsync(employee);
 
-        public void RemoveEmployee(Guid employeeId)
+        public async Task RemoveEmployee(Guid employeeId)
         {
             var employee = GetAllEmployees().FirstOrDefault(emp => emp.Id == employeeId);
 
@@ -30,17 +31,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 throw new ArgumentException("Employee with the same Id doesn`t exist");
             }
 
-            employeeRepository.RemoveAsync(employee);
+            await employeeRepository.RemoveAsync(employee);
 
             var empOrgRoles = employeeOrganizationRoleRepository.GetAll().FindAll(e => e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
             {
-                employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
+                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
 
         }
 
-        public void UpdateEmployee(Employee employee) => employeeRepository.UpdateAsync(employee);
+        public Task UpdateEmployee(Employee employee) => employeeRepository.UpdateAsync(employee);
     }
 }

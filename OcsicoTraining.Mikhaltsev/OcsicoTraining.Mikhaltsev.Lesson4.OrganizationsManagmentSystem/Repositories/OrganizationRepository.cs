@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -8,7 +9,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
     {
         public OrganizationRepository(IOrganizationConfiguration configuration) : base(configuration.Path) { }
 
-        public override async void UpdateAsync(Organization entity)
+        public override async Task UpdateAsync(Organization entity)
         {
             var entities = GetAll();
 
@@ -25,7 +26,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             }
         }
 
-        public override async void RemoveAsync(Organization entity)
+        public override async Task RemoveAsync(Organization entity)
         {
             var entities = GetAll();
 

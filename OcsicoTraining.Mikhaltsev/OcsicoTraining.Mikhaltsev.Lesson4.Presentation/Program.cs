@@ -30,18 +30,21 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var employeeIvan = new Employee { Name = "Ivan" };
             var employeeVadim = new Employee { Name = "Vadim" };
 
-            roleService.CreateRoleAsync(developerRole);
-            roleService.CreateRoleAsync(qaRole);
-            roleService.CreateRoleAsync(managerRole);
-            employeeService.CreateEmployeeAsync(employeeAlex);
-            employeeService.CreateEmployeeAsync(employeeIvan);
-            employeeService.CreateEmployeeAsync(employeeVadim);
-            organizationService.AddEmployeeToOrganization(orgOcsico.Id, employeeAlex.Id, qaRole.Id);
-            organizationService.AddEmployeeToOrganization(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
-            organizationService.AddEmployeeToOrganization(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
-            organizationService.AssignNewRole(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
-            roleService.RemoveRole(qaRole);
-            employeeService.RemoveEmployee(employeeIvan.Id);
+            var createDeveloper = roleService.CreateRoleAsync(developerRole);
+            var createQA = roleService.CreateRoleAsync(qaRole);
+            var createManager = roleService.CreateRoleAsync(managerRole);
+            var createAlex = employeeService.CreateEmployeeAsync(employeeAlex);
+            var createIvan = employeeService.CreateEmployeeAsync(employeeIvan);
+            var createVadim = employeeService.CreateEmployeeAsync(employeeVadim);
+
+            await Task.WhenAll(createDeveloper, createQA, createManager, createAlex, createIvan, createVadim);
+
+            await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeAlex.Id, qaRole.Id);
+            await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
+            await organizationService.AddEmployeeToOrganizationAsync(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
+            await organizationService.AssignNewRole(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
+            await roleService.RemoveRole(qaRole);
+            await employeeService.RemoveEmployee(employeeIvan.Id);
 
             var employees = organizationService.GetEmployees(orgOcsico.Id);
 

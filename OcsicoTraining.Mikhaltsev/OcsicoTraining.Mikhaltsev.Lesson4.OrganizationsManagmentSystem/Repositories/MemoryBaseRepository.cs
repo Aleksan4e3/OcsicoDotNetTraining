@@ -14,9 +14,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         public List<T> GetAll() => Entities;
 
-        public virtual async void RemoveAsync(T entity) => await Task.Run(() => Entities.Remove(entity));
+        public virtual async Task RemoveAsync(T entity) => await Task.Run(() => Entities.Remove(entity));
 
-        public virtual async void UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
             await Task.Run(() => Entities.Remove(entity));
             await Task.Run(() => Entities.Add(entity));
