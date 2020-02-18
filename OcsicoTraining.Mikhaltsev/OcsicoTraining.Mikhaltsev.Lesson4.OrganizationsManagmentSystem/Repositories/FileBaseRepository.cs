@@ -11,13 +11,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         protected FileBaseRepository(string path) => Context = new ConnectionContext<T>(path);
 
-        public void Add(T entity)
+        public async void Add(T entity)
         {
             var json = JsonSerializer.Serialize(entity);
 
             using (var sw = Context.StreamAppendWriter)
             {
-                sw.WriteLine(json);
+                await sw.WriteLineAsync(json);
             }
         }
 

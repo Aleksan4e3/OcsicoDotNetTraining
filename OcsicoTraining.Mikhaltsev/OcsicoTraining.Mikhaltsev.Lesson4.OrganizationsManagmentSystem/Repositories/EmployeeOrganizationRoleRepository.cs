@@ -8,7 +8,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
     {
         public EmployeeOrganizationRoleRepository(IEmployeeOrganizationRoleConfiguration configuration) : base(configuration.Path) { }
 
-        public override void Update(EmployeeOrganizationRole entity)
+        public override async void Update(EmployeeOrganizationRole entity)
         {
             var entities = GetAll();
 
@@ -20,12 +20,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
                 foreach (var e in entities)
                 {
                     var json = JsonSerializer.Serialize(e);
-                    sw.WriteLine(json);
+                    await sw.WriteLineAsync(json);
                 }
             }
         }
 
-        public override void Remove(EmployeeOrganizationRole entity)
+        public override async void Remove(EmployeeOrganizationRole entity)
         {
             var entities = GetAll();
 
@@ -36,7 +36,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
                 foreach (var e in entities)
                 {
                     var json = JsonSerializer.Serialize(e);
-                    sw.WriteLine(json);
+                    await sw.WriteLineAsync(json);
                 }
             }
         }
