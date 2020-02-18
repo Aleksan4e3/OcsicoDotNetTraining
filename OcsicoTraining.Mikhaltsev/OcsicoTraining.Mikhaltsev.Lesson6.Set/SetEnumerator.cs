@@ -5,18 +5,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set
 {
     public class SetEnumerator<T> where T : IComparable<T>
     {
-        private readonly Set<T> set;
+        private readonly List<T> items;
 
-        public SetEnumerator(Set<T> set)
+        public SetEnumerator(List<T> items)
         {
-            this.set = set;
+            this.items = items;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (var i = 0; i < set.Count; i++)
+            foreach (var item in items)
             {
-                yield return set[i];
+                yield return item;
             }
         }
     }

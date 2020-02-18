@@ -1,4 +1,3 @@
-using System;
 using NUnit.Framework;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests
@@ -10,7 +9,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests
         public void Count_InputSetWithFiveElements_ReturnSetWithCountEqualsFive()
         {
             //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
+            var inputSet = new Set<int> { 1, 3, 5, 2, 4 };
             var expected = 5;
 
             //act
@@ -21,60 +20,29 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests
         }
 
         [Test]
-        public void Indexer_ThirdElementOfSetIsFour_ReturnTrue()
+        public void Add_AddItemWhichIsNotYetInSet_ReturnTrue()
         {
             //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var expected = 4;
+            var inputSet = new Set<int> { 1, 3, 5, 2, 4 };
 
             //act
-            var actual = inputSet[3];
+            var actual = inputSet.Add(8);
 
             //assert
-            Assert.AreEqual(expected, actual, "Third element of Set is 4");
+            Assert.IsTrue(actual, "Element should be added");
         }
 
         [Test]
-        public void Add_AddItemWhichIsNotYetInSetWithFiveElements_ReturnSetWithSixElements()
+        public void Add_AddItemWhichAlreadyExistInSet_ReturnFalse()
         {
             //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var expected = 6;
+            var inputSet = new Set<int> { 1, 3, 5, 2, 4 };
 
             //act
-            inputSet.Add(8);
-            var actual = inputSet.Count;
+            var actual = inputSet.Add(3);
 
             //assert
-            Assert.AreEqual(expected, actual, "Should be Set with 6 elements");
-        }
-
-        [Test]
-        public void Add_AddItemWhichAlreadyExistInSet_ExceptionShould()
-        {
-            //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
-
-            //act
-            void GetException() => inputSet.Add(3);
-
-            //assert
-            Assert.Throws<ArgumentException>(GetException, "Should be ArgumentException");
-        }
-
-        [Test]
-        public void AddRange_AddThreeElementsInSetWithFiveElements_ReturnSetWithEightElements()
-        {
-            //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var expected = 8;
-
-            //act
-            inputSet.AddRange(new[] { 6, 7, 8 });
-            var actual = inputSet.Count;
-
-            //assert
-            Assert.AreEqual(expected, actual, "Should be 8 elements");
+            Assert.IsFalse(actual, "Element should not be added");
         }
 
         [TestCase(1)]
@@ -83,7 +51,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests
         public void Contains_SetIsContainsElement_ReturnTrue(int element)
         {
             //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
+            var inputSet = new Set<int> { 1, 3, 5, 2, 4 };
 
             //act
             var actual = inputSet.Contains(element);
@@ -96,7 +64,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests
         public void Clear_ClearSet_ReturnEmptySet()
         {
             //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
+            var inputSet = new Set<int> { 1, 3, 5, 2, 4 };
             var expected = 0;
 
             //act
@@ -108,111 +76,107 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests
         }
 
         [Test]
-        public void Remove_RemoveExistElementFromSetWithFiveElements_ReturnSetWithFourElements()
+        public void Remove_RemoveExistElementFromSet_ReturnTrue()
         {
             //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var expected = 4;
+            var inputSet = new Set<int> { 1, 3, 5, 2, 4 };
 
             //act
-            inputSet.Remove(3);
-            var actual = inputSet.Count;
+            var actual = inputSet.Remove(3);
 
             //assert
-            Assert.AreEqual(expected, actual, "Should be 4 elements");
+            Assert.IsTrue(actual, "Element should be removed");
         }
 
         [Test]
-        public void Remove_RemoveItemWhichIsNotExistInSetWithFiveElements_ReturnSetWithFiveElements()
+        public void Remove_RemoveItemWhichIsNotExistInSet_ReturnFalse()
         {
             //arrange
-            var inputSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var expected = 5;
+            var inputSet = new Set<int> { 1, 3, 5, 2, 4 };
 
             //act
-            inputSet.Remove(6);
-            var actual = inputSet.Count;
+            var actual = inputSet.Remove(6);
 
             //assert
-            Assert.AreEqual(expected, actual, "Should be 5 elements");
+            Assert.IsFalse(actual, "Element does not exist");
         }
 
         [Test]
-        public void UnionWith_UnionSetWithFiveElementsWithOtherSetWithFourElements_ReturnSetWithSixElements()
+        public void UnionWith_UnionSetWithFiveElementsWithCollectionWithFourElements_ReturnSetWithSixElements()
         {
             //arrange
-            var firstSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var secondSet = new Set<int> { 3, 4, 5, 6 };
+            var set = new Set<int> { 1, 3, 5, 2, 4 };
+            var collection = new[] { 3, 4, 6, 5 };
             var expected = 6;
 
             //act
-            var resultSet = firstSet.UnionWith(secondSet);
-            var actual = resultSet.Count;
+            set.UnionWith(collection);
+            var actual = set.Count;
 
             //assert
             Assert.AreEqual(expected, actual, "Should be Set with 6 elements");
         }
 
         [Test]
-        public void ExceptWith_ExceptSetWithFiveElementsWithOtherSetWithFourElements_ReturnSetWithTwoElements()
+        public void ExceptWith_ExceptSetWithFiveElementsWithCollectionWithFourElements_ReturnSetWithTwoElements()
         {
             //arrange
-            var firstSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var secondSet = new Set<int> { 3, 4, 5, 6 };
+            var set = new Set<int> { 1, 3, 5, 2, 4 };
+            var collection = new[] { 3, 4, 6, 5 };
             var expected = 2;
 
             //act
-            var resultSet = firstSet.ExceptWith(secondSet);
-            var actual = resultSet.Count;
+            set.ExceptWith(collection);
+            var actual = set.Count;
 
             //assert
             Assert.AreEqual(expected, actual, "Should be Set with 2 elements");
         }
 
         [Test]
-        public void Intersect_IntersectSetWithFiveElementsWithOtherSetWithFourElements_ReturnSetWithThreeElements()
+        public void Intersect_IntersectSetWithFiveElementsWithCollectionWithFourElements_ReturnSetWithThreeElements()
         {
             //arrange
-            var firstSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var secondSet = new Set<int> { 3, 4, 5, 6 };
+            var set = new Set<int> { 1, 3, 5, 2, 4 };
+            var collection = new[] { 3, 4, 6, 5 };
             var expected = 3;
 
             //act
-            var resultSet = firstSet.Intersect(secondSet);
-            var actual = resultSet.Count;
+            set.Intersect(collection);
+            var actual = set.Count;
 
             //assert
             Assert.AreEqual(expected, actual, "Should be Set with 3 elements");
         }
 
         [Test]
-        public void SymmetricExcept_SymmetricExceptSetWithFiveElementsWithOtherSetWithThreeElements_ReturnSetWithFourElements()
+        public void SymmetricExcept_SymmetricExceptSetWithFiveElementsWithCollectionWithThreeElements_ReturnSetWithFourElements()
         {
             //arrange
-            var firstSet = new Set<int> { 1, 2, 3, 4, 5 };
-            var secondSet = new Set<int> { 4, 5, 6 };
+            var set = new Set<int> { 1, 3, 5, 2, 4 };
+            var collection = new[] { 4, 6, 5 };
             var expected = 4;
 
             //act
-            var resultSet = firstSet.SymmetricExcept(secondSet);
-            var actual = resultSet.Count;
+            set.SymmetricExcept(collection);
+            var actual = set.Count;
 
             //assert
             Assert.AreEqual(expected, actual, "Should be Set with 4 elements");
         }
 
         [Test]
-        public void IsSubsetOf_FirstSetIsSubsetOfSecondSet_ReturnTrue()
+        public void IsSubsetOf_SetIsSubsetOfCollection_ReturnTrue()
         {
             //arrange
-            var firstSet = new Set<int> { 3, 4, 5 };
-            var secondSet = new Set<int> { 2, 3, 4, 5, 6, 7, 8 };
+            var set = new Set<int> { 3, 5, 4 };
+            var collection = new[] { 2, 3, 7, 6, 4, 8, 5 };
 
             //act
-            var actual = firstSet.IsSubsetOf(secondSet);
+            var actual = set.IsSubsetOf(collection);
 
             //assert
-            Assert.IsTrue(actual, "First set should be Subset of second set");
+            Assert.IsTrue(actual, "Set should be subset of collection");
         }
     }
 }

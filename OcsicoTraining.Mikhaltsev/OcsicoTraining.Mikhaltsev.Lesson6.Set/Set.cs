@@ -4,106 +4,102 @@ using System.Collections.Generic;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson6.Set
 {
-    public class Set<T> : IEnumerable where T : IComparable<T>
+    public class Set<T> : IEnumerable<T> where T : IComparable<T>
     {
-        private readonly List<T> items = new List<T>();
+        private List<T> items = new List<T>();
 
         public Set() { }
 
         public Set(IEnumerable<T> items)
         {
-            AddRange(items);
-        }
-
-        public T this[int index] => items[index];
-
-        public int Count => items.Count;
-
-        public void Add(T item)
-        {
-            if (Contains(item))
-            {
-                throw new ArgumentException("This item already exist");
-            }
-
-            items.Add(item);
-        }
-
-        public void AddRange(IEnumerable<T> collection)
-        {
-            foreach (var item in collection)
+            foreach (var item in items)
             {
                 Add(item);
             }
         }
 
-        public void Remove(T item)
+        public int Count => items.Count;
+
+        public bool Add(T item)
+        {
+            if (Contains(item))
+            {
+                return false;
+            }
+
+            items.Add(item);
+
+            return true;
+        }
+
+        public bool Remove(T item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item), "Item is null");
             }
 
-            items.Remove(item);
+            return items.Remove(item);
         }
 
         public bool Contains(T item) => items.Contains(item);
 
         public void Clear() => items.Clear();
 
-        public Set<T> UnionWith(Set<T> other)
+        public void UnionWith(IEnumerable<T> other)
         {
-            var result = new Set<T>(items);
-
-            foreach (var item in other.items)
+            foreach (var item in other)
             {
                 if (!Contains(item))
                 {
-                    result.Add(item);
+                    items.Add(item);
                 }
             }
-            return result;
         }
 
-        public Set<T> ExceptWith(Set<T> other)
+        public void ExceptWith(IEnumerable<T> other)
         {
-            var result = new Set<T>(items);
-
-            foreach (var item in other.items)
+            foreach (var item in other)
             {
-                result.Remove(item);
+                items.Remove(item);
             }
-
-            return result;
         }
 
-        public Set<T> Intersect(Set<T> other)
+        public void Intersect(IEnumerable<T> other)
         {
-            var result = new Set<T>();
+            var tempItems = new List<T>();
 
-            foreach (var item in items)
+            foreach (var item in other)
             {
-                if (other.items.Contains(item))
+                if (items.Contains(item))
                 {
-                    result.Add(item);
+                    tempItems.Add(item);
                 }
             }
-            return result;
+
+            items = tempItems;
         }
 
-        public Set<T> SymmetricExcept(Set<T> other)
+        public void SymmetricExcept(IEnumerable<T> other)
         {
-            var union = UnionWith(other);
-            var intersection = Intersect(other);
-
-            return union.ExceptWith(intersection);
+            foreach (var item in other)
+            {
+                if (Contains(item))
+                {
+                    Remove(item);
+                }
+                else
+                {
+                    Add(item);
+                }
+            }
         }
 
-        public bool IsSubsetOf(Set<T> other)
+        public bool IsSubsetOf(IEnumerable<T> other)
         {
             var result = new Set<T>(items);
 
-            foreach (var item in other.items)
+            foreach (var item in other)
             {
                 result.Remove(item);
             }
@@ -111,7 +107,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Set
             return result.Count == 0;
         }
 
-        public IEnumerator<T> GetEnumerator() => new SetEnumerator<T>(this).GetEnumerator();
+        public IEnumerator<T> GetEnumerator() => new SetEnumerator<T>(items).GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

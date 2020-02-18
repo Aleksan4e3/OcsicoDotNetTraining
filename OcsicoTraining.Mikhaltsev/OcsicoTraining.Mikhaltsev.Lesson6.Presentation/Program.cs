@@ -24,12 +24,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson6.Presentation
 
         private static void TaskOperationWithSetRun()
         {
-            var firstSet = new Set<int>(new[] { 1, 2, 3, 4, 5 });
-            var secondSet = new Set<int>(new[] { 3, 4, 5, 6, 7 });
+            var firstSet = new Set<int>(new[] { 1, 3, 5, 2, 4 });
+            var secondSet = new Set<int>(new[] { 3, 4, 7, 6, 5 });
 
-            var resultSet = firstSet.SymmetricExcept(secondSet);
+            firstSet.Intersect(secondSet);
 
-            foreach (var item in resultSet)
+            foreach (var item in firstSet)
             {
                 Console.WriteLine(item);
             }
