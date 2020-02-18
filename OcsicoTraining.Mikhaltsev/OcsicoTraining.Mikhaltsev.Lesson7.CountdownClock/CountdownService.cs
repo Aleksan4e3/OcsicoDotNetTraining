@@ -6,7 +6,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock
     public class CountdownService
     {
         private readonly Dispatcher dispatcher;
-        private bool flag;
+        private bool flag = true;
 
         public CountdownService(Dispatcher dispatcher)
         {

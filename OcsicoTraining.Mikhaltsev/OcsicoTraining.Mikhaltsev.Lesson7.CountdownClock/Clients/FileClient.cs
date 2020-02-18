@@ -4,7 +4,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock.Clients
 {
     public class FileClient
     {
-        public void WriteToFile(EventInfo eventInfo) =>
-            File.AppendAllText("Log.txt", $"{eventInfo.DateTime.ToLongTimeString()} {eventInfo.Message}");
+        private static readonly object SynchronizationObject = new object();
+
+        public void WriteToFile(EventInfo eventInfo)
+        {
+            lock (SynchronizationObject)
+            {
+                File.AppendAllText("Log.txt", $"{eventInfo.DateTime.ToLongTimeString()} {eventInfo.Message}\n");
+            }
+        }
     }
 }
