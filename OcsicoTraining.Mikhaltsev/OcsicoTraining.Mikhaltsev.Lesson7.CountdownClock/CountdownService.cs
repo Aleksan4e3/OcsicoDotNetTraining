@@ -1,12 +1,13 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock
 {
     public class CountdownService
     {
         private readonly Dispatcher dispatcher;
-        private bool flag = true;
+        private bool isRunning = true;
 
         public CountdownService(Dispatcher dispatcher)
         {
@@ -26,7 +27,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock
 
         public void GenerateNewEvent()
         {
-            while (flag)
+            while (isRunning)
             {
                 Thread.Sleep(1000);
 
@@ -34,6 +35,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock
             }
         }
 
-        public void StopGenerateEvent() => flag = false;
+        public Task GenerateEvenTask() => Task.Run(GenerateNewEvent);
+
+        public void StopGenerateEvent() => isRunning = false;
     }
 }

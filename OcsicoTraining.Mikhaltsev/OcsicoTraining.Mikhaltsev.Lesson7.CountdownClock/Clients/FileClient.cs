@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock.Clients
@@ -10,7 +11,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock.Clients
         {
             lock (SynchronizationObject)
             {
-                File.AppendAllText("Log.txt", $"{eventInfo.DateTime.ToLongTimeString()} {eventInfo.Message}\n");
+                File.AppendAllText("Log.txt", $"{eventInfo.DateTime.ToLongTimeString()} {eventInfo.Message}{Environment.NewLine}");
             }
         }
     }

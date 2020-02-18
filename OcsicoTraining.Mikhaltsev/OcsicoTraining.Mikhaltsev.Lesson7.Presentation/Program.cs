@@ -24,7 +24,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.Presentation
 
             var service = new CountdownService(dispatcher);
 
-            Task.Run(() => service.GenerateNewEvent());
+            service.GenerateEvenTask();
 
             service.CreateEventInfo("OneSomeEvent", DateTime.Now, 1000);
             service.CreateEventInfo("TwoSomeEvent", DateTime.Now, 3000);
