@@ -6,36 +6,39 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock
 {
     public class CountdownService
     {
-        private bool isRunning = true;
+        private readonly CancellationToken cancellationToken;
+        private readonly CancellationTokenSource cancellationTokenSource;
 
-        public event EventHandler<MessageSenderEventArgs> OnEventCreated;
+        public event EventHandler<MessageSenderEventArgs> OnOneSecond;
+        public event EventHandler<MessageSenderEventArgs> OnTenSecond;
 
-        public void CallEvent(EventInfo eventInfo) =>
-            OnEventCreated?.Invoke(this, new MessageSenderEventArgs(eventInfo));
-
-        public EventInfo CreateEventInfo(string message, DateTime dateTime, int milliseconds)
+        public CountdownService()
         {
-            Thread.Sleep(milliseconds);
-
-            var eventInfo = new EventInfo { Message = message, DateTime = dateTime };
-
-            CallEvent(eventInfo);
-
-            return eventInfo;
+            cancellationTokenSource = new CancellationTokenSource();
+            cancellationToken = cancellationTokenSource.Token;
         }
 
-        public void GenerateNewEvent()
+
+        public void Start() => Task.Run(RunTimer, cancellationToken);
+
+        public void Stop() => cancellationTokenSource.Cancel();
+
+        private void RunTimer()
         {
-            while (isRunning)
+            var counter = 1l;
+            while (!cancellationToken.IsCancellationRequested)
             {
                 Thread.Sleep(1000);
+                counter++;
+                var eventInfo = new EventInfo { Message = "1s", DateTime = DateTime.Now };
 
-                CreateEventInfo("elapsed 1 second", DateTime.Now, 0);
+                OnOneSecond?.Invoke(this, new MessageSenderEventArgs(eventInfo));
+                if (counter % 10 == 0)
+                {
+                    eventInfo = new EventInfo { Message = "10s", DateTime = DateTime.Now };
+                    OnTenSecond?.Invoke(this, new MessageSenderEventArgs(eventInfo));
+                }
             }
         }
-
-        public Task GenerateEvenTask() => Task.Run(GenerateNewEvent);
-
-        public void StopGenerateEvent() => isRunning = false;
     }
 }
