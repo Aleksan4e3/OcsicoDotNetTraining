@@ -12,12 +12,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         private readonly IOrganizationRepository organizationRepository;
         private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
         private readonly IEmployeeRepository employeeRepository;
+        private readonly IDataContext dataContext;
 
-        public OrganizationService(IOrganizationRepository organizationRepository, IEmployeeRepository employeeRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository)
+        public OrganizationService(IOrganizationRepository organizationRepository, IEmployeeRepository employeeRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository, IDataContext dataContext)
         {
             this.organizationRepository = organizationRepository;
             this.employeeRepository = employeeRepository;
             this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
+            this.dataContext = dataContext;
         }
 
         public async Task<Organization> CreateOrganizationAsync(string name)
@@ -31,6 +33,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             }
 
             await organizationRepository.AddAsync(organization);
+            await dataContext.SaveChangesAsync();
 
             return organization;
         }
@@ -54,6 +57,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             {
                 await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
+
+            await dataContext.SaveChangesAsync();
         }
 
         public async Task AddEmployeeToOrganizationAsync(Guid organizationId, Guid employeeId, Guid roleId)
@@ -66,6 +71,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             };
 
             await employeeOrganizationRoleRepository.AddAsync(empOrgRole);
+            await dataContext.SaveChangesAsync();
         }
 
         public async Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
@@ -80,6 +86,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             var empOrgRoleAdd = CreateEmployeeOrganizationRole(organizationId, employeeId, roleIdAdd);
 
             await employeeOrganizationRoleRepository.AddAsync(empOrgRoleAdd);
+            await dataContext.SaveChangesAsync();
         }
 
         private EmployeeOrganizationRole CreateEmployeeOrganizationRole(Guid organizationId, Guid employeeId,

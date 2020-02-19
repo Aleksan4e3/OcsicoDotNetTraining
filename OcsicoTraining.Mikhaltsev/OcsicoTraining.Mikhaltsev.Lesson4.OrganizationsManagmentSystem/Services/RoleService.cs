@@ -8,14 +8,31 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     public class RoleService : IRoleService
     {
         private readonly IRoleRepository roleRepository;
+        private readonly IDataContext dataContext;
 
-        public RoleService(IRoleRepository roleRep) => roleRepository = roleRep;
+        public RoleService(IRoleRepository roleRep, IDataContext dataContext)
+        {
+            roleRepository = roleRep;
+            this.dataContext = dataContext;
+        }
 
-        public async Task CreateRoleAsync(Role role) => await roleRepository.AddAsync(role);
+        public async Task CreateRoleAsync(Role role)
+        {
+            await roleRepository.AddAsync(role);
+            await dataContext.SaveChangesAsync();
+        }
 
-        public async Task RemoveRoleAsync(Role role) => await roleRepository.RemoveAsync(role);
+        public async Task RemoveRoleAsync(Role role)
+        {
+            await roleRepository.RemoveAsync(role);
+            await dataContext.SaveChangesAsync();
+        }
 
-        public async Task UpdateRoleAsync(Role role) => await roleRepository.UpdateAsync(role);
+        public async Task UpdateRoleAsync(Role role)
+        {
+            await roleRepository.UpdateAsync(role);
+            await dataContext.SaveChangesAsync();
+        }
 
         public async Task<List<Role>> GetAllRolesAsync() => await roleRepository.GetAllAsync();
     }

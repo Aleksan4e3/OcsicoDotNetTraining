@@ -11,16 +11,22 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     {
         private readonly IEmployeeRepository employeeRepository;
         private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
+        private readonly IDataContext dataContext;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository, IDataContext dataContext)
         {
             this.employeeRepository = employeeRepository;
             this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
+            this.dataContext = dataContext;
         }
 
         public async Task<List<Employee>> GetAllEmployeesAsync() => await employeeRepository.GetAllAsync();
 
-        public async Task CreateEmployeeAsync(Employee employee) => await employeeRepository.AddAsync(employee);
+        public async Task CreateEmployeeAsync(Employee employee)
+        {
+            await employeeRepository.AddAsync(employee);
+            await dataContext.SaveChangesAsync();
+        }
 
         public async Task RemoveEmployeeAsync(Guid employeeId)
         {
@@ -41,8 +47,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             {
                 await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
+
+            await dataContext.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeAsync(Employee employee) => await employeeRepository.UpdateAsync(employee);
+        public async Task UpdateEmployeeAsync(Employee employee)
+        {
+            await employeeRepository.UpdateAsync(employee);
+            await dataContext.SaveChangesAsync();
+        }
     }
 }
