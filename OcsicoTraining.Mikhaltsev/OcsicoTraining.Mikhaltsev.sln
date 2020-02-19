@@ -46,17 +46,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.FibonacciGenerator.Tests\OcsicoTraining.Mikhaltsev.Lesson6.FibonacciNumbersGenerator.Tests.csproj", "{B2F4A33F-65B1-4B8F-BEBC-B130A902ACA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem", "OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem\OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.csproj", "{A1B13208-0D48-46EB-9F1D-4567659C8B25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem", "OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem\OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.csproj", "{A1B13208-0D48-46EB-9F1D-4567659C8B25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson6.GenericList", "OcsicoTraining.Mikhaltsev.Lesson6.GenericList\OcsicoTraining.Mikhaltsev.Lesson6.GenericList.csproj", "{DD5271F8-C8C4-4F47-8484-1342242AA07C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.GenericList", "OcsicoTraining.Mikhaltsev.Lesson6.GenericList\OcsicoTraining.Mikhaltsev.Lesson6.GenericList.csproj", "{DD5271F8-C8C4-4F47-8484-1342242AA07C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson6.Factorial", "OcsicoTraining.Mikhaltsev.Lesson6.Factorial\OcsicoTraining.Mikhaltsev.Lesson6.Factorial.csproj", "{EDAF2E65-EB7E-42A3-AFA5-DC3B1611BE45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.Factorial", "OcsicoTraining.Mikhaltsev.Lesson6.Factorial\OcsicoTraining.Mikhaltsev.Lesson6.Factorial.csproj", "{EDAF2E65-EB7E-42A3-AFA5-DC3B1611BE45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson6.Factorial.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.Factorial.Tests\OcsicoTraining.Mikhaltsev.Lesson6.Factorial.Tests.csproj", "{CCEBF8A1-5DBB-4D05-A979-08BAEE19FFDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.Factorial.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.Factorial.Tests\OcsicoTraining.Mikhaltsev.Lesson6.Factorial.Tests.csproj", "{CCEBF8A1-5DBB-4D05-A979-08BAEE19FFDD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.Set", "OcsicoTraining.Mikhaltsev.Lesson6.Set\OcsicoTraining.Mikhaltsev.Lesson6.Set.csproj", "{5E334DDE-8ED2-4763-9440-2E59751397D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests\OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests.csproj", "{A012A597-FE78-49A5-B24E-CCEE278CD791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests", "OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests\OcsicoTraining.Mikhaltsev.Lesson6.Set.Tests.csproj", "{A012A597-FE78-49A5-B24E-CCEE278CD791}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
