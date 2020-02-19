@@ -6,13 +6,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock
 {
     public class CountdownService
     {
-        private readonly Dispatcher dispatcher;
         private bool isRunning = true;
 
-        public CountdownService(Dispatcher dispatcher)
-        {
-            this.dispatcher = dispatcher;
-        }
+        public event EventHandler<MessageSenderEventArgs> OnEventCreated;
+
+        public void CallEvent(EventInfo eventInfo) =>
+            OnEventCreated?.Invoke(this, new MessageSenderEventArgs(eventInfo));
 
         public EventInfo CreateEventInfo(string message, DateTime dateTime, int milliseconds)
         {
@@ -20,7 +19,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock
 
             var eventInfo = new EventInfo { Message = message, DateTime = dateTime };
 
-            dispatcher.CallEvent(eventInfo);
+            CallEvent(eventInfo);
 
             return eventInfo;
         }

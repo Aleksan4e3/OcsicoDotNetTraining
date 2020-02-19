@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock;
 using OcsicoTraining.Mikhaltsev.Lesson7.CountdownClock.Clients;
 
@@ -15,14 +14,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson7.Presentation
 
         private static void RunCountdownClockTask()
         {
-            var dispatcher = new Dispatcher();
             var fileClient = new FileClient();
             var consoleClient = new ConsoleClient();
+            var service = new CountdownService();
 
-            dispatcher.OnEventCreated += (sender, args) => consoleClient.WriteToConsole(args.EventInfo);
-            dispatcher.OnEventCreated += (sender, args) => fileClient.WriteToFile(args.EventInfo);
-
-            var service = new CountdownService(dispatcher);
+            service.OnEventCreated += (sender, args) => consoleClient.WriteToConsole(args.EventInfo);
+            service.OnEventCreated += (sender, args) => fileClient.WriteToFile(args.EventInfo);
 
             service.GenerateEvenTask();
 
