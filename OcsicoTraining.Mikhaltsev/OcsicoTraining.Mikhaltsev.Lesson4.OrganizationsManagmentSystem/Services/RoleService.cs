@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -10,12 +11,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public RoleService(IRoleRepository roleRep) => roleRepository = roleRep;
 
-        public void CreateRole(Role role) => roleRepository.Add(role);
+        public async Task CreateRoleAsync(Role role) => await roleRepository.AddAsync(role);
 
-        public void RemoveRole(Role role) => roleRepository.Remove(role);
+        public async Task RemoveRoleAsync(Role role) => await roleRepository.RemoveAsync(role);
 
-        public void UpdateRole(Role role) => roleRepository.Update(role);
+        public async Task UpdateRoleAsync(Role role) => await roleRepository.UpdateAsync(role);
 
-        public List<Role> GetAllRoles() => roleRepository.GetAll();
+        public async Task<List<Role>> GetAllRolesAsync() => await roleRepository.GetAllAsync();
     }
 }

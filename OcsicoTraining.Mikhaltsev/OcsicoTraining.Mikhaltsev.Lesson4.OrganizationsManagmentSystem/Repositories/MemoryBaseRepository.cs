@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
@@ -9,16 +10,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
 
         protected MemoryBaseRepository() => Entities = new List<T>();
 
-        public void Add(T entity) => Entities.Add(entity);
+        public async Task AddAsync(T entity) => await Task.Run(() => Entities.Add(entity));
 
-        public List<T> GetAll() => Entities;
+        public async Task<List<T>> GetAllAsync() => await Task.Run(() => Entities);
 
-        public virtual void Remove(T entity) => Entities.Remove(entity);
+        public virtual async Task RemoveAsync(T entity) => await Task.Run(() => Entities.Remove(entity));
 
-        public virtual void Update(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
-            _ = Entities.Remove(entity);
-            Entities.Add(entity);
+            await Task.Run(() => Entities.Remove(entity));
+            await Task.Run(() => Entities.Add(entity));
         }
     }
 }

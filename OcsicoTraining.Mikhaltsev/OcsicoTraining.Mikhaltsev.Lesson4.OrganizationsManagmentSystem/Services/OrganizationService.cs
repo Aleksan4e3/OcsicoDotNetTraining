@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -19,42 +20,43 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
         }
 
-        public Organization CreateOrganization(string name)
+        public async Task<Organization> CreateOrganizationAsync(string name)
         {
             var organization = new Organization { Name = name };
-            var organizations = organizationRepository.GetAll();
+            var organizations = await organizationRepository.GetAllAsync();
 
             if (organizations.Any(org => org.Id == organization.Id))
             {
                 throw new ArgumentException("Organization with same Id already exist");
             }
 
-            organizationRepository.Add(organization);
+            await organizationRepository.AddAsync(organization);
 
             return organization;
         }
 
-        public List<Employee> GetEmployees(Guid organizationId)
+        public async Task<List<Employee>> GetEmployeesAsync(Guid organizationId)
         {
-            var empOrgRoles = employeeOrganizationRoleRepository.GetAll().FindAll(e => e.OrganizationId == organizationId);
-            var employees = employeeRepository.GetAll()
-                .FindAll(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRoles = empOrgRolesAll.FindAll(e => e.OrganizationId == organizationId);
+            var employeesAll = await employeeRepository.GetAllAsync();
+            var employees = employeesAll.FindAll(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
 
             return employees;
         }
 
-        public void RemoveEmployee(Guid organizationId, Guid employeeId)
+        public async Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId)
         {
-            var empOrgRoles = employeeOrganizationRoleRepository.GetAll()
-                .FindAll(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRoles = empOrgRolesAll.FindAll(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
             {
-                employeeOrganizationRoleRepository.Remove(empOrgRole);
+                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
         }
 
-        public void AddEmployeeToOrganization(Guid organizationId, Guid employeeId, Guid roleId)
+        public async Task AddEmployeeToOrganizationAsync(Guid organizationId, Guid employeeId, Guid roleId)
         {
             var empOrgRole = new EmployeeOrganizationRole
             {
@@ -63,21 +65,21 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 RoleId = roleId
             };
 
-            employeeOrganizationRoleRepository.Add(empOrgRole);
+            await employeeOrganizationRoleRepository.AddAsync(empOrgRole);
         }
 
-        public void AssignNewRole(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
+        public async Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
         {
             if (roleIdRemove != null)
             {
                 var empOrgRoleRemove = CreateEmployeeOrganizationRole(organizationId, employeeId, (Guid)roleIdRemove);
 
-                employeeOrganizationRoleRepository.Remove(empOrgRoleRemove);
+                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRoleRemove);
             }
 
             var empOrgRoleAdd = CreateEmployeeOrganizationRole(organizationId, employeeId, roleIdAdd);
 
-            employeeOrganizationRoleRepository.Add(empOrgRoleAdd);
+            await employeeOrganizationRoleRepository.AddAsync(empOrgRoleAdd);
         }
 
         private EmployeeOrganizationRole CreateEmployeeOrganizationRole(Guid organizationId, Guid employeeId,

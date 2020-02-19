@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -8,9 +9,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
     {
         public OrganizationRepository(IOrganizationConfiguration configuration) : base(configuration.Path) { }
 
-        public override void Update(Organization entity)
+        public override async Task UpdateAsync(Organization entity)
         {
-            var entities = GetAll();
+            var entities = await GetAllAsync();
 
             _ = entities.RemoveAll(e => e.Id == entity.Id);
             entities.Add(entity);
@@ -20,14 +21,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
                 foreach (var e in entities)
                 {
                     var json = JsonSerializer.Serialize(e);
-                    sw.WriteLine(json);
+                    await sw.WriteLineAsync(json);
                 }
             }
         }
 
-        public override void Remove(Organization entity)
+        public override async Task RemoveAsync(Organization entity)
         {
-            var entities = GetAll();
+            var entities = await GetAllAsync();
 
             _ = entities.RemoveAll(e => e.Id == entity.Id);
 
@@ -36,7 +37,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
                 foreach (var e in entities)
                 {
                     var json = JsonSerializer.Serialize(e);
-                    sw.WriteLine(json);
+                    await sw.WriteLineAsync(json);
                 }
             }
         }
