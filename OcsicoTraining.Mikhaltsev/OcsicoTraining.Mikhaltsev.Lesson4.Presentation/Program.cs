@@ -2,9 +2,10 @@ using System;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Configurations;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services;
@@ -30,14 +31,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var employeeIvan = new Employee { Name = "Ivan" };
             var employeeVadim = new Employee { Name = "Vadim" };
 
-            var createDeveloper = roleService.CreateRoleAsync(developerRole);
-            var createQA = roleService.CreateRoleAsync(qaRole);
-            var createManager = roleService.CreateRoleAsync(managerRole);
-            var createAlex = employeeService.CreateEmployeeAsync(employeeAlex);
-            var createIvan = employeeService.CreateEmployeeAsync(employeeIvan);
-            var createVadim = employeeService.CreateEmployeeAsync(employeeVadim);
+            await roleService.CreateRoleAsync(developerRole);
+            await roleService.CreateRoleAsync(qaRole);
+            await roleService.CreateRoleAsync(managerRole);
+            await employeeService.CreateEmployeeAsync(employeeAlex);
+            await employeeService.CreateEmployeeAsync(employeeIvan);
+            await employeeService.CreateEmployeeAsync(employeeVadim);
 
-            await Task.WhenAll(createDeveloper, createQA, createManager, createAlex, createIvan, createVadim);
 
             await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeAlex.Id, qaRole.Id);
             await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
@@ -64,14 +64,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var serviceCollection = new ServiceCollection();
             var containerBuilder = new ContainerBuilder();
 
+            serviceCollection.AddDbContext<OrganizationManagementContext>(options =>
+                options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=OrganizationManagement;Trusted_Connection=True;")
+                    .UseLazyLoadingProxies());
+
             containerBuilder.Populate(serviceCollection);
-            containerBuilder.RegisterType<EmployeeConfiguration>().As<IEmployeeConfiguration>();
-            containerBuilder.RegisterType<OrganizationConfiguration>().As<IOrganizationConfiguration>();
-            containerBuilder.RegisterType<EmployeeOrganizationRolesConfiguration>().As<IEmployeeOrganizationRoleConfiguration>();
-            containerBuilder.RegisterType<RoleRepository>().As<IRoleRepository>();
-            containerBuilder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
-            containerBuilder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
-            containerBuilder.RegisterType<EmployeeOrganizationRoleRepository>().As<IEmployeeOrganizationRoleRepository>();
+            containerBuilder.RegisterType<DataContext>().As<IDataContext>();
+            containerBuilder.RegisterType<DbRoleRepository>().As<IRoleRepository>();
+            containerBuilder.RegisterType<DbEmployeeRepository>().As<IEmployeeRepository>();
+            containerBuilder.RegisterType<DbOrganizationRepository>().As<IOrganizationRepository>();
+            containerBuilder.RegisterType<DbEmployeeOrganizationRoleRepository>().As<IEmployeeOrganizationRoleRepository>();
             containerBuilder.RegisterType<RoleService>().As<IRoleService>();
             containerBuilder.RegisterType<EmployeeService>().As<IEmployeeService>();
             containerBuilder.RegisterType<OrganizationService>().As<IOrganizationService>();
