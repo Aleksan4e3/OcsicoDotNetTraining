@@ -48,6 +48,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             await Task.Run(() => Entities.Update(entity));
         }
 
-        public async Task<IQueryable<T>> GetAllAsync() => await Task.Run(() => Entities);
+        public IQueryable<T> GetQuery() => Entities;
     }
 }

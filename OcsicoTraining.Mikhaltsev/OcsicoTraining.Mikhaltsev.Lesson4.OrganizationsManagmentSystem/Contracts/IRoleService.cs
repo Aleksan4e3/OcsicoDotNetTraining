@@ -9,6 +9,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
         Task CreateRoleAsync(Role role);
         Task RemoveRoleAsync(Role role);
         Task UpdateRoleAsync(Role role);
-        Task<IQueryable<Role>> GetAllRolesAsync();
+        IQueryable<Role> GetQuery();
     }
 }

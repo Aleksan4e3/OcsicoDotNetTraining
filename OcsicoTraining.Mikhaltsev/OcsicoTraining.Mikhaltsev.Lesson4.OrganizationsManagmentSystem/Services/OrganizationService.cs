@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -24,7 +26,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         public async Task<Organization> CreateOrganizationAsync(string name)
         {
             var organization = new Organization { Name = name };
-            var organizations = await organizationRepository.GetAllAsync();
+            var organizations = await organizationRepository.GetQuery().ToListAsync();
 
             if (organizations.Any(org => org.Id == organization.Id))
             {
@@ -37,19 +39,19 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return organization;
         }
 
-        public async Task<IQueryable<Employee>> GetEmployeesAsync(Guid organizationId)
+        public async Task<List<Employee>> GetEmployeesAsync(Guid organizationId)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetQuery().ToListAsync();
             var empOrgRoles = empOrgRolesAll.Where(e => e.OrganizationId == organizationId);
-            var employeesAll = await employeeRepository.GetAllAsync();
+            var employeesAll = await employeeRepository.GetQuery().ToListAsync();
             var employees = employeesAll.Where(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
 
-            return employees;
+            return employees.ToList();
         }
 
         public async Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetQuery().ToListAsync();
             var empOrgRoles = empOrgRolesAll.Where(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)

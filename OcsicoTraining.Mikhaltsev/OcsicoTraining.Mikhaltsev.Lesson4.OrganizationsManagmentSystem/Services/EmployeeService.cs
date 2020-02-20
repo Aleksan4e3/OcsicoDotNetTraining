@@ -19,7 +19,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             this.dataContext = dataContext;
         }
 
-        public async Task<IQueryable<Employee>> GetAllEmployeesAsync() => await employeeRepository.GetAllAsync();
+        public IQueryable<Employee> GetQuery() => employeeRepository.GetQuery();
 
         public async Task CreateEmployeeAsync(Employee employee)
         {
@@ -29,7 +29,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public async Task RemoveEmployeeAsync(Guid employeeId)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRolesAll = employeeOrganizationRoleRepository.GetQuery();
             var empOrgRoles = empOrgRolesAll.Where(e => e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
@@ -37,7 +37,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
 
-            var employees = await GetAllEmployeesAsync();
+            var employees = GetQuery();
             var employee = employees.FirstOrDefault(emp => emp.Id == employeeId);
 
             if (employee == null)

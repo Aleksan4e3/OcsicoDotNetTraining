@@ -7,7 +7,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
 {
     public interface IEmployeeService
     {
-        Task<IQueryable<Employee>> GetAllEmployeesAsync();
+        IQueryable<Employee> GetQuery();
         Task CreateEmployeeAsync(Employee employee);
         Task RemoveEmployeeAsync(Guid employeeId);
         Task UpdateEmployeeAsync(Employee employee);

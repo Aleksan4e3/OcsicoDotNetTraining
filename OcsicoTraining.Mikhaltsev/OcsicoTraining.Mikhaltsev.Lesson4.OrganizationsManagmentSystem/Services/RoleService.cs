@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -26,7 +27,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public async Task RemoveRoleAsync(Role role)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetQuery().ToListAsync();
             var empOrgRoles = empOrgRolesAll.Where(e => e.RoleId == role.Id);
 
             foreach (var empOrgRole in empOrgRoles)
@@ -44,6 +45,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await dataContext.SaveChangesAsync();
         }
 
-        public async Task<IQueryable<Role>> GetAllRolesAsync() => await roleRepository.GetAllAsync();
+        public IQueryable<Role> GetQuery() => roleRepository.GetQuery();
     }
 }

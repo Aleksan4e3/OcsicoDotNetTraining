@@ -67,7 +67,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 
             Console.WriteLine("All Employees:");
 
-            foreach (var employee in await employeeService.GetAllEmployeesAsync())
+            foreach (var employee in employeeService.GetQuery())
             {
                 Console.WriteLine($"Employee: {employee.Id} {employee.Name}");
 
