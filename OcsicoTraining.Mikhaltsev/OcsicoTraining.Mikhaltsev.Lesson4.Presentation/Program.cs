@@ -48,7 +48,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             await organizationService.AddEmployeeToOrganizationAsync(orgEpam.Id, employeeAndrew.Id, leadRole.Id);
             await organizationService.AddEmployeeToOrganizationAsync(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
             await organizationService.AssignNewRoleAsync(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
+
             employeeIvan.Name = "updateIvan";
+
             await employeeService.UpdateEmployeeAsync(employeeIvan);
             await employeeService.RemoveEmployeeAsync(employeeAlex.Id);
             await roleService.RemoveRoleAsync(qaRole);
@@ -97,7 +99,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             containerBuilder.RegisterType<RoleService>().As<IRoleService>();
             containerBuilder.RegisterType<EmployeeService>().As<IEmployeeService>();
             containerBuilder.RegisterType<OrganizationService>().As<IOrganizationService>();
-
 
             var container = containerBuilder.Build();
 
