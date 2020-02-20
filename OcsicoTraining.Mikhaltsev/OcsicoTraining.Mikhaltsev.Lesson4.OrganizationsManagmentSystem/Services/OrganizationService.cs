@@ -38,12 +38,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return organization;
         }
 
-        public async Task<List<Employee>> GetEmployeesAsync(Guid organizationId)
+        public async Task<IQueryable<Employee>> GetEmployeesAsync(Guid organizationId)
         {
             var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
-            var empOrgRoles = empOrgRolesAll.FindAll(e => e.OrganizationId == organizationId);
+            var empOrgRoles = empOrgRolesAll.Where(e => e.OrganizationId == organizationId);
             var employeesAll = await employeeRepository.GetAllAsync();
-            var employees = employeesAll.FindAll(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
+            var employees = employeesAll.Where(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
 
             return employees;
         }
@@ -51,7 +51,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         public async Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId)
         {
             var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
-            var empOrgRoles = empOrgRolesAll.FindAll(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
+            var empOrgRoles = empOrgRolesAll.Where(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
 
             foreach (var empOrgRole in empOrgRoles)
             {

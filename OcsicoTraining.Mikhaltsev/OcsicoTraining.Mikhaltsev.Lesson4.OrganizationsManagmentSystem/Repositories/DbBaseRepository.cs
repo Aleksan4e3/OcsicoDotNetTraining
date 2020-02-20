@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
@@ -48,6 +49,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             await Task.Run(() => Entities.Update(entity));
         }
 
-        public async Task<List<T>> GetAllAsync() => await Entities.ToListAsync();
+        public async Task<IQueryable<T>> GetAllAsync() => await Task.Run(() => Entities);
     }
 }

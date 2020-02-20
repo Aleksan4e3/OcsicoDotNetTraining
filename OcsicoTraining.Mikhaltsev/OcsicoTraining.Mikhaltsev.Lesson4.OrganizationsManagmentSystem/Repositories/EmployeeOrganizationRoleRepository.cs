@@ -5,7 +5,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public class EmployeeOrganizationRoleRepository : FileBaseRepository<EmployeeOrganizationRole>, IEmployeeOrganizationRoleRepository
+    public class EmployeeOrganizationRoleRepository : FileBaseRepository<EmployeeOrganizationRole>//, IEmployeeOrganizationRoleRepository
     {
         public EmployeeOrganizationRoleRepository(IEmployeeOrganizationRoleConfiguration configuration) : base(configuration.Path) { }
 

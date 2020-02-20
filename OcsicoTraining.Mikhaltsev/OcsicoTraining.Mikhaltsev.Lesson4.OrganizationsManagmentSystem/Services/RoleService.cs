@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
@@ -34,6 +35,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await dataContext.SaveChangesAsync();
         }
 
-        public async Task<List<Role>> GetAllRolesAsync() => await roleRepository.GetAllAsync();
+        public async Task<IQueryable<Role>> GetAllRolesAsync() => await roleRepository.GetAllAsync();
     }
 }

@@ -43,8 +43,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
             await organizationService.AddEmployeeToOrganizationAsync(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
             await organizationService.AssignNewRoleAsync(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
-            await roleService.RemoveRoleAsync(qaRole);
             await employeeService.RemoveEmployeeAsync(employeeIvan.Id);
+            //await roleService.RemoveRoleAsync(qaRole);
+
 
             var employees = await organizationService.GetEmployeesAsync(orgOcsico.Id);
 
@@ -66,7 +67,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 
             serviceCollection.AddDbContext<OrganizationManagementContext>(options =>
                 options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=OrganizationManagement;Trusted_Connection=True;")
-                    .UseLazyLoadingProxies());
+                    .UseLazyLoadingProxies()
+                    .EnableSensitiveDataLogging());
 
             containerBuilder.Populate(serviceCollection);
             containerBuilder.RegisterType<DataContext>().As<IDataContext>();

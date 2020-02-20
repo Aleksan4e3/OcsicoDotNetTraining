@@ -5,7 +5,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public class OrganizationRepository : FileBaseRepository<Organization>, IOrganizationRepository
+    public class OrganizationRepository : FileBaseRepository<Organization>//, IOrganizationRepository
     {
         public OrganizationRepository(IOrganizationConfiguration configuration) : base(configuration.Path) { }
 

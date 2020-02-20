@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -9,6 +10,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contrac
         Task CreateRoleAsync(Role role);
         Task RemoveRoleAsync(Role role);
         Task UpdateRoleAsync(Role role);
-        Task<List<Role>> GetAllRolesAsync();
+        Task<IQueryable<Role>> GetAllRolesAsync();
     }
 }

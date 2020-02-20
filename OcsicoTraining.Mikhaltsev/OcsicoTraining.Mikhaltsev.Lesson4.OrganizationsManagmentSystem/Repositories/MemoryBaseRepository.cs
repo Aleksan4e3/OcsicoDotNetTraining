@@ -4,7 +4,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public abstract class MemoryBaseRepository<T> : IRepository<T> where T : class
+    public abstract class MemoryBaseRepository<T> //: IRepository<T> where T : class
     {
         protected readonly List<T> Entities;
 

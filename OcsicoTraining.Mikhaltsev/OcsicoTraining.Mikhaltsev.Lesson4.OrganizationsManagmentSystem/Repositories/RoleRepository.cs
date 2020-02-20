@@ -6,7 +6,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public class RoleRepository : MemoryBaseRepository<Role>, IRoleRepository
+    public class RoleRepository : MemoryBaseRepository<Role>//, IRoleRepository
     {
         public override async Task RemoveAsync(Role entity)
         {
