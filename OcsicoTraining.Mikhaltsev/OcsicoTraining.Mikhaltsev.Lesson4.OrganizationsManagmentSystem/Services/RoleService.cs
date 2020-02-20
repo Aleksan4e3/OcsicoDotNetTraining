@@ -9,11 +9,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     public class RoleService : IRoleService
     {
         private readonly IRoleRepository roleRepository;
+        private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
         private readonly IDataContext dataContext;
 
-        public RoleService(IRoleRepository roleRep, IDataContext dataContext)
+        public RoleService(IRoleRepository roleRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository, IDataContext dataContext)
         {
-            roleRepository = roleRep;
+            this.roleRepository = roleRepository;
+            this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
             this.dataContext = dataContext;
         }
 
@@ -25,6 +27,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public async Task RemoveRoleAsync(Role role)
         {
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRoles = empOrgRolesAll.Where(e => e.RoleId == role.Id);
+
+            foreach (var empOrgRole in empOrgRoles)
+            {
+                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
+            }
+
             await roleRepository.RemoveAsync(role);
             await dataContext.SaveChangesAsync();
         }

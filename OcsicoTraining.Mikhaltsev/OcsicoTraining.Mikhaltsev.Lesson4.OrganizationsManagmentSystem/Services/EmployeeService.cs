@@ -30,6 +30,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public async Task RemoveEmployeeAsync(Guid employeeId)
         {
+            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
+            var empOrgRoles = empOrgRolesAll.Where(e => e.EmployeeId == employeeId);
+
+            foreach (var empOrgRole in empOrgRoles)
+            {
+                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
+            }
+
             var employees = await GetAllEmployeesAsync();
             var employee = employees.FirstOrDefault(emp => emp.Id == employeeId);
 
@@ -39,15 +47,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             }
 
             await employeeRepository.RemoveAsync(employee);
-
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
-            var empOrgRoles = empOrgRolesAll.Where(e => e.EmployeeId == employeeId);
-
-            foreach (var empOrgRole in empOrgRoles)
-            {
-                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
-            }
-
             await dataContext.SaveChangesAsync();
         }
 
