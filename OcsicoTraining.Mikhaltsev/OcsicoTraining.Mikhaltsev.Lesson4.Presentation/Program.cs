@@ -9,6 +9,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
     {
         private static async Task Main()
         {
+            await RunApplication();
+        }
+
+        private static async Task RunApplication()
+        {
             var serviceProvider = Application.GetServiceProvider();
 
             var organizationService = serviceProvider.GetService<IOrganizationService>();
