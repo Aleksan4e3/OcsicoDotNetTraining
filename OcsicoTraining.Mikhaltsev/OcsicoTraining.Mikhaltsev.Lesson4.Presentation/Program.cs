@@ -1,15 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories.Contracts;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
-using OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 {
@@ -17,7 +9,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
     {
         private static async Task Main()
         {
-            var serviceProvider = GetServiceProvider();
+            var serviceProvider = Application.GetServiceProvider();
+
             var organizationService = serviceProvider.GetService<IOrganizationService>();
             var employeeService = serviceProvider.GetService<IEmployeeService>();
             var roleService = serviceProvider.GetService<IRoleService>();
@@ -45,23 +38,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             await organizationService.AssignNewRoleAsync(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
 
             employeeIvan.Name = "UpdateIvan";
-
             await employeeService.UpdateEmployeeAsync(employeeIvan);
 
             await employeeService.RemoveEmployeeAsync(employeeAlex);
-
             await roleService.RemoveRoleAsync(qaRole);
-
             await organizationService.RemoveEmployeeAsync(orgEpam.Id, employeeIvan.Id);
-
-            var employees = await organizationService.GetEmployeesAsync(orgOcsico.Id);
-
-            Console.WriteLine("Employees in Ocsico:");
-
-            foreach (var employee in employees)
-            {
-                Console.WriteLine($"{employee.Id} {employee.Name}");
-            }
 
             Console.WriteLine("All Employees:");
 
@@ -78,40 +59,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 
                 Console.WriteLine(new string('-', 30));
             }
-        }
-
-        private static IServiceProvider GetServiceProvider()
-        {
-            var serviceCollection = new ServiceCollection();
-            var containerBuilder = new ContainerBuilder();
-
-            serviceCollection.AddDbContext<OrganizationManagementContext>(options =>
-                options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=OrganizationManagement;Trusted_Connection=True;")
-                    .UseLazyLoadingProxies()
-                    .EnableSensitiveDataLogging());
-
-            containerBuilder.Populate(serviceCollection);
-            containerBuilder.RegisterType<DataContext>().As<IDataContext>();
-            containerBuilder.RegisterType<DbRoleRepository>().As<IRoleRepository>();
-            containerBuilder.RegisterType<DbEmployeeRepository>().As<IEmployeeRepository>();
-            containerBuilder.RegisterType<DbOrganizationRepository>().As<IOrganizationRepository>();
-            containerBuilder.RegisterType<DbEmployeeOrganizationRoleRepository>().As<IEmployeeOrganizationRoleRepository>();
-            containerBuilder.RegisterType<RoleService>().As<IRoleService>();
-            containerBuilder.RegisterType<EmployeeService>().As<IEmployeeService>();
-            containerBuilder.RegisterType<OrganizationService>().As<IOrganizationService>();
-
-            var container = containerBuilder.Build();
-
-            return new AutofacServiceProvider(container);
-        }
-
-        private static void RunUserPrintTask()
-        {
-            var user = new User { Name = "Alex", PhoneNumber = "+375(44)744-52-41", Salary = 1000 };
-
-            Console.WriteLine(user.PrintInfo(new NamePrinter()));
-            Console.WriteLine(user.PrintInfo(new NameSalaryPrinter()));
-            Console.WriteLine(user.PrintInfo(new AllUserInfoPrinter()));
         }
     }
 }
