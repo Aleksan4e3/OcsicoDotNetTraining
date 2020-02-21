@@ -7,10 +7,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 {
     public interface IOrganizationService
     {
-        Task<Organization> CreateOrganizationAsync(string name);
-        Task<List<Employee>> GetEmployeesAsync(Guid organizationId);
+        Task<Organization> AddOrganizationAsync(string name);
+        Task AddEmployeeAsync(Guid organizationId, Guid employeeId, Guid roleId);
         Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId);
-        Task AddEmployeeToOrganizationAsync(Guid organizationId, Guid employeeId, Guid roleId);
         Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleAdd, Guid? roleRemove);
+        Task<List<Employee>> GetEmployeesAsync(Guid organizationId);
     }
 }

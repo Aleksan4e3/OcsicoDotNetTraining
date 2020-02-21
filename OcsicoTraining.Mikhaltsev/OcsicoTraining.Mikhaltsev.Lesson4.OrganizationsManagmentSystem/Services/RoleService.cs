@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -21,32 +22,34 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             this.dataContext = dataContext;
         }
 
-        public async Task CreateRoleAsync(Role role)
+        public async Task<Role> AddRoleAsync(string name)
         {
+            var role = new Role { Name = name };
+
             await roleRepository.AddAsync(role);
             await dataContext.SaveChangesAsync();
+
+            return role;
         }
 
         public async Task RemoveRoleAsync(Role role)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetQuery().ToListAsync();
-            var empOrgRoles = empOrgRolesAll.Where(e => e.RoleId == role.Id);
+            var empOrgRoles = await employeeOrganizationRoleRepository
+                .GetQuery()
+                .Where(e => e.RoleId == role.Id)
+                .ToListAsync();
 
-            foreach (var empOrgRole in empOrgRoles)
-            {
-                employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
-            }
-
-            roleRepository.RemoveAsync(role);
+            employeeOrganizationRoleRepository.RemoveRange(empOrgRoles);
+            roleRepository.Remove(role);
             await dataContext.SaveChangesAsync();
         }
 
         public async Task UpdateRoleAsync(Role role)
         {
-            roleRepository.UpdateAsync(role);
+            roleRepository.Update(role);
             await dataContext.SaveChangesAsync();
         }
 
-        public IQueryable<Role> GetQuery() => roleRepository.GetQuery();
+        public async Task<List<Role>> GetRolesAsync() => await roleRepository.GetQuery().ToListAsync();
     }
 }

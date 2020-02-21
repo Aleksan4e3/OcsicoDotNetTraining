@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             Entities = dataContext.Set<T>();
         }
 
-        protected DbSet<T> Entities { get; private set; }
+        protected DbSet<T> Entities { get; }
 
         public async Task AddAsync(T entity)
         {
@@ -28,7 +29,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             await Entities.AddAsync(entity);
         }
 
-        public void RemoveAsync(T entity)
+        public void Remove(T entity)
         {
             if (entity == null)
             {
@@ -39,7 +40,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Reposit
             Entities.Remove(entity);
         }
 
-        public void UpdateAsync(T entity)
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Remove(entity);
+            }
+        }
+
+        public void Update(T entity)
         {
             if (entity == null)
             {

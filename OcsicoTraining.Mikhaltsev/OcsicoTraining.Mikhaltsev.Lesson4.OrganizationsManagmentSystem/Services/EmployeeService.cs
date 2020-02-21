@@ -1,6 +1,7 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories.Contracts;
@@ -21,40 +22,34 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             this.dataContext = dataContext;
         }
 
-        public IQueryable<Employee> GetQuery() => employeeRepository.GetQuery();
-
-        public async Task CreateEmployeeAsync(Employee employee)
+        public async Task<Employee> AddEmployeeAsync(string name)
         {
+            var employee = new Employee { Name = name };
+
             await employeeRepository.AddAsync(employee);
             await dataContext.SaveChangesAsync();
+
+            return employee;
         }
 
-        public async Task RemoveEmployeeAsync(Guid employeeId)
+        public async Task RemoveEmployeeAsync(Employee employee)
         {
-            var empOrgRolesAll = employeeOrganizationRoleRepository.GetQuery();
-            var empOrgRoles = empOrgRolesAll.Where(e => e.EmployeeId == employeeId);
+            var empOrgRoles = await employeeOrganizationRoleRepository
+                .GetQuery()
+                .Where(e => e.EmployeeId == employee.Id)
+                .ToListAsync();
 
-            foreach (var empOrgRole in empOrgRoles)
-            {
-                employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
-            }
-
-            var employees = GetQuery();
-            var employee = employees.FirstOrDefault(emp => emp.Id == employeeId);
-
-            if (employee == null)
-            {
-                throw new ArgumentException("Employee with the same Id doesn`t exist");
-            }
-
-            employeeRepository.RemoveAsync(employee);
+            employeeOrganizationRoleRepository.RemoveRange(empOrgRoles);
+            employeeRepository.Remove(employee);
             await dataContext.SaveChangesAsync();
         }
 
         public async Task UpdateEmployeeAsync(Employee employee)
         {
-            employeeRepository.UpdateAsync(employee);
+            employeeRepository.Update(employee);
             await dataContext.SaveChangesAsync();
         }
+
+        public async Task<List<Employee>> GetEmployeesAsync() => await employeeRepository.GetQuery().ToListAsync();
     }
 }

@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
@@ -6,9 +6,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 {
     public interface IRoleService
     {
-        Task CreateRoleAsync(Role role);
+        Task<Role> AddRoleAsync(string name);
         Task RemoveRoleAsync(Role role);
         Task UpdateRoleAsync(Role role);
-        IQueryable<Role> GetQuery();
+        Task<List<Role>> GetRolesAsync();
     }
 }

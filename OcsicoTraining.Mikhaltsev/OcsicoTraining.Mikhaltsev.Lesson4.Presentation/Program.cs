@@ -5,7 +5,6 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services;
@@ -23,38 +22,36 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var employeeService = serviceProvider.GetService<IEmployeeService>();
             var roleService = serviceProvider.GetService<IRoleService>();
 
-            var developerRole = new Role { Name = "Developer" };
-            var qaRole = new Role { Name = "QA" };
-            var managerRole = new Role { Name = "Manager" };
-            var leadRole = new Role { Name = "Lead" };
-            var orgOcsico = await organizationService.CreateOrganizationAsync("Ocsico");
-            var orgMicrosoft = await organizationService.CreateOrganizationAsync("Microsoft");
-            var orgEpam = await organizationService.CreateOrganizationAsync("ScienceSoft");
-            var employeeAlex = new Employee { Name = "Alex" };
-            var employeeIvan = new Employee { Name = "Ivan" };
-            var employeeVadim = new Employee { Name = "Vadim" };
-            var employeeAndrew = new Employee { Name = "Andrew" };
+            var orgOcsico = await organizationService.AddOrganizationAsync("Ocsico");
+            var orgMicrosoft = await organizationService.AddOrganizationAsync("Microsoft");
+            var orgEpam = await organizationService.AddOrganizationAsync("ScienceSoft");
 
-            await roleService.CreateRoleAsync(developerRole);
-            await roleService.CreateRoleAsync(qaRole);
-            await roleService.CreateRoleAsync(managerRole);
-            await roleService.CreateRoleAsync(leadRole);
-            await employeeService.CreateEmployeeAsync(employeeAlex);
-            await employeeService.CreateEmployeeAsync(employeeIvan);
-            await employeeService.CreateEmployeeAsync(employeeVadim);
-            await employeeService.CreateEmployeeAsync(employeeAndrew);
-            await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeAlex.Id, developerRole.Id);
-            await organizationService.AddEmployeeToOrganizationAsync(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
-            await organizationService.AddEmployeeToOrganizationAsync(orgEpam.Id, employeeIvan.Id, developerRole.Id);
-            await organizationService.AddEmployeeToOrganizationAsync(orgEpam.Id, employeeAndrew.Id, leadRole.Id);
-            await organizationService.AddEmployeeToOrganizationAsync(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
+            var developerRole = await roleService.AddRoleAsync("Developer");
+            var qaRole = await roleService.AddRoleAsync("QA");
+            var managerRole = await roleService.AddRoleAsync("Manager");
+            var leadRole = await roleService.AddRoleAsync("Lead");
+
+            var employeeAlex = await employeeService.AddEmployeeAsync("Alex");
+            var employeeIvan = await employeeService.AddEmployeeAsync("Ivan");
+            var employeeVadim = await employeeService.AddEmployeeAsync("Vadim");
+            var employeeAndrew = await employeeService.AddEmployeeAsync("Andrew");
+
+            await organizationService.AddEmployeeAsync(orgOcsico.Id, employeeAlex.Id, developerRole.Id);
+            await organizationService.AddEmployeeAsync(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
+            await organizationService.AddEmployeeAsync(orgEpam.Id, employeeIvan.Id, developerRole.Id);
+            await organizationService.AddEmployeeAsync(orgEpam.Id, employeeAndrew.Id, leadRole.Id);
+            await organizationService.AddEmployeeAsync(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
+
             await organizationService.AssignNewRoleAsync(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
 
-            employeeIvan.Name = "updateIvan";
+            employeeIvan.Name = "UpdateIvan";
 
             await employeeService.UpdateEmployeeAsync(employeeIvan);
-            await employeeService.RemoveEmployeeAsync(employeeAlex.Id);
+
+            await employeeService.RemoveEmployeeAsync(employeeAlex);
+
             await roleService.RemoveRoleAsync(qaRole);
+
             await organizationService.RemoveEmployeeAsync(orgEpam.Id, employeeIvan.Id);
 
             var employees = await organizationService.GetEmployeesAsync(orgOcsico.Id);
@@ -68,7 +65,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 
             Console.WriteLine("All Employees:");
 
-            foreach (var employee in employeeService.GetQuery())
+            var allEmployees = await employeeService.GetEmployeesAsync();
+
+            foreach (var employee in allEmployees)
             {
                 Console.WriteLine($"Employee: {employee.Id} {employee.Name}");
 

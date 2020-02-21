@@ -25,15 +25,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             this.dataContext = dataContext;
         }
 
-        public async Task<Organization> CreateOrganizationAsync(string name)
+        public async Task<Organization> AddOrganizationAsync(string name)
         {
             var organization = new Organization { Name = name };
-            var organizations = await organizationRepository.GetQuery().ToListAsync();
-
-            if (organizations.Any(org => org.Id == organization.Id))
-            {
-                throw new ArgumentException("Organization with same Id already exist");
-            }
 
             await organizationRepository.AddAsync(organization);
             await dataContext.SaveChangesAsync();
@@ -41,40 +35,33 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return organization;
         }
 
-        public async Task<List<Employee>> GetEmployeesAsync(Guid organizationId)
+        public async Task AddEmployeeAsync(Guid organizationId, Guid employeeId, Guid roleId)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetQuery().ToListAsync();
-            var empOrgRoles = empOrgRolesAll.Where(e => e.OrganizationId == organizationId);
-            var employeesAll = await employeeRepository.GetQuery().ToListAsync();
-            var employees = employeesAll.Where(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
+            var empOrgRole = CreateEmployeeOrganizationRole(organizationId, employeeId, roleId);
 
-            return employees.ToList();
+            await employeeOrganizationRoleRepository.AddAsync(empOrgRole);
+            await dataContext.SaveChangesAsync();
         }
 
         public async Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetQuery().ToListAsync();
-            var empOrgRoles = empOrgRolesAll.Where(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
+            var empOrgRoles = await employeeOrganizationRoleRepository
+                .GetQuery()
+                .Where(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId)
+                .ToListAsync();
 
-            foreach (var empOrgRole in empOrgRoles)
-            {
-                employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
-            }
-
+            employeeOrganizationRoleRepository.RemoveRange(empOrgRoles);
             await dataContext.SaveChangesAsync();
         }
 
-        public async Task AddEmployeeToOrganizationAsync(Guid organizationId, Guid employeeId, Guid roleId)
+        public async Task<List<Employee>> GetEmployeesAsync(Guid organizationId)
         {
-            var empOrgRole = new EmployeeOrganizationRole
-            {
-                EmployeeId = employeeId,
-                OrganizationId = organizationId,
-                RoleId = roleId
-            };
+            var employees = await employeeRepository
+                .GetQuery()
+                .Where(emp => emp.EmployeeOrganizationRoles.Select(e => e.OrganizationId).Contains(organizationId))
+                .ToListAsync();
 
-            await employeeOrganizationRoleRepository.AddAsync(empOrgRole);
-            await dataContext.SaveChangesAsync();
+            return employees.ToList();
         }
 
         public async Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
@@ -83,7 +70,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             {
                 var empOrgRoleRemove = CreateEmployeeOrganizationRole(organizationId, employeeId, (Guid)roleIdRemove);
 
-                employeeOrganizationRoleRepository.RemoveAsync(empOrgRoleRemove);
+                employeeOrganizationRoleRepository.Remove(empOrgRoleRemove);
             }
 
             var empOrgRoleAdd = CreateEmployeeOrganizationRole(organizationId, employeeId, roleIdAdd);
