@@ -3,13 +3,8 @@ using System.Collections.Generic;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models
 {
-    public class Organization
+    public class Organization : IModelEntity
     {
-        public Organization()
-        {
-            Id = Guid.NewGuid();
-        }
-
         public Guid Id { get; set; }
         public string Name { get; set; }
 

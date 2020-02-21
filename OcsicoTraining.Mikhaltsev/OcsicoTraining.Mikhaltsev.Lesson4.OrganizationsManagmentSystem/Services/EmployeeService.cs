@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories.Contracts;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services
 {
@@ -34,7 +36,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             foreach (var empOrgRole in empOrgRoles)
             {
-                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
+                employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
             }
 
             var employees = GetQuery();
@@ -45,13 +47,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 throw new ArgumentException("Employee with the same Id doesn`t exist");
             }
 
-            await employeeRepository.RemoveAsync(employee);
+            employeeRepository.RemoveAsync(employee);
             await dataContext.SaveChangesAsync();
         }
 
         public async Task UpdateEmployeeAsync(Employee employee)
         {
-            await employeeRepository.UpdateAsync(employee);
+            employeeRepository.UpdateAsync(employee);
             await dataContext.SaveChangesAsync();
         }
     }

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts
 {
@@ -13,7 +13,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbConte
             this.organizationManagementContext = organizationManagementContext;
         }
 
-        public DbSet<T> Set<T>() where T : class => organizationManagementContext.Set<T>();
+        public DbSet<T> Set<T>() where T : class, IModelEntity => organizationManagementContext.Set<T>();
 
         public Task<int> SaveChangesAsync() => organizationManagementContext.SaveChangesAsync();
     }

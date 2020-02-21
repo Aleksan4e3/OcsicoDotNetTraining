@@ -4,11 +4,12 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.UserPrinter;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
@@ -28,7 +29,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var leadRole = new Role { Name = "Lead" };
             var orgOcsico = await organizationService.CreateOrganizationAsync("Ocsico");
             var orgMicrosoft = await organizationService.CreateOrganizationAsync("Microsoft");
-            var orgEpam = await organizationService.CreateOrganizationAsync("Epam");
+            var orgEpam = await organizationService.CreateOrganizationAsync("ScienceSoft");
             var employeeAlex = new Employee { Name = "Alex" };
             var employeeIvan = new Employee { Name = "Ivan" };
             var employeeVadim = new Employee { Name = "Vadim" };
