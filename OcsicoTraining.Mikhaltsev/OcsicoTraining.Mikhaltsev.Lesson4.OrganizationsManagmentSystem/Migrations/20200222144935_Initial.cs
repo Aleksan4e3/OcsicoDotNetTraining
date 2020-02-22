@@ -44,7 +44,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Migrati
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmployeeOrganizationRoles",
+                name: "EmployeeRoles",
                 columns: table => new
                 {
                     EmployeeId = table.Column<Guid>(nullable: false),
@@ -53,21 +53,21 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Migrati
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeeOrganizationRoles", x => new { x.EmployeeId, x.OrganizationId, x.RoleId });
+                    table.PrimaryKey("PK_EmployeeRoles", x => new { x.EmployeeId, x.OrganizationId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_EmployeeOrganizationRoles_Employees_EmployeeId",
+                        name: "FK_EmployeeRoles_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeOrganizationRoles_Organizations_OrganizationId",
+                        name: "FK_EmployeeRoles_Organizations_OrganizationId",
                         column: x => x.OrganizationId,
                         principalTable: "Organizations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeOrganizationRoles_Roles_RoleId",
+                        name: "FK_EmployeeRoles_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
@@ -75,20 +75,20 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Migrati
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeOrganizationRoles_OrganizationId",
-                table: "EmployeeOrganizationRoles",
+                name: "IX_EmployeeRoles_OrganizationId",
+                table: "EmployeeRoles",
                 column: "OrganizationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeOrganizationRoles_RoleId",
-                table: "EmployeeOrganizationRoles",
+                name: "IX_EmployeeRoles_RoleId",
+                table: "EmployeeRoles",
                 column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EmployeeOrganizationRoles");
+                name: "EmployeeRoles");
 
             migrationBuilder.DropTable(
                 name: "Employees");

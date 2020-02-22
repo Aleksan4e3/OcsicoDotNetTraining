@@ -4,8 +4,8 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositorie
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories
 {
-    public class DbEmployeeOrganizationRoleRepository : DbBaseRepository<EmployeeOrganizationRole>, IEmployeeOrganizationRoleRepository
+    public class DbEmployeeRoleRepository : DbBaseRepository<EmployeeRole>, IEmployeeRoleRepository
     {
-        public DbEmployeeOrganizationRoleRepository(IDataContext dataContext) : base(dataContext) { }
+        public DbEmployeeRoleRepository(IDataContext dataContext) : base(dataContext) { }
     }
 }

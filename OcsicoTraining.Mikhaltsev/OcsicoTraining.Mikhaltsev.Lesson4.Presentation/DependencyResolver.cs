@@ -11,14 +11,14 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Co
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 {
-    public class Application
+    public class DependencyResolver
     {
         public static IServiceProvider GetServiceProvider()
         {
             var serviceCollection = new ServiceCollection();
             var containerBuilder = new ContainerBuilder();
 
-            serviceCollection.AddDbContext<OrganizationManagementContext>(options =>
+            serviceCollection.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=OrganizationManagement;Trusted_Connection=True;")
                     .UseLazyLoadingProxies()
                     .EnableSensitiveDataLogging());
@@ -28,7 +28,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             containerBuilder.RegisterType<DbRoleRepository>().As<IRoleRepository>();
             containerBuilder.RegisterType<DbEmployeeRepository>().As<IEmployeeRepository>();
             containerBuilder.RegisterType<DbOrganizationRepository>().As<IOrganizationRepository>();
-            containerBuilder.RegisterType<DbEmployeeOrganizationRoleRepository>().As<IEmployeeOrganizationRoleRepository>();
+            containerBuilder.RegisterType<DbEmployeeRoleRepository>().As<IEmployeeRoleRepository>();
             containerBuilder.RegisterType<RoleService>().As<IRoleService>();
             containerBuilder.RegisterType<EmployeeService>().As<IEmployeeService>();
             containerBuilder.RegisterType<OrganizationService>().As<IOrganizationService>();

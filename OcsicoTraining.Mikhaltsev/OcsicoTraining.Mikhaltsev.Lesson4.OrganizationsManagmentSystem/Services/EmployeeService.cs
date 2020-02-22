@@ -12,13 +12,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository employeeRepository;
-        private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
+        private readonly IEmployeeRoleRepository employeeRoleRepository;
         private readonly IDataContext dataContext;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository, IDataContext dataContext)
+        public EmployeeService(IEmployeeRepository employeeRepository, IEmployeeRoleRepository employeeRoleRepository, IDataContext dataContext)
         {
             this.employeeRepository = employeeRepository;
-            this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
+            this.employeeRoleRepository = employeeRoleRepository;
             this.dataContext = dataContext;
         }
 
@@ -34,12 +34,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public async Task RemoveEmployeeAsync(Employee employee)
         {
-            var empOrgRoles = await employeeOrganizationRoleRepository
+            var empOrgRoles = await employeeRoleRepository
                 .GetQuery()
                 .Where(e => e.EmployeeId == employee.Id)
                 .ToListAsync();
 
-            employeeOrganizationRoleRepository.RemoveRange(empOrgRoles);
+            employeeRoleRepository.RemoveRange(empOrgRoles);
             employeeRepository.Remove(employee);
             await dataContext.SaveChangesAsync();
         }

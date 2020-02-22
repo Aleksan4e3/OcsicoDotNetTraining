@@ -2,7 +2,7 @@ using System;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models
 {
-    public class EmployeeOrganizationRole : IModelEntity
+    public class EmployeeRole : IModelEntity
     {
         public Guid EmployeeId { get; set; }
         public Guid OrganizationId { get; set; }

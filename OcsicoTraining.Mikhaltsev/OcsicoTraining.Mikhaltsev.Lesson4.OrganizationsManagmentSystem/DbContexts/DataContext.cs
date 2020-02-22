@@ -6,15 +6,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbConte
 {
     public class DataContext : IDataContext
     {
-        private readonly OrganizationManagementContext organizationManagementContext;
+        private readonly AppDbContext appDbContext;
 
-        public DataContext(OrganizationManagementContext organizationManagementContext)
+        public DataContext(AppDbContext appDbContext)
         {
-            this.organizationManagementContext = organizationManagementContext;
+            this.appDbContext = appDbContext;
         }
 
-        public DbSet<T> Set<T>() where T : class, IModelEntity => organizationManagementContext.Set<T>();
+        public DbSet<T> Set<T>() where T : class, IModelEntity => appDbContext.Set<T>();
 
-        public Task<int> SaveChangesAsync() => organizationManagementContext.SaveChangesAsync();
+        public Task<int> SaveChangesAsync() => appDbContext.SaveChangesAsync();
     }
 }

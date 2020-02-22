@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts
 {
-    public class OrganizationManagementContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public OrganizationManagementContext(DbContextOptions<OrganizationManagementContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             Database.EnsureDeleted();
             Database.EnsureCreated();

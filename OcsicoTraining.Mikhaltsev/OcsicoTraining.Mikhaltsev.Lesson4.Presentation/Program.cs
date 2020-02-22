@@ -14,7 +14,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
 
         private static async Task RunApplication()
         {
-            var serviceProvider = Application.GetServiceProvider();
+            var serviceProvider = DependencyResolver.GetServiceProvider();
 
             var organizationService = serviceProvider.GetService<IOrganizationService>();
             var employeeService = serviceProvider.GetService<IEmployeeService>();
@@ -34,11 +34,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             var employeeVadim = await employeeService.AddEmployeeAsync("Vadim");
             var employeeAndrew = await employeeService.AddEmployeeAsync("Andrew");
 
-            await organizationService.AddEmployeeAsync(orgOcsico.Id, employeeAlex.Id, developerRole.Id);
-            await organizationService.AddEmployeeAsync(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
-            await organizationService.AddEmployeeAsync(orgEpam.Id, employeeIvan.Id, developerRole.Id);
-            await organizationService.AddEmployeeAsync(orgEpam.Id, employeeAndrew.Id, leadRole.Id);
-            await organizationService.AddEmployeeAsync(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
+            await organizationService.AttachEmployeeAsync(orgOcsico.Id, employeeAlex.Id, developerRole.Id);
+            await organizationService.AttachEmployeeAsync(orgOcsico.Id, employeeIvan.Id, developerRole.Id);
+            await organizationService.AttachEmployeeAsync(orgEpam.Id, employeeIvan.Id, developerRole.Id);
+            await organizationService.AttachEmployeeAsync(orgEpam.Id, employeeAndrew.Id, leadRole.Id);
+            await organizationService.AttachEmployeeAsync(orgMicrosoft.Id, employeeVadim.Id, managerRole.Id);
 
             await organizationService.AssignNewRoleAsync(orgMicrosoft.Id, employeeVadim.Id, developerRole.Id, null);
 
@@ -57,9 +57,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.Presentation
             {
                 Console.WriteLine($"Employee: {employee.Id} {employee.Name}");
 
-                foreach (var employeeEmployeeOrganizationRole in employee.EmployeeOrganizationRoles)
+                foreach (var employeeRole in employee.EmployeeRoles)
                 {
-                    Console.WriteLine($"Company: {employeeEmployeeOrganizationRole.Organization.Name}, Role: {employeeEmployeeOrganizationRole.Role.Name}");
+                    Console.WriteLine($"Company: {employeeRole.Organization.Name}, Role: {employeeRole.Role.Name}");
                 }
 
                 Console.WriteLine(new string('-', 30));
