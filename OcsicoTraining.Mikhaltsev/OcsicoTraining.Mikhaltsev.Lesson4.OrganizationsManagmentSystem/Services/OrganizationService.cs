@@ -17,15 +17,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         private readonly IEmployeeRepository employeeRepository;
         private readonly IDataContext dataContext;
 
-        public OrganizationService(IOrganizationRepository organizationRepository, IEmployeeRepository employeeRepository, IEmployeeRoleRepository employeeRoleRepository, IDataContext dataContext)
+        public OrganizationService(IOrganizationRepository organizationRepository,
+            IEmployeeRoleRepository employeeRoleRepository,
+            IEmployeeRepository employeeRepository,
+            IDataContext dataContext)
         {
             this.organizationRepository = organizationRepository;
-            this.employeeRepository = employeeRepository;
             this.employeeRoleRepository = employeeRoleRepository;
+            this.employeeRepository = employeeRepository;
             this.dataContext = dataContext;
         }
 
-        public async Task<Organization> AddOrganizationAsync(string name)
+        public async Task<Organization> CreateAsync(string name)
         {
             var organization = new Organization { Name = name };
 

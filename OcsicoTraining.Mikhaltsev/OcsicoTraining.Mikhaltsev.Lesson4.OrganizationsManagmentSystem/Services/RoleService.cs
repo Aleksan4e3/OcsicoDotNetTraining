@@ -15,14 +15,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         private readonly IEmployeeRoleRepository employeeRoleRepository;
         private readonly IDataContext dataContext;
 
-        public RoleService(IRoleRepository roleRepository, IEmployeeRoleRepository employeeRoleRepository, IDataContext dataContext)
+        public RoleService(IRoleRepository roleRepository,
+            IEmployeeRoleRepository employeeRoleRepository,
+            IDataContext dataContext)
         {
             this.roleRepository = roleRepository;
             this.employeeRoleRepository = employeeRoleRepository;
             this.dataContext = dataContext;
         }
 
-        public async Task<Role> AddRoleAsync(string name)
+        public async Task<Role> CreateAsync(string name)
         {
             var role = new Role { Name = name };
 
@@ -32,7 +34,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return role;
         }
 
-        public async Task RemoveRoleAsync(Role role)
+        public async Task RemoveAsync(Role role)
         {
             var empOrgRoles = await employeeRoleRepository
                 .GetQuery()
@@ -44,12 +46,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await dataContext.SaveChangesAsync();
         }
 
-        public async Task UpdateRoleAsync(Role role)
+        public async Task UpdateAsync(Role role)
         {
             roleRepository.Update(role);
             await dataContext.SaveChangesAsync();
         }
 
-        public async Task<List<Role>> GetRolesAsync() => await roleRepository.GetQuery().ToListAsync();
+        public async Task<List<Role>> GetAsync() => await roleRepository.GetQuery().ToListAsync();
     }
 }
