@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
@@ -10,24 +9,24 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 {
     public class RolesController : Controller
     {
-        private readonly IRoleService roleService;
+        private readonly IRoleService service;
 
-        public RolesController(IRoleService roleService)
+        public RolesController(IRoleService service)
         {
-            this.roleService = roleService;
+            this.service = service;
         }
 
         // GET: Roles
         public async Task<IActionResult> Index()
         {
-            var roles = await roleService.GetAsync();
+            var roles = await service.GetAsync();
             return View(roles);
         }
 
         // GET: Roles/Details/5
         public async Task<IActionResult> Details(Guid id)
         {
-            var role = await roleService.GetAsync(id);
+            var role = await service.GetAsync(id);
             return View(role);
         }
 
@@ -42,22 +41,19 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateRoleViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                await roleService.CreateAsync(model);
-
+                await service.CreateAsync(model);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(model);
         }
 
         // GET: Roles/Edit/5
         public async Task<IActionResult> Edit(Guid id)
         {
-            var role = await roleService.GetAsync(id);
+            var role = await service.GetAsync(id);
             return View(role);
         }
 
@@ -66,22 +62,20 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Role role)
         {
-            try
+            if (ModelState.IsValid)
             {
-                await roleService.UpdateAsync(role);
+                await service.UpdateAsync(role);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(role);
         }
 
         // GET: Roles/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
-            var role = await roleService.GetAsync(id);
+            var role = await service.GetAsync(id);
             return View(role);
         }
 
@@ -90,16 +84,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, Role role)
         {
-            try
-            {
-                await roleService.RemoveAsync(role);
+            await service.RemoveAsync(role);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

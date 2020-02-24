@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,5 +66,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         }
 
         public async Task<List<Employee>> GetAsync() => await employeeRepository.GetQuery().ToListAsync();
+
+        public async Task<Employee> GetAsync(Guid id) =>
+            await employeeRepository.GetQuery().FirstOrDefaultAsync(e => e.Id == id);
     }
 }
