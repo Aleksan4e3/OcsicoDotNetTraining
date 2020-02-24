@@ -2,88 +2,88 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Contracts;
+using Microsoft.EntityFrameworkCore;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositories.Contracts;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services
 {
     public class OrganizationService : IOrganizationService
     {
         private readonly IOrganizationRepository organizationRepository;
-        private readonly IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository;
+        private readonly IEmployeeRoleRepository employeeRoleRepository;
         private readonly IEmployeeRepository employeeRepository;
+        private readonly IDataContext dataContext;
 
-        public OrganizationService(IOrganizationRepository organizationRepository, IEmployeeRepository employeeRepository, IEmployeeOrganizationRoleRepository employeeOrganizationRoleRepository)
+        public OrganizationService(IOrganizationRepository organizationRepository,
+            IEmployeeRoleRepository employeeRoleRepository,
+            IEmployeeRepository employeeRepository,
+            IDataContext dataContext)
         {
             this.organizationRepository = organizationRepository;
+            this.employeeRoleRepository = employeeRoleRepository;
             this.employeeRepository = employeeRepository;
-            this.employeeOrganizationRoleRepository = employeeOrganizationRoleRepository;
+            this.dataContext = dataContext;
         }
 
-        public async Task<Organization> CreateOrganizationAsync(string name)
+        public async Task<Organization> CreateAsync(string name)
         {
             var organization = new Organization { Name = name };
-            var organizations = await organizationRepository.GetAllAsync();
-
-            if (organizations.Any(org => org.Id == organization.Id))
-            {
-                throw new ArgumentException("Organization with same Id already exist");
-            }
 
             await organizationRepository.AddAsync(organization);
+            await dataContext.SaveChangesAsync();
 
             return organization;
         }
 
-        public async Task<List<Employee>> GetEmployeesAsync(Guid organizationId)
+        public async Task AttachEmployeeAsync(Guid organizationId, Guid employeeId, Guid roleId)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
-            var empOrgRoles = empOrgRolesAll.FindAll(e => e.OrganizationId == organizationId);
-            var employeesAll = await employeeRepository.GetAllAsync();
-            var employees = employeesAll.FindAll(emp => empOrgRoles.Select(e => e.EmployeeId).Contains(emp.Id));
+            var empOrgRole = CreateEmployeeRole(organizationId, employeeId, roleId);
 
-            return employees;
+            await employeeRoleRepository.AddAsync(empOrgRole);
+            await dataContext.SaveChangesAsync();
         }
 
         public async Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId)
         {
-            var empOrgRolesAll = await employeeOrganizationRoleRepository.GetAllAsync();
-            var empOrgRoles = empOrgRolesAll.FindAll(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId);
+            var empOrgRoles = await employeeRoleRepository
+                .GetQuery()
+                .Where(e => e.OrganizationId == organizationId && e.EmployeeId == employeeId)
+                .ToListAsync();
 
-            foreach (var empOrgRole in empOrgRoles)
-            {
-                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRole);
-            }
+            employeeRoleRepository.RemoveRange(empOrgRoles);
+            await dataContext.SaveChangesAsync();
         }
 
-        public async Task AddEmployeeToOrganizationAsync(Guid organizationId, Guid employeeId, Guid roleId)
+        public async Task<List<Employee>> GetEmployeesAsync(Guid organizationId)
         {
-            var empOrgRole = new EmployeeOrganizationRole
-            {
-                EmployeeId = employeeId,
-                OrganizationId = organizationId,
-                RoleId = roleId
-            };
+            var employees = await employeeRepository
+                .GetQuery()
+                .Where(emp => emp.EmployeeRoles.Select(e => e.OrganizationId).Contains(organizationId))
+                .ToListAsync();
 
-            await employeeOrganizationRoleRepository.AddAsync(empOrgRole);
+            return employees.ToList();
         }
 
         public async Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
         {
             if (roleIdRemove != null)
             {
-                var empOrgRoleRemove = CreateEmployeeOrganizationRole(organizationId, employeeId, (Guid)roleIdRemove);
+                var empOrgRoleRemove = CreateEmployeeRole(organizationId, employeeId, (Guid)roleIdRemove);
 
-                await employeeOrganizationRoleRepository.RemoveAsync(empOrgRoleRemove);
+                employeeRoleRepository.Remove(empOrgRoleRemove);
             }
 
-            var empOrgRoleAdd = CreateEmployeeOrganizationRole(organizationId, employeeId, roleIdAdd);
+            var empOrgRoleAdd = CreateEmployeeRole(organizationId, employeeId, roleIdAdd);
 
-            await employeeOrganizationRoleRepository.AddAsync(empOrgRoleAdd);
+            await employeeRoleRepository.AddAsync(empOrgRoleAdd);
+            await dataContext.SaveChangesAsync();
         }
 
-        private EmployeeOrganizationRole CreateEmployeeOrganizationRole(Guid organizationId, Guid employeeId,
-            Guid roleId) => new EmployeeOrganizationRole
+        private EmployeeRole CreateEmployeeRole(Guid organizationId, Guid employeeId,
+            Guid roleId) => new EmployeeRole
             {
                 EmployeeId = employeeId,
                 OrganizationId = organizationId,
