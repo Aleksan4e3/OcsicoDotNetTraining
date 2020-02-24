@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspApplication.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
@@ -36,6 +37,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await dataContext.SaveChangesAsync();
 
             return organization;
+        }
+
+        public async Task<CreateOrganizationViewModel> CreateAsync(CreateOrganizationViewModel model)
+        {
+            var organization = new Organization { Name = model.Name };
+
+            await organizationRepository.AddAsync(organization);
+            await dataContext.SaveChangesAsync();
+
+            return new CreateOrganizationViewModel { Name = model.Name };
         }
 
         public async Task AttachEmployeeAsync(Guid organizationId, Guid employeeId, Guid roleId)

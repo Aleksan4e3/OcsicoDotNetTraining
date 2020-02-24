@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspApplication.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
@@ -32,6 +33,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await dataContext.SaveChangesAsync();
 
             return role;
+        }
+
+        public async Task<CreateRoleViewModel> CreateAsync(CreateRoleViewModel model)
+        {
+            var role = new Role { Name = model.Name };
+
+            await roleRepository.AddAsync(role);
+            await dataContext.SaveChangesAsync();
+
+            return new CreateRoleViewModel { Name = role.Name };
         }
 
         public async Task RemoveAsync(Role role)
