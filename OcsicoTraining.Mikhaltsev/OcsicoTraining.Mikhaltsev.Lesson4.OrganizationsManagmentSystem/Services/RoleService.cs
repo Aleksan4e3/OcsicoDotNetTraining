@@ -43,6 +43,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             employeeRoleRepository.RemoveRange(empOrgRoles);
             roleRepository.Remove(role);
+
             await dataContext.SaveChangesAsync();
         }
 

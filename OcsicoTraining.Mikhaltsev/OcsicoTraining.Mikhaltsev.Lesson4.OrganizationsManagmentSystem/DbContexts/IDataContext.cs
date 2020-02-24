@@ -7,6 +7,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbConte
     public interface IDataContext
     {
         DbSet<T> Set<T>() where T : class, IModelEntity;
+
         Task<int> SaveChangesAsync();
     }
 }

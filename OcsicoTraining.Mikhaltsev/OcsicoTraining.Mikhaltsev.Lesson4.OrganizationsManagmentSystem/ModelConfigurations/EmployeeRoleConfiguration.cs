@@ -8,7 +8,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ModelCo
     {
         public void Configure(EntityTypeBuilder<EmployeeRole> builder)
         {
+            builder.ToTable("EmployeeRoles");
+
             builder.HasKey(x => new { x.EmployeeId, x.OrganizationId, x.RoleId });
+
             builder.Property(x => x.EmployeeId)
                 .IsRequired()
                 .ValueGeneratedNever();
@@ -31,8 +34,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ModelCo
                 .WithMany(x => x.EmployeeRoles)
                 .HasForeignKey(x => x.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder.ToTable("EmployeeRoles");
         }
     }
 }
