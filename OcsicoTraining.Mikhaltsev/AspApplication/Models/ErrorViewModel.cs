@@ -1,6 +1,4 @@
-using System;
-
-namespace AspApplication.Models
+namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Models
 {
     public class ErrorViewModel
     {

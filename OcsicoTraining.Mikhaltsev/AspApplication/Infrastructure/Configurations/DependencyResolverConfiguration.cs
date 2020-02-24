@@ -4,7 +4,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Repositorie
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
 
-namespace AspApplication.Infrastructure.Configurations
+namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Configurations
 {
     public static class DependencyResolverConfiguration
     {

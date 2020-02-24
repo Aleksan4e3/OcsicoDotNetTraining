@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 
-namespace AspApplication.Infrastructure.Configurations
+namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Configurations
 {
     public static class DataContextConfiguration
     {

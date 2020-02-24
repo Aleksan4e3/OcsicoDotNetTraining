@@ -1,11 +1,11 @@
-using AspApplication.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Configurations;
 
-namespace AspApplication
+namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations
 {
     public class Startup
     {

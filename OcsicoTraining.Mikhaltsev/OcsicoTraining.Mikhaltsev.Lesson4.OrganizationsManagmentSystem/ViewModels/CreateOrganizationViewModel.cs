@@ -1,4 +1,4 @@
-namespace AspApplication.ViewModels
+namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewModels
 {
     public class CreateOrganizationViewModel
     {

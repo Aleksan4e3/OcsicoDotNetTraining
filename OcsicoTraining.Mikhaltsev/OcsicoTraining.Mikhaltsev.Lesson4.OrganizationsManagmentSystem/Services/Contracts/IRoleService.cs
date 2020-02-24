@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
@@ -10,5 +11,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task RemoveAsync(Role role);
         Task UpdateAsync(Role role);
         Task<List<Role>> GetAsync();
+        Task<Role> GetAsync(Guid id);
     }
 }
