@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewModels;
 
@@ -39,11 +40,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         // POST: Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public Task<IActionResult> Create(CreateRoleViewModel model)
+        public async Task<IActionResult> Create(CreateRoleViewModel model)
         {
             try
             {
-
+                await roleService.CreateAsync(model);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -63,11 +64,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         // POST: Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(Guid id, Role role)
         {
             try
             {
-                // TODO: Add update logic here
+                await roleService.UpdateAsync(role);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -78,19 +79,20 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         // GET: Roles/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            return View();
+            var role = await roleService.GetAsync(id);
+            return View(role);
         }
 
         // POST: Roles/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id, Role role)
         {
             try
             {
-                // TODO: Add delete logic here
+                await roleService.RemoveAsync(role);
 
                 return RedirectToAction(nameof(Index));
             }
