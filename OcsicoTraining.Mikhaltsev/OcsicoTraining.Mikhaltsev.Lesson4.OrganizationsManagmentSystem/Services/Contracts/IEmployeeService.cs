@@ -14,5 +14,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task UpdateAsync(Employee employee);
         Task<List<Employee>> GetAsync();
         Task<Employee> GetAsync(Guid id);
+        Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectList();
     }
 }

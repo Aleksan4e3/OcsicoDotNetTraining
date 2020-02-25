@@ -78,6 +78,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return employees.ToList();
         }
 
+        public async Task<List<EmployeeRole>> GetEmployeeRolesAsync(Guid organizationId) =>
+            await employeeRoleRepository
+                .GetQuery()
+                .Where(e => e.OrganizationId == organizationId)
+                .ToListAsync();
+
         public async Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
         {
             if (roleIdRemove != null)
