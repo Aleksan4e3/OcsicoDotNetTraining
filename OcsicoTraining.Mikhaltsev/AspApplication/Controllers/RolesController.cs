@@ -16,27 +16,23 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             this.service = service;
         }
 
-        // GET: Roles
         public async Task<IActionResult> Index()
         {
             var roles = await service.GetAsync();
             return View(roles);
         }
 
-        // GET: Roles/Details/5
         public async Task<IActionResult> Details(Guid id)
         {
             var role = await service.GetAsync(id);
             return View(role);
         }
 
-        // GET: Roles/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateRoleViewModel model)
@@ -50,14 +46,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(model);
         }
 
-        // GET: Roles/Edit/5
         public async Task<IActionResult> Edit(Guid id)
         {
             var role = await service.GetAsync(id);
             return View(role);
         }
 
-        // POST: Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Role role)
@@ -72,14 +66,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(role);
         }
 
-        // GET: Roles/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
             var role = await service.GetAsync(id);
             return View(role);
         }
 
-        // POST: Roles/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, Role role)

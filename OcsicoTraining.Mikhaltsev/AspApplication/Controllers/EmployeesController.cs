@@ -16,29 +16,23 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             this.service = service;
         }
 
-        // GET: Employees
         public async Task<IActionResult> Index()
         {
             var employees = await service.GetAsync();
             return View(employees);
         }
 
-        // GET: Employees/Details/5
         public async Task<IActionResult> Details(Guid id)
         {
             var employee = await service.GetAsync(id);
             return View(employee);
         }
 
-        // GET: Employees/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Employees/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateEmployeeViewModel model)
@@ -52,16 +46,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(model);
         }
 
-        // GET: Employees/Edit/5
         public async Task<IActionResult> Edit(Guid id)
         {
             var employee = await service.GetAsync(id);
             return View(employee);
         }
 
-        // POST: Employees/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Employee employee)
@@ -75,14 +65,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(employee);
         }
 
-        // GET: Employees/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
             var employee = await service.GetAsync(id);
             return View(employee);
         }
 
-        // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id, Employee employee)
