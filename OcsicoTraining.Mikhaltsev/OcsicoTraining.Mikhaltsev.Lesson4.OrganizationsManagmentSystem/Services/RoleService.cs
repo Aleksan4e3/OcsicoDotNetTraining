@@ -69,5 +69,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public async Task<Role> GetAsync(Guid id) =>
             await roleRepository.GetQuery().FirstOrDefaultAsync(e => e.Id == id);
+
+        public async Task<List<DropDownRoleViewModel>> GetRolesSelectList()
+        {
+            var roles = await GetAsync();
+
+            return roles.Select(x => new DropDownRoleViewModel { Id = x.Id, Name = x.Name }).ToList();
+        }
     }
 }

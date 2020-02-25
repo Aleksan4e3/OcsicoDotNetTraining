@@ -56,6 +56,20 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await employeeRoleRepository.AddAsync(empOrgRole);
             await dataContext.SaveChangesAsync();
         }
+        public async Task AttachEmployeeAsync(AddEmployeeToOrganizationViewModel model)
+        {
+            if (model.SelectedEmployeeId != null && model.SelectedRoleId != null)
+            {
+                var empOrgRole = CreateEmployeeRole(model.OrganizationId,
+                    (Guid)model.SelectedEmployeeId,
+                    (Guid)model.SelectedRoleId);
+
+                await employeeRoleRepository.AddAsync(empOrgRole);
+            }
+
+            await dataContext.SaveChangesAsync();
+        }
+
 
         public async Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId)
         {

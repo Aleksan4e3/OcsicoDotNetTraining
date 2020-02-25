@@ -14,5 +14,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task UpdateAsync(Role role);
         Task<List<Role>> GetAsync();
         Task<Role> GetAsync(Guid id);
+        Task<List<DropDownRoleViewModel>> GetRolesSelectList();
     }
 }

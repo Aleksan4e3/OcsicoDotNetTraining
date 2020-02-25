@@ -72,11 +72,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public async Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectList()
         {
-            var employees = await employeeRepository
-                .GetQuery()
-                .ToListAsync();
+            var employees = await GetAsync();
 
-            return employees.Select(x => new DropDownEmployeeViewModel {Id = x.Id, FullName = x.Name}).ToList();
+            return employees.Select(x => new DropDownEmployeeViewModel { Id = x.Id, Name = x.Name }).ToList();
         }
     }
 }

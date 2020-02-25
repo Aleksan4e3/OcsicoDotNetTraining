@@ -16,5 +16,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task<List<Employee>> GetEmployeesAsync(Guid organizationId);
         Task<List<EmployeeRole>> GetEmployeeRolesAsync(Guid organizationId);
         Task<List<Organization>> GetAsync();
+        Task AttachEmployeeAsync(AddEmployeeToOrganizationViewModel model);
     }
 }
