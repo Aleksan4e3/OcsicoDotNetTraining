@@ -12,5 +12,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId);
         Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleAdd, Guid? roleRemove);
         Task<List<Employee>> GetEmployeesAsync(Guid organizationId);
+        Task<List<Organization>> GetAsync();
     }
 }

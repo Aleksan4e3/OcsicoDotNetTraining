@@ -48,7 +48,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Employees}/{action=Index}/{id?}");
             });
         }
     }

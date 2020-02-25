@@ -93,6 +93,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await dataContext.SaveChangesAsync();
         }
 
+        public async Task<List<Organization>> GetAsync() =>
+            await organizationRepository.GetQuery().ToListAsync();
+
         private EmployeeRole CreateEmployeeRole(Guid organizationId, Guid employeeId,
             Guid roleId) => new EmployeeRole
             {
