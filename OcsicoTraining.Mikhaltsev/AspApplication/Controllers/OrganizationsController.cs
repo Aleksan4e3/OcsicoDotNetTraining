@@ -56,7 +56,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 
         public async Task<IActionResult> Add(Guid id)
         {
-            var model = await CreateModelAsync(id);
+            var model = await CreateModelForAddAsync(id);
 
             return View(model);
         }
@@ -72,13 +72,36 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            model = await CreateModelAsync(model.OrganizationId);
+            model = await CreateModelForAddAsync(model.OrganizationId);
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Remove(Guid id)
+        {
+            var model = await CreateModelForRemoveAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Remove(RemoveEmployeeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await organizationService.RemoveEmployeeAsync(model);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            model = await CreateModelForRemoveAsync(model.OrganizationId);
 
             return View(model);
         }
 
         [NonAction]
-        private async Task<AddEmployeeToOrganizationViewModel> CreateModelAsync(Guid id)
+        private async Task<AddEmployeeToOrganizationViewModel> CreateModelForAddAsync(Guid id)
         {
             var employees = await employeeService.GetEmployeesSelectList();
             var roles = await roleService.GetRolesSelectList();
@@ -94,6 +117,23 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
                 }).ToList(),
 
                 Roles = roles.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList()
+            };
+        }
+
+        [NonAction]
+        private async Task<RemoveEmployeeViewModel> CreateModelForRemoveAsync(Guid id)
+        {
+            var employees = await organizationService.GetEmployeesSelectList(id);
+
+            return new RemoveEmployeeViewModel
+            {
+                OrganizationId = id,
+
+                Employees = employees.Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
