@@ -18,6 +18,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task<Employee> GetAsync(Guid id);
         Task<EmployeeViewModel> GetViewModelAsync(Guid id);
         Task<List<EmployeeViewModel>> GetAllAsync();
-        Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectList();
+        Task<List<DropDownViewModel>> GetEmployeesSelectList();
     }
 }

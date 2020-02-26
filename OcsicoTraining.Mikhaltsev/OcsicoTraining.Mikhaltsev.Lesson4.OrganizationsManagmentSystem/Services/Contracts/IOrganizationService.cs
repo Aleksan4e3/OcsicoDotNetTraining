@@ -21,7 +21,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task<List<Organization>> GetAsync();
         Task<List<OrganizationViewModel>> GetAllAsync();
         Task AttachEmployeeAsync(AddEmployeeToOrganizationViewModel model);
-        Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectListAsync(Guid organizationId);
-        Task<List<DropDownRoleViewModel>> GetRolesSelectListAsync(Guid organizationId, Guid employeeId);
+        Task<List<DropDownViewModel>> GetEmployeesSelectListAsync(Guid organizationId);
+        Task<List<DropDownViewModel>> GetRolesSelectListAsync(Guid organizationId, Guid employeeId);
     }
 }

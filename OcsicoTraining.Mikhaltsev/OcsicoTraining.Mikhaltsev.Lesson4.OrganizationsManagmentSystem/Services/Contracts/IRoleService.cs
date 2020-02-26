@@ -18,6 +18,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task<List<RoleViewModel>> GetAllAsync();
         Task<RoleViewModel> GetViewModelAsync(Guid id);
         Task<Role> GetAsync(Guid id);
-        Task<List<DropDownRoleViewModel>> GetRolesSelectListAsync();
+        Task<List<DropDownViewModel>> GetRolesSelectListAsync();
     }
 }

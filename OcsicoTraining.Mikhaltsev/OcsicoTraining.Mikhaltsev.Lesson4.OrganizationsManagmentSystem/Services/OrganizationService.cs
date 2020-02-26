@@ -163,19 +163,19 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return organizations.Select(x => new OrganizationViewModel { Id = x.Id, Name = x.Name }).ToList();
         }
 
-        public async Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectListAsync(Guid organizationId)
+        public async Task<List<DropDownViewModel>> GetEmployeesSelectListAsync(Guid organizationId)
         {
             var employees = await GetEmployeesAsync(organizationId);
 
-            return employees.Select(x => new DropDownEmployeeViewModel { Id = x.Id, Name = x.Name }).ToList();
+            return employees.Select(x => new DropDownViewModel { Id = x.Id, Name = x.Name }).ToList();
         }
 
-        public async Task<List<DropDownRoleViewModel>> GetRolesSelectListAsync(Guid organizationId, Guid employeeId) =>
+        public async Task<List<DropDownViewModel>> GetRolesSelectListAsync(Guid organizationId, Guid employeeId) =>
             await employeeRoleRepository
                 .GetQuery()
                 .Include(x => x.Role)
                 .Where(x => x.OrganizationId == organizationId && x.EmployeeId == employeeId)
-                .Select(x => new DropDownRoleViewModel { Id = x.RoleId, Name = x.Role.Name })
+                .Select(x => new DropDownViewModel { Id = x.RoleId, Name = x.Role.Name })
                 .ToListAsync();
 
         private EmployeeRole CreateEmployeeRole(Guid organizationId, Guid employeeId,

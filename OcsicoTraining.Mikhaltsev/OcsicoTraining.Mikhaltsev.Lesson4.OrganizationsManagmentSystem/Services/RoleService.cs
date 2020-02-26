@@ -104,11 +104,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 .Select(e => new RoleViewModel { Id = e.Id, Name = e.Name })
                 .FirstOrDefaultAsync(e => e.Id == id);
 
-        public async Task<List<DropDownRoleViewModel>> GetRolesSelectListAsync()
+        public async Task<List<DropDownViewModel>> GetRolesSelectListAsync()
         {
             var roles = await GetAsync();
 
-            return roles.Select(x => new DropDownRoleViewModel { Id = x.Id, Name = x.Name }).ToList();
+            return roles.Select(x => new DropDownViewModel { Id = x.Id, Name = x.Name }).ToList();
         }
     }
 }

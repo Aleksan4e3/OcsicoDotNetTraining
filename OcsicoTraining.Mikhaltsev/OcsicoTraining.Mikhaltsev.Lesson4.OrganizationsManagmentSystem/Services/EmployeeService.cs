@@ -105,11 +105,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 .Select(e => new EmployeeViewModel { Id = e.Id, Name = e.Name })
                 .FirstOrDefaultAsync(e => e.Id == id);
 
-        public async Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectList()
+        public async Task<List<DropDownViewModel>> GetEmployeesSelectList()
         {
             var employees = await GetAsync();
 
-            return employees.Select(x => new DropDownEmployeeViewModel { Id = x.Id, Name = x.Name }).ToList();
+            return employees.Select(x => new DropDownViewModel { Id = x.Id, Name = x.Name }).ToList();
         }
     }
 }
