@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 # ignore an entire directory
-/OcsicoTraining.Mikhaltsev/AspApplication/wwwroot/lib/
+/OcsicoDotNetTraining/tree/AM-lesson9/OcsicoTraining.Mikhaltsev/AspApplication/wwwroot/lib/
