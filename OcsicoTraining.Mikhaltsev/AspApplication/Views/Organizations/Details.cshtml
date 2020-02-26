@@ -18,6 +18,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Role)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Role.Name)
                 </td>
+                <td>@Html.ActionLink("NewRole", "AssignRole", new { id = item.OrganizationId, employeeId = item.EmployeeId })</td>
             </tr>
         }
     </tbody>

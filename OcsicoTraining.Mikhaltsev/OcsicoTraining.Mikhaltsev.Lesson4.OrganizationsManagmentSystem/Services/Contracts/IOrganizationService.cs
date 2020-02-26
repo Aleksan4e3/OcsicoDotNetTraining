@@ -14,10 +14,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task RemoveEmployeeAsync(Guid organizationId, Guid employeeId);
         Task RemoveEmployeeAsync(RemoveEmployeeViewModel model);
         Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleAdd, Guid? roleRemove);
+        Task AssignNewRoleAsync(AssignNewRoleViewModel model);
         Task<List<Employee>> GetEmployeesAsync(Guid organizationId);
         Task<List<EmployeeRole>> GetEmployeeRolesAsync(Guid organizationId);
         Task<List<Organization>> GetAsync();
         Task AttachEmployeeAsync(AddEmployeeToOrganizationViewModel model);
-        Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectList(Guid organizationId);
+        Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectListAsync(Guid organizationId);
+        Task<List<DropDownRoleViewModel>> GetRolesSelectListAsync(Guid organizationId, Guid employeeId);
     }
 }

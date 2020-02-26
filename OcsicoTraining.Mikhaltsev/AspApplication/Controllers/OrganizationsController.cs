@@ -100,6 +100,29 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> AssignRole(Guid id, Guid employeeId)
+        {
+            var model = await CreateModelForAssignRoleAsync(id, employeeId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignRole(AssignNewRoleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await organizationService.AssignNewRoleAsync(model);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            model = await CreateModelForAssignRoleAsync(model.OrganizationId, model.EmployeeId);
+
+            return View(model);
+        }
+
         [NonAction]
         private async Task<AddEmployeeToOrganizationViewModel> CreateModelForAddAsync(Guid id)
         {
@@ -127,13 +150,40 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [NonAction]
         private async Task<RemoveEmployeeViewModel> CreateModelForRemoveAsync(Guid id)
         {
-            var employees = await organizationService.GetEmployeesSelectList(id);
+            var employees = await organizationService.GetEmployeesSelectListAsync(id);
 
             return new RemoveEmployeeViewModel
             {
                 OrganizationId = id,
 
                 Employees = employees.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList()
+            };
+        }
+
+        [NonAction]
+        private async Task<AssignNewRoleViewModel> CreateModelForAssignRoleAsync(Guid id, Guid employeeId)
+        {
+            var rolesRemove = await organizationService.GetRolesSelectListAsync(id, employeeId);
+            var rolesAdd =
+                (await roleService.GetRolesSelectList()).Where(x => !rolesRemove.Select(y => y.Id).Contains(x.Id));
+
+            return new AssignNewRoleViewModel
+            {
+                OrganizationId = id,
+
+                EmployeeId = employeeId,
+
+                RolesAdd = rolesAdd.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList(),
+
+                RolesRemove = rolesRemove.Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
