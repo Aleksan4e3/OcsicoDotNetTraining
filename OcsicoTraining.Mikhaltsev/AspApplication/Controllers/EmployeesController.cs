@@ -9,25 +9,27 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 {
     public class EmployeesController : Controller
     {
-        private readonly IEmployeeService service;
+        private readonly IEmployeeService employeeService;
 
-        public EmployeesController(IEmployeeService service)
+        public EmployeesController(IEmployeeService employeeService)
         {
-            this.service = service;
+            this.employeeService = employeeService;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var employees = await service.GetAsync();
+            var employees = await employeeService.GetAsync();
             return View(employees);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
-            var employee = await service.GetAsync(id);
+            var employee = await employeeService.GetAsync(id);
             return View(employee);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -39,16 +41,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         {
             if (ModelState.IsValid)
             {
-                await service.CreateAsync(model);
+                await employeeService.CreateAsync(model);
                 return RedirectToAction(nameof(Index));
             }
 
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var employee = await service.GetAsync(id);
+            var employee = await employeeService.GetAsync(id);
             return View(employee);
         }
 
@@ -58,16 +61,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         {
             if (ModelState.IsValid)
             {
-                await service.UpdateAsync(employee);
+                await employeeService.UpdateAsync(employee);
 
                 return RedirectToAction(nameof(Index));
             }
             return View(employee);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var employee = await service.GetAsync(id);
+            var employee = await employeeService.GetAsync(id);
             return View(employee);
         }
 
@@ -75,7 +79,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id, Employee employee)
         {
-            await service.RemoveAsync(employee);
+            await employeeService.RemoveAsync(employee);
 
             return RedirectToAction(nameof(Index));
         }

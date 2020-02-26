@@ -23,18 +23,21 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             this.roleService = roleService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var organizations = await organizationService.GetAsync();
             return View(organizations);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
             var employeeRoles = await organizationService.GetEmployeeRolesAsync(id);
             return View(employeeRoles);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +57,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Add(Guid id)
         {
             var model = await CreateModelForAddAsync(id);
@@ -77,6 +81,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Remove(Guid id)
         {
             var model = await CreateModelForRemoveAsync(id);
@@ -100,6 +105,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> AssignRole(Guid id, Guid employeeId)
         {
             var model = await CreateModelForAssignRoleAsync(id, employeeId);
