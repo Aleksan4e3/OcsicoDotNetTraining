@@ -108,6 +108,21 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 .Where(e => e.OrganizationId == organizationId)
                 .ToListAsync();
 
+        public async Task<List<EmployeeRoleViewModel>> GetEmployeeRolesViewModelAsync(Guid organizationId)
+        {
+            var employeeRoles = await GetEmployeeRolesAsync(organizationId);
+
+            return employeeRoles
+                .Select(x =>
+                    new EmployeeRoleViewModel
+                    {
+                        Employee = x.Employee,
+                        Organization = x.Organization,
+                        Role = x.Role
+                    })
+                .ToList();
+        }
+
         public async Task AssignNewRoleAsync(Guid organizationId, Guid employeeId, Guid roleIdAdd, Guid? roleIdRemove)
         {
             if (roleIdRemove != null)
@@ -140,6 +155,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
         public async Task<List<Organization>> GetAsync() =>
             await organizationRepository.GetQuery().ToListAsync();
+
+        public async Task<List<OrganizationViewModel>> GetAllAsync()
+        {
+            var organizations = await GetAsync();
+
+            return organizations.Select(x => new OrganizationViewModel { Id = x.Id, Name = x.Name }).ToList();
+        }
 
         public async Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectListAsync(Guid organizationId)
         {

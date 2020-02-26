@@ -59,18 +59,52 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await dataContext.SaveChangesAsync();
         }
 
+        public async Task RemoveAsync(RoleViewModel roleViewModel)
+        {
+            var role = new Role { Id = roleViewModel.Id, Name = roleViewModel.Name };
+            var empOrgRoles = await employeeRoleRepository
+                .GetQuery()
+                .Where(e => e.RoleId == roleViewModel.Id)
+                .ToListAsync();
+
+            employeeRoleRepository.RemoveRange(empOrgRoles);
+            roleRepository.Remove(role);
+
+            await dataContext.SaveChangesAsync();
+        }
+
         public async Task UpdateAsync(Role role)
         {
             roleRepository.Update(role);
             await dataContext.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(RoleViewModel roleViewModel)
+        {
+            var role = new Role { Id = roleViewModel.Id, Name = roleViewModel.Name };
+
+            roleRepository.Update(role);
+            await dataContext.SaveChangesAsync();
+        }
+
         public async Task<List<Role>> GetAsync() => await roleRepository.GetQuery().ToListAsync();
+
+        public async Task<List<RoleViewModel>> GetAllAsync()
+        {
+            var roles = await GetAsync();
+
+            return roles.Select(x => new RoleViewModel { Id = x.Id, Name = x.Name }).ToList();
+        }
 
         public async Task<Role> GetAsync(Guid id) =>
             await roleRepository.GetQuery().FirstOrDefaultAsync(e => e.Id == id);
 
-        public async Task<List<DropDownRoleViewModel>> GetRolesSelectList()
+        public async Task<RoleViewModel> GetViewModelAsync(Guid id) =>
+            await roleRepository.GetQuery()
+                .Select(e => new RoleViewModel { Id = e.Id, Name = e.Name })
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+        public async Task<List<DropDownRoleViewModel>> GetRolesSelectListAsync()
         {
             var roles = await GetAsync();
 

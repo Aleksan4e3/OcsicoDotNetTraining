@@ -59,16 +59,51 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             await dataContext.SaveChangesAsync();
         }
 
+        public async Task RemoveAsync(EmployeeViewModel employeeViewModel)
+        {
+            var employee = new Employee { Id = employeeViewModel.Id, Name = employeeViewModel.Name };
+            var empOrgRoles = await employeeRoleRepository
+                .GetQuery()
+                .Where(e => e.EmployeeId == employeeViewModel.Id)
+                .ToListAsync();
+
+            employeeRoleRepository.RemoveRange(empOrgRoles);
+            employeeRepository.Remove(employee);
+
+            await dataContext.SaveChangesAsync();
+        }
+
         public async Task UpdateAsync(Employee employee)
         {
             employeeRepository.Update(employee);
             await dataContext.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(EmployeeViewModel employeeViewModel)
+        {
+            var employee = new Employee { Id = employeeViewModel.Id, Name = employeeViewModel.Name };
+
+            employeeRepository.Update(employee);
+            await dataContext.SaveChangesAsync();
+        }
+
         public async Task<List<Employee>> GetAsync() => await employeeRepository.GetQuery().ToListAsync();
+
+        public async Task<List<EmployeeViewModel>> GetAllAsync()
+        {
+            var employees = await GetAsync();
+
+            return employees.Select(x => new EmployeeViewModel { Id = x.Id, Name = x.Name }).ToList();
+        }
 
         public async Task<Employee> GetAsync(Guid id) =>
             await employeeRepository.GetQuery().FirstOrDefaultAsync(e => e.Id == id);
+
+        public async Task<EmployeeViewModel> GetViewModelAsync(Guid id) =>
+            await employeeRepository
+                .GetQuery()
+                .Select(e => new EmployeeViewModel { Id = e.Id, Name = e.Name })
+                .FirstOrDefaultAsync(e => e.Id == id);
 
         public async Task<List<DropDownEmployeeViewModel>> GetEmployeesSelectList()
         {

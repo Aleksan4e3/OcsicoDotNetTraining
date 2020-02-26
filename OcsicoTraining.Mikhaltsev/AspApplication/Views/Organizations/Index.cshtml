@@ -1,4 +1,4 @@
-@model IEnumerable<OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.Organization>
+@model IEnumerable<OrganizationViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,18 +19,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model != null)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <a asp-action="Add" asp-route-id="@item.Id">AddEmployee</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Remove" asp-route-id="@item.Id">RemoveEmployee</a>
-                </td>
-            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Add" asp-route-id="@item.Id">AddEmployee</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Remove" asp-route-id="@item.Id">RemoveEmployee</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

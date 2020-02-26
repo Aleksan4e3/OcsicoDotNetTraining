@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewModels;
 
@@ -9,24 +8,24 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 {
     public class RolesController : Controller
     {
-        private readonly IRoleService service;
+        private readonly IRoleService roleService;
 
-        public RolesController(IRoleService service)
+        public RolesController(IRoleService roleService)
         {
-            this.service = service;
+            this.roleService = roleService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var roles = await service.GetAsync();
+            var roles = await roleService.GetAllAsync();
             return View(roles);
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
-            var role = await service.GetAsync(id);
+            var role = await roleService.GetViewModelAsync(id);
             return View(role);
         }
 
@@ -42,7 +41,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         {
             if (ModelState.IsValid)
             {
-                await service.CreateAsync(model);
+                await roleService.CreateAsync(model);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -52,17 +51,17 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var role = await service.GetAsync(id);
+            var role = await roleService.GetViewModelAsync(id);
             return View(role);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Role role)
+        public async Task<IActionResult> Edit(Guid id, RoleViewModel role)
         {
             if (ModelState.IsValid)
             {
-                await service.UpdateAsync(role);
+                await roleService.UpdateAsync(role);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -73,15 +72,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var role = await service.GetAsync(id);
+            var role = await roleService.GetViewModelAsync(id);
             return View(role);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, Role role)
+        public async Task<IActionResult> Delete(int id, RoleViewModel role)
         {
-            await service.RemoveAsync(role);
+            await roleService.RemoveAsync(role);
 
             return RedirectToAction(nameof(Index));
         }

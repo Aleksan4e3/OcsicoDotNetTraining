@@ -11,9 +11,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         Task<Role> CreateAsync(string name);
         Task<CreateRoleViewModel> CreateAsync(CreateRoleViewModel model);
         Task RemoveAsync(Role role);
+        Task RemoveAsync(RoleViewModel roleViewModel);
         Task UpdateAsync(Role role);
+        Task UpdateAsync(RoleViewModel roleViewModel);
         Task<List<Role>> GetAsync();
+        Task<List<RoleViewModel>> GetAllAsync();
+        Task<RoleViewModel> GetViewModelAsync(Guid id);
         Task<Role> GetAsync(Guid id);
-        Task<List<DropDownRoleViewModel>> GetRolesSelectList();
+        Task<List<DropDownRoleViewModel>> GetRolesSelectListAsync();
     }
 }

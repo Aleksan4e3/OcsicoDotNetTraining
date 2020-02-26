@@ -12,7 +12,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Conf
             services.AddTransient<IDataContext, DataContext>();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"])
-                    .UseLazyLoadingProxies());
+                        .UseLazyLoadingProxies());
         }
     }
 }

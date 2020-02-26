@@ -11,10 +11,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ModelCo
             builder.ToTable("Employees");
 
             builder.HasKey(x => x.Id);
-
             builder.Property(x => x.Id)
                 .IsRequired()
                 .ValueGeneratedOnAdd();
+
             builder.Property(x => x.Name)
                 .IsRequired();
         }
