@@ -1,12 +1,14 @@
+@inject IViewLocalizer Localizer
+
 @model CreateRoleViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = Localizer["Title"];
 }
 
-<h1>Create</h1>
+<h1>@Localizer["Header"]</h1>
 
-<h4>CreateRoleViewModel</h4>
+<h4>@Localizer["Model"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,7 +27,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@Localizer["Back"]</a>
 </div>
 
 @section Scripts {
