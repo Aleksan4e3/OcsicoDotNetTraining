@@ -58,6 +58,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

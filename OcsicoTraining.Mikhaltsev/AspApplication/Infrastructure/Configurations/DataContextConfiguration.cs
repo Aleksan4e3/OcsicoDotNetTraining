@@ -13,6 +13,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Conf
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"])
                         .UseLazyLoadingProxies());
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
         }
     }
 }
