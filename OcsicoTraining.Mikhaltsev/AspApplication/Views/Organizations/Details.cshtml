@@ -1,10 +1,12 @@
+@inject IViewLocalizer Localizer
+
 @model IEnumerable<EmployeeRoleViewModel>
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Localizer["Title"];
 }
 
-<h1>Organization details</h1>
+<h1>@Localizer["Header"]</h1>
 
 <table class="table">
     <thead>
@@ -36,7 +38,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Role.Name)
                     </td>
-                    <td>@Html.ActionLink("NewRole", "AssignRole", new { id = item.Organization.Id, employeeId = item.Employee.Id })</td>
+                    <td>
+                        <a asp-action="AssignRole" asp-route-id="@item.Organization.Id" asp-route-employeeId="@item.Employee.Id">@Localizer["Assign"]</a>
+                    </td>
                 </tr>
             }
         }

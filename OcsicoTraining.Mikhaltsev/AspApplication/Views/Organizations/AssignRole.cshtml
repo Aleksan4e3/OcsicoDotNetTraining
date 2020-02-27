@@ -1,12 +1,14 @@
+@inject IViewLocalizer Localizer
+
 @model AssignNewRoleViewModel
 
 @{
-    ViewData["Title"] = "Assign Role";
+    ViewData["Title"] = Localizer["Title"];
 }
 
-<h1>Assign a new role to employee</h1>
+<h1>@Localizer["Header"]</h1>
 
-<h4>Employee</h4>
+<h4>@Localizer["Model"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -27,14 +29,14 @@
                 @Html.ValidationMessageFor(x => x.SelectedRoleRemoveId, string.Empty, new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <input type="submit" value="Assign" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["Post"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@Localizer["Back"]</a>
 </div>
 
 @section Scripts {
