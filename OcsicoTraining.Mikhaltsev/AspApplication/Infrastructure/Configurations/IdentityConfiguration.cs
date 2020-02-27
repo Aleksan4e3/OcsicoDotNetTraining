@@ -7,7 +7,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Conf
 {
     public static class IdentityConfiguration
     {
-        public static void ConfigureDataContext(this IServiceCollection services) =>
+        public static void ConfigureIdentity(this IServiceCollection services) =>
             services.AddIdentity<User, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationContext>();
     }

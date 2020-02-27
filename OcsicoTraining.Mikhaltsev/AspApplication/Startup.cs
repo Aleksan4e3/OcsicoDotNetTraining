@@ -24,6 +24,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddControllersWithViews().AddViewLocalization();
             services.ConfigureDataContext(Configuration);
+            services.ConfigureIdentity();
             services.ConfigureDependencies();
         }
 
