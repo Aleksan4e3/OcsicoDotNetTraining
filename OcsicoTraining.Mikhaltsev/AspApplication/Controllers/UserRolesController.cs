@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
@@ -8,6 +9,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewModels;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserRolesController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -102,18 +104,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {
-            // het user
+            // get user
             var user = await userManager.FindByIdAsync(userId);
 
             if (user != null)
             {
-                // получем список ролей пользователя
                 var userRoles = await userManager.GetRolesAsync(user);
-                // получаем все роли
-                var allRoles = roleManager.Roles.ToList();
-                // получаем список ролей, которые были добавлены
                 var addedRoles = roles.Except(userRoles);
-                // получаем роли, которые были удалены
                 var removedRoles = userRoles.Except(roles);
 
                 await userManager.AddToRolesAsync(user, addedRoles);

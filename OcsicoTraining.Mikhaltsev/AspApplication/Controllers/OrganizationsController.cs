@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
@@ -58,6 +59,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Organization")]
         public async Task<IActionResult> Add(Guid id)
         {
             var model = await CreateModelForAddAsync(id);
@@ -82,6 +84,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Organization")]
         public async Task<IActionResult> Remove(Guid id)
         {
             var model = await CreateModelForRemoveAsync(id);
@@ -106,6 +109,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Organization")]
         public async Task<IActionResult> AssignRole(Guid id, Guid employeeId)
         {
             var model = await CreateModelForAssignRoleAsync(id, employeeId);

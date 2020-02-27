@@ -1,0 +1,9 @@
+@model string
+
+@{
+    ViewData["Title"] = "AccessDenied";
+}
+
+<h1>AccessDenied</h1>
+
+<p>Access to @Model is denied for @Context.User.Identity.Name</p>

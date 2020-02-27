@@ -36,7 +36,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 
                 if (result.Succeeded)
                 {
-                    // установка куки
+                    // Set cookie
                     await signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Employees");
                 }
@@ -89,6 +89,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             await signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Employees");
+        }
+
+        public IActionResult AccessDenied(string returnUrl)
+        {
+            return View(returnUrl as object);
         }
     }
 }
