@@ -1,0 +1,44 @@
+@inject IViewLocalizer Localizer
+
+@model AssignNewRoleViewModel
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+<h1>@Localizer["Header"]</h1>
+
+<h4>@Localizer["Model"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AssignRole">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                @Html.HiddenFor(x => x.OrganizationId)
+                @Html.HiddenFor(x => x.EmployeeId)
+            </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(x => x.SelectedRoleAddId)
+                @Html.DropDownListFor(x => x.SelectedRoleAddId, Model.RolesAdd, "-- Select --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.SelectedRoleAddId, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(x => x.SelectedRoleRemoveId)
+                @Html.DropDownListFor(x => x.SelectedRoleRemoveId, Model.RolesRemove, "-- Select --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.SelectedRoleRemoveId, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@Localizer["Post"]" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">@Localizer["Back"]</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

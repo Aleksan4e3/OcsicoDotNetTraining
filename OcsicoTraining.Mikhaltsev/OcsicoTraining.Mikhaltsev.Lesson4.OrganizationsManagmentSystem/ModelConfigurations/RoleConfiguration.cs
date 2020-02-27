@@ -8,13 +8,15 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ModelCo
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
+            builder.ToTable("Roles");
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .IsRequired()
                 .ValueGeneratedOnAdd();
+
             builder.Property(x => x.Name)
                 .IsRequired();
-            builder.ToTable("Roles");
         }
     }
 }

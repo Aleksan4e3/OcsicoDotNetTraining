@@ -1,0 +1,48 @@
+@inject IViewLocalizer Localizer
+
+@model IEnumerable<EmployeeRoleViewModel>
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+<h1>@Localizer["Header"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Organization)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Organization.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role.Name)
+                    </td>
+                    <td>
+                        <a asp-action="AssignRole" asp-route-id="@item.Organization.Id" asp-route-employeeId="@item.Employee.Id">@Localizer["Assign"]</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
