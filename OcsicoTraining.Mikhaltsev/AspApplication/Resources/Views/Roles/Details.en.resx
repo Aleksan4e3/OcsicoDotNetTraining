@@ -121,6 +121,10 @@
     <value>Back to List</value>
     <comment>link back</comment>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>link to edit</comment>
+  </data>
   <data name="Header" xml:space="preserve">
     <value>Details</value>
     <comment>page name</comment>

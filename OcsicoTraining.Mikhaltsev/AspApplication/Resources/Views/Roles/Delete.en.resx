@@ -129,6 +129,10 @@
     <value>Role</value>
     <comment>what will we delete</comment>
   </data>
+  <data name="Post" xml:space="preserve">
+    <value>Delete</value>
+    <comment>button name</comment>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Delete</value>
     <comment>browser tab name</comment>

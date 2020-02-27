@@ -21,6 +21,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Edit" asp-route-id="@Model.Id">@Localizer["Edit"]</a> |
     <a asp-action="Index">@Localizer["Back"]</a>
 </div>
