@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "CustomError";
+    var error = ViewData["CustomException"] as CustomErrorViewModel;
+}
+
+<h1>CustomError</h1>
+
+<p>@error?.ActionName</p>
+<p>@error?.Stack</p>
+<p>@error?.Message</p>
