@@ -15,10 +15,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Filters
             {
                 ActionName = context.ActionDescriptor.DisplayName,
                 Stack = context.Exception.StackTrace,
-                Message = context.Exception.Message
+                Message = context.Exception.Message,
+                InnerException = context.Exception.InnerException
             };
             var result = new ViewResult { ViewName = "CustomError" };
             var modelMetadata = new EmptyModelMetadataProvider();
+
             result.ViewData = new ViewDataDictionary<CustomErrorViewModel>(modelMetadata, context.ModelState)
             {
                 { "CustomException", exceptionModel }

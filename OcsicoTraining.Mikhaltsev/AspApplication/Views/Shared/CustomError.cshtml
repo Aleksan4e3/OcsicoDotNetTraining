@@ -5,6 +5,17 @@
 
 <h1>CustomError</h1>
 
+<h4>Action name:</h4>
 <p>@error?.ActionName</p>
+
+<h4>Stack</h4>
 <p>@error?.Stack</p>
+
+<h4>Message</h4>
 <p>@error?.Message</p>
+
+@if (error?.InnerException != null)
+{
+    <h4>InnerException</h4>
+    <p>@error?.InnerException.Message</p>
+}
