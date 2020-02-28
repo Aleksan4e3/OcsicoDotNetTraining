@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Filters;
 using OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Configurations;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations
@@ -22,7 +23,8 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.AddControllersWithViews().AddViewLocalization();
+            services.AddControllersWithViews(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
+                    .AddViewLocalization();
             services.ConfigureDataContext(Configuration);
             services.ConfigureIdentity();
             services.ConfigureDependencies();
