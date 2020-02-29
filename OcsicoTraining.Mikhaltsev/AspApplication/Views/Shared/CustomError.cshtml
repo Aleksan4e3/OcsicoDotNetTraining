@@ -1,21 +1,15 @@
 @{
     ViewData["Title"] = "CustomError";
-    var error = ViewData["CustomException"] as CustomErrorViewModel;
+    var model = ViewData["CustomException"] as CustomErrorViewModel;
 }
 
-<h1>CustomError</h1>
-
-<h4>Action name:</h4>
-<p>@error?.ActionName</p>
-
-<h4>Stack</h4>
-<p>@error?.Stack</p>
-
-<h4>Message</h4>
-<p>@error?.Message</p>
-
-@if (error?.InnerException != null)
-{
-    <h4>InnerException</h4>
-    <p>@error?.InnerException.Message</p>
-}
+<div id="notfound">
+    <div class="notfound">
+        <div class="notfound-404">
+            <h1>Oops!</h1>
+        </div>
+        <h2>404 - Page not found</h2>
+        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+        <a href="#">Go To Homepage</a>
+    </div>
+</div>
