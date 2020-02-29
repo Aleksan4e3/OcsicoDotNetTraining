@@ -9,6 +9,6 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Conf
     {
         public static void ConfigureIdentity(this IServiceCollection services) =>
             services.AddIdentity<User, IdentityRole>()
-                    .AddEntityFrameworkStores<ApplicationContext>();
+                    .AddEntityFrameworkStores<AppDbContext>();
     }
 }

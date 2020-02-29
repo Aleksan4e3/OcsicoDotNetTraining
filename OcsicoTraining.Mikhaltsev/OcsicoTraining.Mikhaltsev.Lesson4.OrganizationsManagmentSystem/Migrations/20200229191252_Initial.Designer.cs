@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.DbContexts;
 
-namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Migrations.Application
+namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
-    [Migration("20200227144831_IdentityInitial")]
-    partial class IdentityInitial
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20200229191252_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,6 +152,71 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Migrati
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.Employee", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.EmployeeRole", b =>
+                {
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("EmployeeId", "OrganizationId", "RoleId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("EmployeeRoles");
+                });
+
+            modelBuilder.Entity("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.Organization", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Organizations");
+                });
+
+            modelBuilder.Entity("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -265,6 +330,27 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Migrati
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.EmployeeRole", b =>
+                {
+                    b.HasOne("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.Employee", "Employee")
+                        .WithMany("EmployeeRoles")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.Organization", "Organization")
+                        .WithMany("EmployeeRoles")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models.Role", "Role")
+                        .WithMany("EmployeeRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
