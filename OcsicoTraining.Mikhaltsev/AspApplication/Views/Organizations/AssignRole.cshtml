@@ -12,21 +12,25 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AssignRole">
+        <form asp-action="AssignRole" asp-antiforgery="true">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
-                @Html.HiddenFor(x => x.OrganizationId)
-                @Html.HiddenFor(x => x.EmployeeId)
+                <input type="hidden" asp-for="OrganizationId" />
+                <input type="hidden" asp-for="EmployeeId" />
             </div>
             <div class="form-group">
-                @Html.DisplayNameFor(x => x.SelectedRoleAddId)
-                @Html.DropDownListFor(x => x.SelectedRoleAddId, Model.RolesAdd, "-- Select --", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.SelectedRoleAddId, string.Empty, new { @class = "text-danger" })
+                <label asp-for="SelectedRoleAddId"></label>
+                <select asp-for="SelectedRoleAddId" asp-items="Model.RolesAdd" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Select --</option>
+                </select>
+                <span asp-validation-for="SelectedRoleAddId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.DisplayNameFor(x => x.SelectedRoleRemoveId)
-                @Html.DropDownListFor(x => x.SelectedRoleRemoveId, Model.RolesRemove, "-- Select --", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.SelectedRoleRemoveId, string.Empty, new { @class = "text-danger" })
+                <label asp-for="SelectedRoleRemoveId"></label>
+                <select asp-for="SelectedRoleRemoveId" asp-items="Model.RolesRemove" class="form-control">
+                    <option selected="selected" value="@string.Empty">-- Select --</option>
+                </select>
+                <span asp-validation-for="SelectedRoleRemoveId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="@Localizer["Post"]" class="btn btn-primary" />

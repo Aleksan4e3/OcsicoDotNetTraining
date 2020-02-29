@@ -15,12 +15,14 @@
         <form asp-action="Remove">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
-                @Html.HiddenFor(x => x.OrganizationId)
+                <input type="hidden" asp-for="OrganizationId" />
             </div>
             <div class="form-group">
-                @Html.DisplayNameFor(x => x.SelectedEmployeeId)
-                @Html.DropDownListFor(x => x.SelectedEmployeeId, Model.Employees, "-- Select --", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.SelectedEmployeeId, string.Empty, new { @class = "text-danger" })
+                <label asp-for="SelectedEmployeeId"></label>
+                <select asp-for="SelectedEmployeeId" asp-items="Model.Employees" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Select --</option>
+                </select>
+                <span asp-validation-for="SelectedEmployeeId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="@Localizer["Post"]" class="btn btn-primary" />

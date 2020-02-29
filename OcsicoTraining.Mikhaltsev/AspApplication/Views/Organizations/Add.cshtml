@@ -12,20 +12,24 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Add">
+        <form asp-action="Add" asp-antiforgery="true">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
-                @Html.HiddenFor(x => x.OrganizationId)
+                <input type="hidden" asp-for="OrganizationId" />
             </div>
             <div class="form-group">
-                @Html.DisplayNameFor(x => x.SelectedEmployeeId)
-                @Html.DropDownListFor(x => x.SelectedEmployeeId, Model.Employees, "-- Select --", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.SelectedEmployeeId, string.Empty, new { @class = "text-danger" })
+                <label asp-for="SelectedEmployeeId"></label>
+                <select asp-for="SelectedEmployeeId" asp-items="Model.Employees" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Select --</option>
+                </select>
+                <span asp-validation-for="SelectedEmployeeId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.DisplayNameFor(x => x.SelectedRoleId)
-                @Html.DropDownListFor(x => x.SelectedRoleId, Model.Roles, "-- Select --", new { @class = "form-control" })
-                @Html.ValidationMessageFor(x => x.SelectedRoleId, string.Empty, new { @class = "text-danger" })
+                <label asp-for="SelectedRoleId"></label>
+                <select asp-for="SelectedRoleId" asp-items="Model.Roles" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Select --</option>
+                </select>
+                <span asp-validation-for="SelectedRoleId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="@Localizer["Post"]" class="btn btn-primary" />
