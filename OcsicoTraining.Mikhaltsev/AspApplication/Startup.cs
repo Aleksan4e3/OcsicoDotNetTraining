@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Filters;
 using OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Infrastructure.Configurations;
 
@@ -31,8 +32,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("Logs/app-{Date}.txt");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

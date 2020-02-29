@@ -1,32 +1,24 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Models;
+using Microsoft.Extensions.Logging;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Filters
 {
     public class CustomExceptionFilterAttribute : Attribute, IExceptionFilter
     {
+        private readonly ILogger<CustomExceptionFilterAttribute> logger;
+
+        public CustomExceptionFilterAttribute(ILogger<CustomExceptionFilterAttribute> logger)
+        {
+            this.logger = logger;
+        }
+
         public void OnException(ExceptionContext context)
         {
-            var exceptionModel = new CustomErrorViewModel
-            {
-                ActionName = context.ActionDescriptor.DisplayName,
-                Stack = context.Exception.StackTrace,
-                Message = context.Exception.Message,
-                InnerException = context.Exception.InnerException
-            };
-            var result = new ViewResult { ViewName = "CustomError" };
-            var modelMetadata = new EmptyModelMetadataProvider();
+            logger.LogInformation(context.Exception.Message);
 
-            result.ViewData = new ViewDataDictionary<CustomErrorViewModel>(modelMetadata, context.ModelState)
-            {
-                { "CustomException", exceptionModel }
-            };
-
-            context.Result = result;
+            context.Result = new ViewResult { ViewName = "CustomError" };
             context.ExceptionHandled = true;
         }
     }
