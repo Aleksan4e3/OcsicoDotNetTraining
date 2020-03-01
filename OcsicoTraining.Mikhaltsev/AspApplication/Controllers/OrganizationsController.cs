@@ -141,6 +141,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return PartialView("_OrganizationsSearch", organizations);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var organization = await organizationService.GetAsync(id);
+            await organizationService.RemoveAsync(organization);
+            var organizations = await organizationService.GetAllAsync();
+
+            return PartialView("_OrganizationsSearch", organizations);
+        }
+
         [NonAction]
         private async Task<AddEmployeeToOrganizationViewModel> CreateModelForAddAsync(Guid id)
         {

@@ -73,16 +73,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var employee = await employeeService.GetViewModelAsync(id);
-            return View(employee);
-        }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id, EmployeeViewModel employee)
-        {
             await employeeService.RemoveAsync(employee);
 
-            return RedirectToAction(nameof(Index));
+            var employees = await employeeService.GetAllAsync();
+
+            return PartialView("_EmployeesSearch", employees);
         }
 
         [HttpGet]

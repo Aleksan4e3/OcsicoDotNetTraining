@@ -170,6 +170,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
             return employees.Select(x => new DropDownViewModel { Id = x.Id, Name = x.Name }).ToList();
         }
 
+        public async Task<OrganizationViewModel> GetAsync(Guid id) =>
+            await organizationRepository
+                .GetQuery()
+                .Select(x => new OrganizationViewModel { Id = x.Id, Name = x.Name })
+                .FirstOrDefaultAsync(x => x.Id == id);
+
         public async Task<List<DropDownViewModel>> GetRolesSelectListAsync(Guid organizationId, Guid employeeId) =>
             await employeeRoleRepository
                 .GetQuery()
@@ -184,6 +190,20 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 .Where(x => x.Name.Contains(name))
                 .Select(x => new OrganizationViewModel { Id = x.Id, Name = x.Name })
                 .ToListAsync();
+
+        public async Task RemoveAsync(OrganizationViewModel organizationViewModel)
+        {
+            var organization = new Organization { Id = organizationViewModel.Id, Name = organizationViewModel.Name };
+            var empOrgRoles = await employeeRoleRepository
+                .GetQuery()
+                .Where(e => e.OrganizationId == organizationViewModel.Id)
+                .ToListAsync();
+
+            employeeRoleRepository.RemoveRange(empOrgRoles);
+            organizationRepository.Remove(organization);
+
+            await dataContext.SaveChangesAsync();
+        }
 
         private EmployeeRole CreateEmployeeRole(Guid organizationId, Guid employeeId,
             Guid roleId) => new EmployeeRole
