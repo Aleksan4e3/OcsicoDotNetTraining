@@ -110,5 +110,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
 
             return roles.Select(x => new DropDownViewModel { Id = x.Id, Name = x.Name }).ToList();
         }
+
+        public async Task<List<RoleViewModel>> SearchAsync(string name) =>
+            await roleRepository
+                .GetQuery()
+                .Where(x => x.Name.Contains(name))
+                .Select(x => new RoleViewModel { Id = x.Id, Name = x.Name })
+                .ToListAsync();
     }
 }

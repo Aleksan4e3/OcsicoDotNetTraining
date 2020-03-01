@@ -178,6 +178,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
                 .Select(x => new DropDownViewModel { Id = x.RoleId, Name = x.Role.Name })
                 .ToListAsync();
 
+        public async Task<List<OrganizationViewModel>> SearchAsync(string name) =>
+            await organizationRepository
+                .GetQuery()
+                .Where(x => x.Name.Contains(name))
+                .Select(x => new OrganizationViewModel { Id = x.Id, Name = x.Name })
+                .ToListAsync();
+
         private EmployeeRole CreateEmployeeRole(Guid organizationId, Guid employeeId,
             Guid roleId) => new EmployeeRole
             {

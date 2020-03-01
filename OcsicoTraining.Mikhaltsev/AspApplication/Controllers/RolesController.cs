@@ -84,5 +84,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> RoleSearch(string name)
+        {
+            var roles = await roleService.SearchAsync(name);
+
+            return PartialView("_RolesSearch", roles);
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin,Organization")]
+        [Authorize(Roles = "Admin,Organization")]
         public async Task<IActionResult> Add(Guid id)
         {
             var model = await CreateModelForAddAsync(id);
@@ -84,7 +84,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin,Organization")]
+        [Authorize(Roles = "Admin,Organization")]
         public async Task<IActionResult> Remove(Guid id)
         {
             var model = await CreateModelForRemoveAsync(id);
@@ -109,7 +109,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin,Organization")]
+        [Authorize(Roles = "Admin,Organization")]
         public async Task<IActionResult> AssignRole(Guid id, Guid employeeId)
         {
             var model = await CreateModelForAssignRoleAsync(id, employeeId);
@@ -131,6 +131,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             model = await CreateModelForAssignRoleAsync(model.OrganizationId, model.EmployeeId);
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> OrganizationsSearch(string name)
+        {
+            var organizations = await organizationService.SearchAsync(name);
+
+            return PartialView("_OrganizationsSearch", organizations);
         }
 
         [NonAction]
