@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,32 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Create" xml:space="preserve">
-    <value>Create new</value>
-    <comment>link for create</comment>
-  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
-    <comment>link for delete</comment>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
-    <comment>link for details</comment>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
-    <comment>link for edit</comment>
-  </data>
-  <data name="Header" xml:space="preserve">
-    <value>Index</value>
-    <comment>page header</comment>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Index</value>
-    <comment>browser tab name</comment>
-  </data>
-  <data name="Search" xml:space="preserve">
-     <value>Search</value>
-     <comment>Search</comment>
   </data>
 </root>

@@ -84,5 +84,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> EmployeeSearch(string name)
+        {
+            var employees = await employeeService.SearchAsync(name);
+
+            return PartialView("_EmployeesSearch", employees);
+        }
     }
 }
