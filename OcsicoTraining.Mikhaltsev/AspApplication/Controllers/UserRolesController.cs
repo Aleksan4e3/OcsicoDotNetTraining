@@ -9,7 +9,7 @@ using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewModels;
 
 namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = UserRoles.Admin)]
     public class UserRolesController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -35,11 +35,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(string name)
+        public async Task<IActionResult> Create(CreateUserRoleViewModel model)
         {
-            if (!string.IsNullOrEmpty(name))
+            if (model != null)
             {
-                var result = await roleManager.CreateAsync(new IdentityRole(name));
+                var result = await roleManager.CreateAsync(new IdentityRole(model.Name));
 
                 if (result.Succeeded)
                 {
@@ -52,7 +52,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
                 }
             }
 
-            return View(name);
+            return View(model);
         }
 
         [HttpPost]

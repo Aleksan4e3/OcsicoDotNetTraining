@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewModels;
 
@@ -59,7 +60,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Organization")]
+        [Authorize(Roles = UserRoles.AdminOrOrganization)]
         public async Task<IActionResult> Add(Guid id)
         {
             var model = await CreateModelForAddAsync(id);
@@ -84,7 +85,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Organization")]
+        [Authorize(Roles = UserRoles.AdminOrOrganization)]
         public async Task<IActionResult> Remove(Guid id)
         {
             var model = await CreateModelForRemoveAsync(id);
@@ -109,7 +110,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Organization")]
+        [Authorize(Roles = UserRoles.AdminOrOrganization)]
         public async Task<IActionResult> AssignRole(Guid id, Guid employeeId)
         {
             var model = await CreateModelForAssignRoleAsync(id, employeeId);
@@ -142,6 +143,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = UserRoles.AdminOrOrganization)]
         public async Task<IActionResult> Delete(Guid id)
         {
             var organization = await organizationService.GetAsync(id);
