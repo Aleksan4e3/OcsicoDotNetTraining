@@ -51,8 +51,7 @@
                 if (!data) {
                     return;
                 }
-                console.log(data);
-                employees.append($('<option></option>').val('').text('Please select'));
+                employees.append($('<option></option>').val('').text('-- Select --'));
                 $.each(data, function(index, item) {
                     employees.append($('<option></option>').val(item.id).text(item.name));
                 });

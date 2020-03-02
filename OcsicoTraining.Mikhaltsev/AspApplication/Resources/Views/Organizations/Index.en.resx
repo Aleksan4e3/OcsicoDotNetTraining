@@ -130,7 +130,7 @@
     <comment>link to organization details</comment>
   </data>
   <data name="Header" xml:space="preserve">
-    <value>Index</value>
+    <value>Organizations</value>
     <comment>page name</comment>
   </data>
   <data name="Remove" xml:space="preserve">
@@ -138,11 +138,11 @@
     <comment>link to remove employee</comment>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Index</value>
+    <value>Organizations</value>
     <comment>browser tab name</comment>
   </data>
   <data name="Search" xml:space="preserve">
-     <value>Search</value>
-     <comment>Search</comment>
+    <value>Search</value>
+    <comment>Search</comment>
   </data>
 </root>

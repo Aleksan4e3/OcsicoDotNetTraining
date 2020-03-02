@@ -44,4 +44,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        var url = '@Url.Action("GetRoles")';
+        var organization = $('#OrganizationId');
+        var roles = $('#SelectedRoleId');
+        $('#SelectedEmployeeId').change(function() {
+            roles.empty();
+            $.getJSON(url, { organizationId:organization.val(), employeeId: $(this).val() },function(data) {
+                if (!data) {
+                    return;
+                }
+                roles.append($('<option></option>').val('').text('-- Select --'));
+                $.each(data, function(index, item) {
+                    roles.append($('<option></option>').val(item.id).text(item.name));
+                });
+            });
+        });
+    </script>
 }

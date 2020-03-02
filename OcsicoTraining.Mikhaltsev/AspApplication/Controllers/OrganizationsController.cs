@@ -68,6 +68,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetRoles(Guid organizationId, Guid employeeId)
+        {
+            var rolesCurrentEmployee = await organizationService.GetRolesSelectListAsync(organizationId, employeeId);
+            var allRoles = await roleService.GetRolesSelectListAsync();
+            var rolesAdd = allRoles.Where(x => !rolesCurrentEmployee.Select(y => y.Id).Contains(x.Id));
+
+            return Json(rolesAdd);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(AddEmployeeToOrganizationViewModel model)
@@ -164,17 +174,11 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         private async Task<AddEmployeeToOrganizationViewModel> CreateModelForAddAsync(Guid id)
         {
             var employees = await employeeService.GetEmployeesSelectList();
-            var roles = await roleService.GetRolesSelectListAsync();
 
             return new AddEmployeeToOrganizationViewModel
             {
                 OrganizationId = id,
                 Employees = employees.Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList(),
-                Roles = roles.Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
