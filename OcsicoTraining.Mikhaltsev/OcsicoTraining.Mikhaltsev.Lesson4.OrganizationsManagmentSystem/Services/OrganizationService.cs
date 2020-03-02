@@ -85,7 +85,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         {
             var empOrgRoles = await employeeRoleRepository
                 .GetQuery()
-                .Where(e => e.OrganizationId == model.OrganizationId && e.EmployeeId == model.SelectedEmployeeId)
+                .Where(e => e.OrganizationId == model.SelectedOrganizationId && e.EmployeeId == model.SelectedEmployeeId)
                 .ToListAsync();
 
             employeeRoleRepository.RemoveRange(empOrgRoles);

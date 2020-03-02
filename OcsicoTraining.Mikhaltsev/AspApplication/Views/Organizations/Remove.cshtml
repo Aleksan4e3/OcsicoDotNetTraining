@@ -14,8 +14,12 @@
     <div class="col-md-4">
         <form asp-action="Remove">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div>
-                <input type="hidden" asp-for="OrganizationId" />
+            <div class="form-group">
+                <label asp-for="SelectedOrganizationId"></label>
+                <select asp-for="SelectedOrganizationId" asp-items="Model.Organizations" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Select --</option>
+                </select>
+                <span asp-validation-for="SelectedOrganizationId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SelectedEmployeeId"></label>
@@ -37,4 +41,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        var employeesUrl = '@Url.Action("GetEmployees")';
+        var employees = $('#SelectedEmployeeId');
+        $('#SelectedOrganizationId').change(function() {
+            employees.empty();
+            $.getJSON(employeesUrl, { id: $(this).val() },function(data) {
+                if (!data) {
+                    return;
+                }
+                console.log(data);
+                employees.append($('<option></option>').val('').text('Please select'));
+                $.each(data, function(index, item) {
+                    employees.append($('<option></option>').val(item.id).text(item.name));
+                });
+            });
+        });
+    </script>
 }

@@ -9,12 +9,13 @@
 <h1>@Localizer["Header"]</h1>
 
 <p>
-    <a asp-action="Create">@Localizer["Create"]</a>
+    <a asp-action="Create">@Localizer["Create"]</a> |
+    <a asp-action="Remove">@Localizer["Remove"]</a> 
 </p>
 
 <form data-ajax="true"
-      data-ajax-url="@Url.Action("OrganizationsSearch")" ,
-      data-ajax-update="#organizationsList" ,
+      data-ajax-url="@Url.Action("OrganizationsSearch")" 
+      data-ajax-update="#organizationsList" 
       data-ajax-mode="replace">
     <input type="text" name="name" />
     <input type="submit" value="@Localizer["Search"]" />

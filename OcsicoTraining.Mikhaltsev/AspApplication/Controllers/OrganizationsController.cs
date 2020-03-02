@@ -86,9 +86,9 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 
         [HttpGet]
         [Authorize(Roles = UserRoles.AdminOrOrganization)]
-        public async Task<IActionResult> Remove(Guid id)
+        public async Task<IActionResult> Remove()
         {
-            var model = await CreateModelForRemoveAsync(id);
+            var model = await CreateModelForRemoveAsync();
 
             return View(model);
         }
@@ -104,9 +104,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            model = await CreateModelForRemoveAsync(model.OrganizationId);
+            model = await CreateModelForRemoveAsync();
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetEmployees(Guid id)
+        {
+            var employees = await organizationService.GetEmployeesSelectListAsync(id);
+            return Json(employees);
         }
 
         [HttpGet]
@@ -176,14 +183,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [NonAction]
-        private async Task<RemoveEmployeeViewModel> CreateModelForRemoveAsync(Guid id)
+        private async Task<RemoveEmployeeViewModel> CreateModelForRemoveAsync()
         {
-            var employees = await organizationService.GetEmployeesSelectListAsync(id);
+            var organizations = await organizationService.GetAsync();
 
             return new RemoveEmployeeViewModel
             {
-                OrganizationId = id,
-                Employees = employees.Select(x => new SelectListItem
+                Organizations = organizations.Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
