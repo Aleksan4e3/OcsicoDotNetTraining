@@ -142,12 +142,12 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Service
         {
             if (model.SelectedRoleRemoveId != null)
             {
-                var empOrgRoleRemove = CreateEmployeeRole(model.OrganizationId, (Guid)model.EmployeeId, (Guid)model.SelectedRoleRemoveId);
+                var empOrgRoleRemove = CreateEmployeeRole(model.OrganizationId, (Guid)model.SelectedEmployeeId, (Guid)model.SelectedRoleRemoveId);
 
                 employeeRoleRepository.Remove(empOrgRoleRemove);
             }
 
-            var empOrgRoleAdd = CreateEmployeeRole(model.OrganizationId, (Guid)model.EmployeeId, (Guid)model.SelectedRoleAddId);
+            var empOrgRoleAdd = CreateEmployeeRole(model.OrganizationId, (Guid)model.SelectedEmployeeId, (Guid)model.SelectedRoleAddId);
 
             await employeeRoleRepository.AddAsync(empOrgRoleAdd);
             await dataContext.SaveChangesAsync();

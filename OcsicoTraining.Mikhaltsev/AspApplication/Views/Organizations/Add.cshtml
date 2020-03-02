@@ -46,7 +46,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script type="text/javascript">
-        var url = '@Url.Action("GetRoles")';
+        var url = '@Url.Action("GetRolesAdd")';
         var organization = $('#OrganizationId');
         var roles = $('#SelectedRoleId');
         $('#SelectedEmployeeId').change(function() {

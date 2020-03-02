@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -131,5 +131,9 @@
   <data name="Remove" xml:space="preserve">
     <value>Remove employee</value>
     <comment>link to remove employee</comment>
+  </data>
+  <data name="Assign" xml:space="preserve">
+    <value>New role</value>
+    <comment>Assign new role</comment>
   </data>
 </root>

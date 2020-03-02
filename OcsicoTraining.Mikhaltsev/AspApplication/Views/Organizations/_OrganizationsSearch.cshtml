@@ -22,7 +22,7 @@
                     </td>
                     <td>
                         <a asp-action="Add" asp-route-id="@item.Id">@Localizer["Add"]</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">@Localizer["Details"]</a> |
+                        <a asp-action="AssignRole" asp-route-id="@item.Id">@Localizer["Assign"]</a> |
                         <a href="#"
                            data-ajax="true"
                            data-ajax-url="@Url.Action("Delete", new {id = item.Id})"
@@ -30,7 +30,8 @@
                            data-ajax-mode="replace"
                            data-ajax-confirm="Are you sure you want to delete this?">
                             @Localizer["Delete"]
-                        </a>
+                        </a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">@Localizer["Details"]</a>
                     </td>
                 </tr>
             }

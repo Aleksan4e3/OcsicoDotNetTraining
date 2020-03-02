@@ -69,7 +69,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRoles(Guid organizationId, Guid employeeId)
+        public async Task<IActionResult> GetRolesAdd(Guid organizationId, Guid employeeId)
         {
             var rolesCurrentEmployee = await organizationService.GetRolesSelectListAsync(organizationId, employeeId);
             var allRoles = await roleService.GetRolesSelectListAsync();
@@ -128,11 +128,21 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
 
         [HttpGet]
         [Authorize(Roles = UserRoles.AdminOrOrganization)]
-        public async Task<IActionResult> AssignRole(Guid id, Guid employeeId)
+        public async Task<IActionResult> AssignRole(Guid id)
         {
-            var model = await CreateModelForAssignRoleAsync(id, employeeId);
+            var model = await CreateModelForAssignRoleAsync(id);
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoles(Guid organizationId, Guid employeeId)
+        {
+            var rolesCurrentEmployee = await organizationService.GetRolesSelectListAsync(organizationId, employeeId);
+            var allRoles = await roleService.GetRolesSelectListAsync();
+            var rolesAdd = allRoles.Where(x => !rolesCurrentEmployee.Select(y => y.Id).Contains(x.Id));
+
+            return Json(new[] { rolesAdd, rolesCurrentEmployee });
         }
 
         [HttpPost]
@@ -146,7 +156,7 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            model = await CreateModelForAssignRoleAsync(model.OrganizationId, model.EmployeeId);
+            model = await CreateModelForAssignRoleAsync(model.OrganizationId);
 
             return View(model);
         }
@@ -202,22 +212,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [NonAction]
-        private async Task<AssignNewRoleViewModel> CreateModelForAssignRoleAsync(Guid id, Guid employeeId)
+        private async Task<AssignNewRoleViewModel> CreateModelForAssignRoleAsync(Guid id)
         {
-            var rolesRemove = await organizationService.GetRolesSelectListAsync(id, employeeId);
-            var allRoles = await roleService.GetRolesSelectListAsync();
-            var rolesAdd = allRoles.Where(x => !rolesRemove.Select(y => y.Id).Contains(x.Id));
+            var employees = await organizationService.GetEmployeesSelectListAsync(id);
 
             return new AssignNewRoleViewModel
             {
                 OrganizationId = id,
-                EmployeeId = employeeId,
-                RolesAdd = rolesAdd.Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList(),
-                RolesRemove = rolesRemove.Select(x => new SelectListItem
+                Employees = employees.Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()

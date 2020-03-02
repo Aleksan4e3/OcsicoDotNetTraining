@@ -10,13 +10,16 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewMod
     {
         public Guid OrganizationId { get; set; }
 
-        public Guid EmployeeId { get; set; }
+        [Required, DisplayName("Employee")]
+        public Guid? SelectedEmployeeId { get; set; }
 
         [Required, DisplayName("Add role")]
         public Guid? SelectedRoleAddId { get; set; }
 
         [DisplayName("Remove role")]
         public Guid? SelectedRoleRemoveId { get; set; }
+
+        public List<SelectListItem> Employees { get; set; }
 
         public List<SelectListItem> RolesAdd { get; set; }
 

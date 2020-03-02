@@ -16,7 +16,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
                 <input type="hidden" asp-for="OrganizationId" />
-                <input type="hidden" asp-for="EmployeeId" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedEmployeeId"></label>
+                <select asp-for="SelectedEmployeeId" asp-items="Model.Employees" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Select --</option>
+                </select>
+                <span asp-validation-for="SelectedEmployeeId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SelectedRoleAddId"></label>
@@ -45,4 +51,28 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        var url = '@Url.Action("GetRoles")';
+        var organization = $('#OrganizationId');
+        var rolesAdd = $('#SelectedRoleAddId');
+        var rolesRemove = $('#SelectedRoleRemoveId');
+        $('#SelectedEmployeeId').change(function() {
+            rolesAdd.empty();
+            rolesRemove.empty();
+            $.getJSON(url, { organizationId:organization.val(), employeeId: $(this).val() },function(data) {
+                if (!data) {
+                    return;
+                }
+                rolesAdd.append($('<option></option>').val('').text('-- Select --'));
+                $.each(data[0], function(index, item) {
+                    rolesAdd.append($('<option></option>').val(item.id).text(item.name));
+                });
+                rolesRemove.append($('<option></option>').val('').text('-- Select --'));
+                $.each(data[1], function(index, item) {
+                    rolesRemove.append($('<option></option>').val(item.id).text(item.name));
+                });
+            });
+        });
+    </script>
 }
