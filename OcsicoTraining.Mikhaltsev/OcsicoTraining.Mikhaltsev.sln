@@ -70,7 +70,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcsicoTraining.Mikhaltsev.L
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FinalProject", "FinalProject", "{B09A7163-A5AF-4893-A3FA-C56F416D1626}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityModels", "ShopDAL\EntityModels.csproj", "{BC1B2163-5274-48C5-99CC-B5C494D49953}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityModels", "EntityModels\EntityModels.csproj", "{BC1B2163-5274-48C5-99CC-B5C494D49953}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
