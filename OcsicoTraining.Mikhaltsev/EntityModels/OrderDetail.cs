@@ -1,6 +1,6 @@
 using System;
 
-namespace EntityModels.Models
+namespace EntityModels
 {
     public class OrderDetail : IEntityModel
     {

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using EntityModels.Identity;
 
-namespace EntityModels.Models
+namespace EntityModels
 {
     public class Order : IEntityModel
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EntityModels.Models
+namespace EntityModels
 {
     public class Image : IEntityModel
     {
