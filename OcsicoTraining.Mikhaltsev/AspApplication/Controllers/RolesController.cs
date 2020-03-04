@@ -72,17 +72,19 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var role = await roleService.GetViewModelAsync(id);
-            return View(role);
+            var role = await roleService.GetAsync(id);
+            await roleService.RemoveAsync(role);
+            var roles = await roleService.GetAllAsync();
+
+            return PartialView("_RolesSearch", roles);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, RoleViewModel role)
+        [HttpGet]
+        public async Task<IActionResult> RoleSearch(string name)
         {
-            await roleService.RemoveAsync(role);
+            var roles = await roleService.SearchAsync(name);
 
-            return RedirectToAction(nameof(Index));
+            return PartialView("_RolesSearch", roles);
         }
     }
 }

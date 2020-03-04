@@ -8,10 +8,13 @@ namespace OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewMod
 {
     public class RemoveEmployeeViewModel
     {
-        public Guid OrganizationId { get; set; }
+        [Required,DisplayName("Organization")]
+        public Guid? SelectedOrganizationId { get; set; }
 
         [Required, DisplayName("Employee")]
         public Guid? SelectedEmployeeId { get; set; }
+
+        public List<SelectListItem> Organizations { get; set; }
 
         public List<SelectListItem> Employees { get; set; }
     }

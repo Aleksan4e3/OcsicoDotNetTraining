@@ -9,33 +9,18 @@
 <h1>@Localizer["Header"]</h1>
 
 <p>
-    <a asp-action="Create">@Localizer["Create"]</a>
+    <a asp-action="Create">@Localizer["Create"]</a> |
+    <a asp-action="Remove">@Localizer["Remove"]</a> 
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        <a asp-action="Add" asp-route-id="@item.Id">@Localizer["Add"]</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">@Localizer["Details"]</a> |
-                        <a asp-action="Remove" asp-route-id="@item.Id">@Localizer["Remove"]</a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+
+<form data-ajax="true"
+      data-ajax-url="@Url.Action("OrganizationsSearch")" 
+      data-ajax-update="#organizationsList" 
+      data-ajax-mode="replace">
+    <input type="text" name="name" />
+    <input type="submit" value="@Localizer["Search"]" />
+</form>
+<br />
+<div id="organizationsList">
+    <partial for="@Model" name="_OrganizationsSearch" />
+</div>
