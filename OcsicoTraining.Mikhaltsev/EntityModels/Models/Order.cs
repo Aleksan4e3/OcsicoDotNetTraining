@@ -9,11 +9,12 @@ namespace EntityModels.Models
         public string Address { get; set; }
         public string Comment { get; set; }
         public DateTime Date { get; set; }
+        public string Status { get; set; }
 
 
-        public Guid CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
+        public Guid UserId { get; set; }
+        public virtual User User { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

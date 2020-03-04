@@ -10,7 +10,12 @@ namespace EntityModels.Models
         public string Description { get; set; }
         public int Price { get; set; }
         public int Weight { get; set; }
-        public string Image { get; set; }
+
+        public Guid ImageId { get; set; }
+        public virtual Image Image { get; set; }
+
+        public Guid OldProductId { get; set; }
+        public virtual Product OldProduct { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
