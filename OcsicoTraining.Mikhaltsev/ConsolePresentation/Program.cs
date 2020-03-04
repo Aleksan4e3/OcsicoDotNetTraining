@@ -9,7 +9,7 @@ namespace ConsolePresentation
 {
     internal class Program
     {
-        private async Task Main()
+        private static async Task Main()
         {
             await RunTask();
             Console.ReadKey();
@@ -20,9 +20,17 @@ namespace ConsolePresentation
             var serviceProvider = DependencyResolver.GetServiceProvider();
 
             var dataContext = serviceProvider.GetService<IDataContext>();
+            var imageRepository = serviceProvider.GetService<IImageRepository>();
             var articleRepository = serviceProvider.GetService<IArticleRepository>();
 
-            await articleRepository.AddAsync(new Article { Text = "testText", Title = "testTitle" });
+            //await imageRepository.AddAsync(new Image { Name = "testText", Data = "testTitle" });
+            //await articleRepository.AddAsync(new Article
+            //{
+            //    Text = "ArtText",
+            //    Title = "ArtTitle",
+            //    ImageId = Guid.Parse("96f2d7c1-ee34-4a84-c9b7-08d7c0865715")
+            //});
+            await articleRepository.RemoveAsync(Guid.Parse("d1e91dec-07ea-4307-0b3d-08d7c08c3b09"));
             await dataContext.SaveChangesAsync();
         }
     }

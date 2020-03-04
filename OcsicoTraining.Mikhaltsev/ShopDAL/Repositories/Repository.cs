@@ -15,7 +15,7 @@ namespace ShopDAL.Repositories
             EntitiesSet = dataContext.Set<T>();
         }
 
-        public DbSet<T> EntitiesSet { get; set; }
+        protected DbSet<T> EntitiesSet { get; }
 
         public IQueryable<T> GetQuery() => EntitiesSet;
 
