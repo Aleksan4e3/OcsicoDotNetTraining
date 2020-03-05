@@ -1,10 +1,12 @@
 using EntityModels.Identity;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopDAL.Context;
+using Validators;
 using WebPresentation.Configurations;
 
 namespace WebPresentation
@@ -26,7 +28,8 @@ namespace WebPresentation
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.ConfigureMapper();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<RegisterValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
