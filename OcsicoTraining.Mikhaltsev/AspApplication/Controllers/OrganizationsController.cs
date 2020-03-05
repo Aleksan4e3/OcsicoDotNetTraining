@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Models;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.Services.Contracts;
 using OcsicoTraining.Mikhaltsev.Lesson4.OrganizationsManagmentSystem.ViewModels;
 
@@ -58,11 +60,22 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = UserRoles.AdminOrOrganization)]
         public async Task<IActionResult> Add(Guid id)
         {
             var model = await CreateModelForAddAsync(id);
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRolesAdd(Guid organizationId, Guid employeeId)
+        {
+            var rolesCurrentEmployee = await organizationService.GetRolesSelectListAsync(organizationId, employeeId);
+            var allRoles = await roleService.GetRolesSelectListAsync();
+            var rolesAdd = allRoles.Where(x => !rolesCurrentEmployee.Select(y => y.Id).Contains(x.Id));
+
+            return Json(rolesAdd);
         }
 
         [HttpPost]
@@ -82,9 +95,10 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Remove(Guid id)
+        [Authorize(Roles = UserRoles.AdminOrOrganization)]
+        public async Task<IActionResult> Remove()
         {
-            var model = await CreateModelForRemoveAsync(id);
+            var model = await CreateModelForRemoveAsync();
 
             return View(model);
         }
@@ -100,17 +114,35 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            model = await CreateModelForRemoveAsync(model.OrganizationId);
+            model = await CreateModelForRemoveAsync();
 
             return View(model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> AssignRole(Guid id, Guid employeeId)
+        public async Task<IActionResult> GetEmployees(Guid id)
         {
-            var model = await CreateModelForAssignRoleAsync(id, employeeId);
+            var employees = await organizationService.GetEmployeesSelectListAsync(id);
+            return Json(employees);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = UserRoles.AdminOrOrganization)]
+        public async Task<IActionResult> AssignRole(Guid id)
+        {
+            var model = await CreateModelForAssignRoleAsync(id);
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoles(Guid organizationId, Guid employeeId)
+        {
+            var rolesCurrentEmployee = await organizationService.GetRolesSelectListAsync(organizationId, employeeId);
+            var allRoles = await roleService.GetRolesSelectListAsync();
+            var rolesAdd = allRoles.Where(x => !rolesCurrentEmployee.Select(y => y.Id).Contains(x.Id));
+
+            return Json(new[] { rolesAdd, rolesCurrentEmployee });
         }
 
         [HttpPost]
@@ -124,16 +156,34 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            model = await CreateModelForAssignRoleAsync(model.OrganizationId, model.EmployeeId);
+            model = await CreateModelForAssignRoleAsync(model.OrganizationId);
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> OrganizationsSearch(string name)
+        {
+            var organizations = await organizationService.SearchAsync(name);
+
+            return PartialView("_OrganizationsSearch", organizations);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = UserRoles.AdminOrOrganization)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var organization = await organizationService.GetAsync(id);
+            await organizationService.RemoveAsync(organization);
+            var organizations = await organizationService.GetAllAsync();
+
+            return PartialView("_OrganizationsSearch", organizations);
         }
 
         [NonAction]
         private async Task<AddEmployeeToOrganizationViewModel> CreateModelForAddAsync(Guid id)
         {
             var employees = await employeeService.GetEmployeesSelectList();
-            var roles = await roleService.GetRolesSelectListAsync();
 
             return new AddEmployeeToOrganizationViewModel
             {
@@ -142,24 +192,18 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
-                }).ToList(),
-                Roles = roles.Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
                 }).ToList()
             };
         }
 
         [NonAction]
-        private async Task<RemoveEmployeeViewModel> CreateModelForRemoveAsync(Guid id)
+        private async Task<RemoveEmployeeViewModel> CreateModelForRemoveAsync()
         {
-            var employees = await organizationService.GetEmployeesSelectListAsync(id);
+            var organizations = await organizationService.GetAsync();
 
             return new RemoveEmployeeViewModel
             {
-                OrganizationId = id,
-                Employees = employees.Select(x => new SelectListItem
+                Organizations = organizations.Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
@@ -168,22 +212,14 @@ namespace OcsicoTraining.Mikhaltsev.Lesson9.AspOrganizations.Controllers
         }
 
         [NonAction]
-        private async Task<AssignNewRoleViewModel> CreateModelForAssignRoleAsync(Guid id, Guid employeeId)
+        private async Task<AssignNewRoleViewModel> CreateModelForAssignRoleAsync(Guid id)
         {
-            var rolesRemove = await organizationService.GetRolesSelectListAsync(id, employeeId);
-            var allRoles = await roleService.GetRolesSelectListAsync();
-            var rolesAdd = allRoles.Where(x => !rolesRemove.Select(y => y.Id).Contains(x.Id));
+            var employees = await organizationService.GetEmployeesSelectListAsync(id);
 
             return new AssignNewRoleViewModel
             {
                 OrganizationId = id,
-                EmployeeId = employeeId,
-                RolesAdd = rolesAdd.Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList(),
-                RolesRemove = rolesRemove.Select(x => new SelectListItem
+                Employees = employees.Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()

@@ -1,27 +1,38 @@
-﻿{
-  "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
-    "iisExpress": {
-      "applicationUrl": "http://localhost:51525",
-      "sslPort": 44386
-    }
-  },
-  "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+{
+   "iisSettings": {
+      "windowsAuthentication": false,
+      "anonymousAuthentication": true,
+      "iisExpress": {
+         "applicationUrl": "http://localhost:51525",
+         "sslPort": 44386
+      },
+      "iis": {
+         "applicationUrl": "http://asp-app.local"
       }
-    },
-    "AspApplication": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+   },
+   "profiles": {
+      "IIS Express": {
+         "commandName": "IISExpress",
+         "launchBrowser": true,
+         "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+         }
+      },
+      "Local IIS": {
+         "commandName": "IIS",
+         "launchBrowser": true,
+         "launchUrl": "http://asp-app.local",
+         "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+         }
+      },
+      "AspApplication": {
+         "commandName": "Project",
+         "launchBrowser": true,
+         "applicationUrl": "https://localhost:5001;http://localhost:5000",
+         "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+         }
       }
-    }
-  }
+   }
 }
