@@ -1,0 +1,49 @@
+@model CreateProductViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedParentId"></label>
+                <select asp-for="SelectedParentId" asp-items="Model.ProductParents" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Select --</option>
+                </select>
+                <span asp-validation-for="SelectedParentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageName"></label>
+                <input asp-for="ImageName" class="form-control">
+                <span asp-validation-for="ImageName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <input asp-for="Image" type="file" class="form-control-file">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>

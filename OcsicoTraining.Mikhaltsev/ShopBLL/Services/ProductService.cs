@@ -1,6 +1,9 @@
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using EntityModels;
+using Microsoft.AspNetCore.Http;
 using ShopBLL.Services.Contracts;
 using ShopDAL.Context;
 using ShopDAL.Repositories.Contracts;
@@ -28,12 +31,39 @@ namespace ShopBLL.Services
 
         public async Task<CreateProductViewModel> CreateAsync(CreateProductViewModel model)
         {
-            var product = mapper.Map<Product>(model);
+            var product = Map(model);
 
             await productRepository.AddAsync(product);
             await dataContext.SaveChangesAsync();
 
-            return mapper.Map<CreateProductViewModel>(product);
+            return model;
+        }
+
+        private string GetStringFromImage(IFormFile file)
+        {
+            using (var target = new MemoryStream())
+            {
+                file.CopyTo(target);
+                return Convert.ToBase64String(target.ToArray());
+            }
+        }
+
+        private Product Map(CreateProductViewModel model)
+        {
+            var image = new Image
+            {
+                Name = model.ImageName,
+                Data = GetStringFromImage(model.Image)
+            };
+
+            return new Product
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Price = model.Price,
+                ParentProductId = model.SelectedParentId,
+                Image = image
+            };
         }
     }
 }
