@@ -4,6 +4,20 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EntityModels\EntityModels.csproj" />
+    <ProjectReference Include="..\MappingProfiles\MappingProfiles.csproj" />
+    <ProjectReference Include="..\ShopBLL\ShopBLL.csproj" />
+    <ProjectReference Include="..\ShopDAL\ShopDAL.csproj" />
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
+  </ItemGroup>
+
 
 
 </Project>

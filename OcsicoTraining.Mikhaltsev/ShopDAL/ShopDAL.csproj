@@ -9,6 +9,8 @@
     <Compile Remove="Context\Migrations\20200304134855_Initial.Designer.cs" />
     <Compile Remove="Context\Migrations\20200304150529_Initial.cs" />
     <Compile Remove="Context\Migrations\20200304150529_Initial.Designer.cs" />
+    <Compile Remove="Context\Migrations\20200305142955_IdentityUserRoleHasKey.cs" />
+    <Compile Remove="Context\Migrations\20200305142955_IdentityUserRoleHasKey.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
