@@ -6,12 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.2" />
     <PackageReference Include="Microsoft.entityframeworkcore.sqlserver" Version="3.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MappingProfiles\MappingProfiles.csproj" />
+    <ProjectReference Include="..\ShopBLL\ShopBLL.csproj" />
     <ProjectReference Include="..\ShopDAL\ShopDAL.csproj" />
   </ItemGroup>
 

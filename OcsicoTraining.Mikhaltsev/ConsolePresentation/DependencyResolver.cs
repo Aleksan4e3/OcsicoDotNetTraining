@@ -1,6 +1,10 @@
 using System;
+using AutoMapper;
+using MappingProfiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ShopBLL.Services;
+using ShopBLL.Services.Contracts;
 using ShopDAL.Context;
 using ShopDAL.Repositories;
 using ShopDAL.Repositories.Contracts;
@@ -22,6 +26,15 @@ namespace ConsolePresentation
             serviceCollection.AddTransient<IOrderRepository, OrderRepository>();
             serviceCollection.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
             serviceCollection.AddTransient<IProductRepository, ProductRepository>();
+            serviceCollection.AddTransient<IProductService, ProductService>();
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddMaps(typeof(ProductProfile));
+            });
+
+            var mapper = mappingConfig.CreateMapper();
+            serviceCollection.AddSingleton(mapper);
 
             return serviceCollection.BuildServiceProvider();
         }
