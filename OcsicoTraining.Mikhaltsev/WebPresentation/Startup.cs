@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using EntityModels.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShopDAL.Context;
+using WebPresentation.Configurations;
 
 namespace WebPresentation
 {
@@ -23,6 +21,11 @@ namespace WebPresentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureDataContext(Configuration);
+            services.ConfigureDependencies();
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<AppDbContext>();
+            services.ConfigureMapper();
             services.AddControllersWithViews();
         }
 
@@ -44,6 +47,7 @@ namespace WebPresentation
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
