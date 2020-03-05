@@ -12,7 +12,6 @@ namespace EntityModels
         public string Name { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
-        public int Weight { get; set; }
 
         public virtual Image Image { get; set; }
         public virtual Product ParentProduct { get; set; }

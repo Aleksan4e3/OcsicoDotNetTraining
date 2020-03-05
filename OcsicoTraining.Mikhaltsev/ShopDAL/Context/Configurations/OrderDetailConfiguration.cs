@@ -15,6 +15,9 @@ namespace ShopDAL.Context.Configurations
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
+            builder.Property(x => x.Weight)
+                .IsRequired();
+
             builder.Property(x => x.Quantity)
                 .IsRequired();
         }

@@ -24,9 +24,6 @@ namespace ShopDAL.Context.Configurations
             builder.Property(x => x.Price)
                 .IsRequired();
 
-            builder.Property(x => x.Weight)
-                .IsRequired();
-
             builder.HasMany(x => x.OrderDetails)
                 .WithOne(x => x.Product)
                 .HasForeignKey(x => x.ProductId)
