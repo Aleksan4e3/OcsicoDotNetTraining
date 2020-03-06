@@ -1,25 +1,17 @@
 using System.Threading.Tasks;
-using AutoMapper;
-using EntityModels.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ShopBLL.Services.Contracts;
 using ViewModels;
 
 namespace WebPresentation.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
-        private readonly IMapper mapper;
+        private readonly IUserService userService;
 
-        public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager,
-            IMapper mapper)
+        public AccountController(IUserService userService)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.mapper = mapper;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -36,13 +28,11 @@ namespace WebPresentation.Controllers
                 return View(model);
             }
 
-
-            var user = mapper.Map<User>(model); // TODO: don't use entity model in presentation level
-            var result = await userManager.CreateAsync(user, model.Password);
+            var result = await userService.CreateAsync(model);
 
             if (result.Succeeded)
             {
-                await signInManager.SignInAsync(user, false);
+                await userService.LogInAsync(model);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -51,7 +41,6 @@ namespace WebPresentation.Controllers
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
-
 
             return View(model);
         }
@@ -66,23 +55,24 @@ namespace WebPresentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.UserName,
-                    model.Password, model.IsRemember, false);
+                return View(model);
+            }
 
-                if (result.Succeeded)
+            var result = await userService.PasswordLogInAsync(model);
+
+            if (result.Succeeded)
+            {
+                if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                 {
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-
-                    return RedirectToAction("Index", "Home");
+                    return Redirect(model.ReturnUrl);
                 }
 
-                ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                return RedirectToAction("Index", "Home");
             }
+
+            ModelState.AddModelError("", "Неправильный логин и (или) пароль");
 
             return View(model);
         }
@@ -91,7 +81,7 @@ namespace WebPresentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
+            await userService.LogOutAsync();
 
             return RedirectToAction("Index", "Home");
         }
