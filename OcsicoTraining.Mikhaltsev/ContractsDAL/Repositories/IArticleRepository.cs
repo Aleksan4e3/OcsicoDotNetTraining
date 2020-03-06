@@ -1,6 +1,6 @@
 using EntityModels;
 
-namespace ShopDAL.Repositories.Contracts
+namespace ContractsDAL.Repositories
 {
     public interface IArticleRepository : IRepository<Article> { }
 }

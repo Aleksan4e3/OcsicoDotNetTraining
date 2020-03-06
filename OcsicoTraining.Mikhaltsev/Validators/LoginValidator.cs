@@ -8,10 +8,10 @@ namespace Validators
         public LoginValidator()
         {
             RuleFor(x => x.UserName)
-                .NotNull();
+                .NotNull().NotEmpty();
 
             RuleFor(x => x.Password)
-                .NotNull();
+                .NotNull().NotEmpty();
         }
     }
 }

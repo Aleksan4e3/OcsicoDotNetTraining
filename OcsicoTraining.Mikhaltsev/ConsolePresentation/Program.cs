@@ -21,15 +21,12 @@ namespace ConsolePresentation
 
             var productService = serviceProvider.GetService<IProductService>();
 
-            var image = new Image { Name = "ImageName", Data = "ImageData" };
-
             var productViewModel = new CreateProductViewModel
             {
                 Name = "PrNameNew",
                 Description = "PrDescriptionNew",
                 Price = 1200,
-                SelectedParentId = Guid.Parse("d0b1462d-d337-4d86-c818-08d7c0fe26fe"),
-                Image = image
+                SelectedParentId = Guid.Parse("d0b1462d-d337-4d86-c818-08d7c0fe26fe")
             };
 
             await productService.CreateAsync(productViewModel);

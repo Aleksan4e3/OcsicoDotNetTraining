@@ -2,7 +2,7 @@ using System;
 
 namespace EntityModels
 {
-    public class OrderDetail : IEntityModel
+    public class OrderDetail : IBaseEntity
     {
         public Guid Id { get; set; }
         public Guid OrderId { get; set; }

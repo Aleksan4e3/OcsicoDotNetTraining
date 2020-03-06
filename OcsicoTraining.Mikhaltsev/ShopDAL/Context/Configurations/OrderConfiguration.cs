@@ -15,17 +15,10 @@ namespace ShopDAL.Context.Configurations
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            builder.Property(x => x.Date)
-                .IsRequired();
-
-            builder.Property(x => x.Address)
-                .IsRequired();
-
-            builder.Property(x => x.Status)
-                .IsRequired();
-
-            builder.Property(x => x.Comment)
-                .IsRequired(false);
+            builder.Property(x => x.Date).IsRequired();
+            builder.Property(x => x.Address).IsRequired();
+            builder.Property(x => x.Status).IsRequired();
+            builder.Property(x => x.Comment).IsRequired(false);
 
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Orders)

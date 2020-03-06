@@ -4,7 +4,7 @@ using EntityModels.Identity;
 
 namespace EntityModels
 {
-    public class Order : IEntityModel
+    public class Order : IBaseEntity
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

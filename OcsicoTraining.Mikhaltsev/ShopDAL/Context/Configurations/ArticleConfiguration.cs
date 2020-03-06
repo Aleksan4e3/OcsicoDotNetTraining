@@ -15,11 +15,9 @@ namespace ShopDAL.Context.Configurations
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            builder.Property(x => x.Title)
-                .IsRequired();
-
-            builder.Property(x => x.Text)
-                .IsRequired();
+            builder.Property(x => x.Title).IsRequired();
+            builder.Property(x => x.Text).IsRequired();
+            builder.Property(x => x.ImageUrl).IsRequired();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ViewModels
         public string Password { get; set; }
 
         [Display(Name = "Запомнить?")]
-        public bool RememberMe { get; set; }
+        public bool IsRemember { get; set; }
 
         public string ReturnUrl { get; set; }
     }

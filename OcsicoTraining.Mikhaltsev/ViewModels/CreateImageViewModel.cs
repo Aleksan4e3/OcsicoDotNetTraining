@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Http;
+
 namespace ViewModels
 {
     public class CreateImageViewModel
     {
-        public string Name { get; set; }
-        public string Data { get; set; }
+        public IFormFile Data { get; set; }
     }
 }

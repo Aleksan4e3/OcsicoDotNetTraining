@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ViewModels
@@ -9,9 +8,7 @@ namespace ViewModels
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Price { get; set; }
-        public string ImageName { get; set; }
-        public IFormFile Image { get; set; }
+        public double? Price { get; set; } // TODO: int?
 
         public Guid? SelectedParentId { get; set; }
         public List<SelectListItem> ProductParents { get; set; }

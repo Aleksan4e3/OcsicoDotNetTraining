@@ -8,21 +8,21 @@ namespace Validators
         public RegisterValidator()
         {
             RuleFor(x => x.Email)
-                .NotNull()
+                .NotNull().NotEmpty()
                 .WithMessage("Поле {PropertyName} не должно быть пустым!")
                 .EmailAddress()
                 .WithMessage("Здесь должен быть Email!");
 
             RuleFor(x => x.UserName)
-                .NotNull()
+                .NotNull().NotEmpty()
                 .WithMessage("Поле {PropertyName} не должно быть пустым!");
 
             RuleFor(x => x.Password)
-                .NotNull()
+                .NotNull().NotEmpty()
                 .WithMessage("Поле {PropertyName} не должно быть пустым!");
 
             RuleFor(x => x.PasswordConfirm)
-                .NotNull()
+                .NotNull().NotEmpty()
                 .WithMessage("Поле {PropertyName} не должно быть пустым!")
                 .Equal(x => x.Password)
                 .WithMessage("Не совпадает с полем {ComparisonName}");

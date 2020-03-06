@@ -1,6 +1,6 @@
+using ContractsDAL.Context;
+using ContractsDAL.Repositories;
 using EntityModels;
-using ShopDAL.Context;
-using ShopDAL.Repositories.Contracts;
 
 namespace ShopDAL.Repositories
 {

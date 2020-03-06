@@ -2,11 +2,11 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
+using ContractsDAL.Context;
+using ContractsDAL.Repositories;
 using EntityModels;
 using Microsoft.AspNetCore.Http;
 using ShopBLL.Services.Contracts;
-using ShopDAL.Context;
-using ShopDAL.Repositories.Contracts;
 using ViewModels;
 
 namespace ShopBLL.Services
@@ -15,23 +15,20 @@ namespace ShopBLL.Services
     {
         private readonly IDataContext dataContext;
         private readonly IProductRepository productRepository;
-        private readonly IImageRepository imageRepository;
         private readonly IMapper mapper;
 
         public ProductService(IDataContext dataContext,
             IProductRepository productRepository,
-            IImageRepository imageRepository,
             IMapper mapper)
         {
             this.dataContext = dataContext;
             this.productRepository = productRepository;
-            this.imageRepository = imageRepository;
             this.mapper = mapper;
         }
 
         public async Task<CreateProductViewModel> CreateAsync(CreateProductViewModel model)
         {
-            var product = Map(model);
+            var product = mapper.Map<Product>(model);
 
             await productRepository.AddAsync(product);
             await dataContext.SaveChangesAsync();
@@ -39,31 +36,19 @@ namespace ShopBLL.Services
             return model;
         }
 
+        //public async Task<List<ProductViewModel>> GetAsync()
+        //{
+        //    var products = await productRepository.GetQuery().ToListAsync();
+
+
+        //}
+
         private string GetStringFromImage(IFormFile file)
         {
-            using (var target = new MemoryStream())
-            {
-                file.CopyTo(target);
-                return Convert.ToBase64String(target.ToArray());
-            }
-        }
+            using var target = new MemoryStream();
+            file.CopyTo(target);
 
-        private Product Map(CreateProductViewModel model)
-        {
-            var image = new Image
-            {
-                Name = model.ImageName,
-                Data = GetStringFromImage(model.Image)
-            };
-
-            return new Product
-            {
-                Name = model.Name,
-                Description = model.Description,
-                Price = model.Price,
-                ParentProductId = model.SelectedParentId,
-                Image = image
-            };
+            return Convert.ToBase64String(target.ToArray());
         }
     }
 }

@@ -31,23 +31,27 @@ namespace WebPresentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = mapper.Map<User>(model);
-                var result = await userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    await signInManager.SignInAsync(user, false);
-
-                    return RedirectToAction("Index", "Home");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                return View(model);
             }
+
+
+            var user = mapper.Map<User>(model); // TODO: don't use entity model in presentation level
+            var result = await userManager.CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, false);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
 
             return View(model);
         }
@@ -65,7 +69,7 @@ namespace WebPresentation.Controllers
             if (ModelState.IsValid)
             {
                 var result = await signInManager.PasswordSignInAsync(model.UserName,
-                    model.Password, model.RememberMe, false);
+                    model.Password, model.IsRemember, false);
 
                 if (result.Succeeded)
                 {

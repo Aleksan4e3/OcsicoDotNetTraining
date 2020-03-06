@@ -1,14 +1,14 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ContractsDAL.Context;
+using ContractsDAL.Repositories;
 using EntityModels;
 using Microsoft.EntityFrameworkCore;
-using ShopDAL.Context;
-using ShopDAL.Repositories.Contracts;
 
 namespace ShopDAL.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class, IEntityModel
+    public class Repository<T> : IRepository<T> where T : class, IBaseEntity
     {
         public Repository(IDataContext dataContext)
         {
@@ -54,7 +54,7 @@ namespace ShopDAL.Repositories
 
         public async Task RemoveAsync(Guid id)
         {
-            var entity = await EntitiesSet.FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await EntitiesSet.FindAsync(id);
             Remove(entity);
         }
     }

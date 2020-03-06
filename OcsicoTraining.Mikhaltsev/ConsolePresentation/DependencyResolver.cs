@@ -1,5 +1,7 @@
 using System;
 using AutoMapper;
+using ContractsDAL.Context;
+using ContractsDAL.Repositories;
 using MappingProfiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +9,6 @@ using ShopBLL.Services;
 using ShopBLL.Services.Contracts;
 using ShopDAL.Context;
 using ShopDAL.Repositories;
-using ShopDAL.Repositories.Contracts;
 
 namespace ConsolePresentation
 {
@@ -22,7 +23,6 @@ namespace ConsolePresentation
                 options.UseSqlServer("Data Source=DESKTOP-BHOPAQ4\\SQLEXPRESS;Initial Catalog=PiesShop;Integrated Security=True;")
                     .UseLazyLoadingProxies());
             serviceCollection.AddTransient<IArticleRepository, ArticleRepository>();
-            serviceCollection.AddTransient<IImageRepository, ImageRepository>();
             serviceCollection.AddTransient<IOrderRepository, OrderRepository>();
             serviceCollection.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
             serviceCollection.AddTransient<IProductRepository, ProductRepository>();

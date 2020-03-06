@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using EntityModels;
 
-namespace ShopDAL.Repositories.Contracts
+namespace ContractsDAL.Repositories
 {
-    public interface IRepository<T> where T : class, IEntityModel
+    public interface IRepository<T> where T : class, IBaseEntity
     {
         IQueryable<T> GetQuery();
         Task AddAsync(T entity);
