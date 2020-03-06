@@ -5,6 +5,7 @@ using AutoMapper;
 using ContractsDAL.Context;
 using ContractsDAL.Repositories;
 using EntityModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using ShopBLL.Services.Contracts;
 using ViewModels;
@@ -16,14 +17,17 @@ namespace ShopBLL.Services
         private readonly IDataContext dataContext;
         private readonly IProductRepository productRepository;
         private readonly IMapper mapper;
+        private readonly IHostingEnvironment hostingEnvironment;
 
         public ProductService(IDataContext dataContext,
             IProductRepository productRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IHostingEnvironment hostingEnvironment)
         {
             this.dataContext = dataContext;
             this.productRepository = productRepository;
             this.mapper = mapper;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         public async Task<CreateProductViewModel> CreateAsync(CreateProductViewModel model)
@@ -43,12 +47,21 @@ namespace ShopBLL.Services
 
         //}
 
-        private string GetStringFromImage(IFormFile file)
+        private async Task<string> GetImagePath(IFormFile uploadedFile)
         {
-            using var target = new MemoryStream();
-            file.CopyTo(target);
+            var path = string.Empty;
 
-            return Convert.ToBase64String(target.ToArray());
+            if (uploadedFile != null)
+            {
+                path = "/Images/" + uploadedFile.FileName;
+
+                using (var fileStream = new FileStream(hostingEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+            }
+
+            return path;
         }
     }
 }
