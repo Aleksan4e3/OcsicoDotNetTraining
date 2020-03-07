@@ -31,14 +31,15 @@ namespace WebPresentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await productService.CreateAsync(model);
-
-                return RedirectToAction(nameof(Index));
+                return View(model);
             }
 
-            return View(model);
+            await productService.CreateAsync(model);
+
+            return RedirectToAction(nameof(Index));
+
         }
 
         //todo

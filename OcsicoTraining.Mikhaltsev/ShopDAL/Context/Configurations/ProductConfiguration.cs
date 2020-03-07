@@ -20,7 +20,7 @@ namespace ShopDAL.Context.Configurations
 
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.ImageUrl).IsRequired();
-            builder.Property(x => x.Price);
+            builder.Property(x => x.Price).IsRequired();
 
             builder.HasMany(x => x.OrderDetails)
                 .WithOne(x => x.Product)

@@ -10,10 +10,15 @@ namespace MappingProfiles
         {
             CreateMap<CreateProductViewModel, Product>()
                 .ForMember(x => x.ParentProductId,
-                    act => act.MapFrom(src => src.SelectedParentId));
+                    act => act.MapFrom(src => src.SelectedParentId))
+                .ForMember(x => x.ImageUrl, act => act.Ignore());
+
             CreateMap<Product, CreateProductViewModel>()
                 .ForMember(x => x.SelectedParentId,
-                    act => act.MapFrom(src => src.ParentProductId));
+                    act => act.MapFrom(src => src.ParentProductId))
+                .ForMember(x => x.Image, act => act.Ignore());
+
+            CreateMap<Product, ProductViewModel>();
         }
     }
 }

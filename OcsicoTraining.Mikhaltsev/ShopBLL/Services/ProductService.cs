@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +7,7 @@ using ContractsDAL.Repositories;
 using EntityModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ShopBLL.Services.Contracts;
 using ViewModels;
 
@@ -34,20 +35,22 @@ namespace ShopBLL.Services
         {
             var product = mapper.Map<Product>(model);
 
+            product.ImageUrl = await SaveImageAsync(model.Image);
+
             await productRepository.AddAsync(product);
             await dataContext.SaveChangesAsync();
 
             return model;
         }
 
-        //public async Task<List<ProductViewModel>> GetAsync()
-        //{
-        //    var products = await productRepository.GetQuery().ToListAsync();
+        public async Task<List<ProductViewModel>> GetAsync()
+        {
+            var products = await productRepository.GetQuery().ToListAsync();
 
+            return mapper.Map<List<ProductViewModel>>(products);
+        }
 
-        //}
-
-        private async Task<string> GetImagePath(IFormFile uploadedFile)
+        private async Task<string> SaveImageAsync(IFormFile uploadedFile)
         {
             var path = string.Empty;
 

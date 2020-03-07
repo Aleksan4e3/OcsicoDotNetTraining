@@ -1,0 +1,23 @@
+@model List<ProductViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <img  src="@item.ImageUrl" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+                    <a href="#" class="btn btn-primary" >Buy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
