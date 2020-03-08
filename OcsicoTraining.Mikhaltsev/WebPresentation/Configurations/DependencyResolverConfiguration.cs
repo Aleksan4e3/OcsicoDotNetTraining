@@ -16,6 +16,7 @@ namespace WebPresentation.Configurations
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOrderDetailService, OrderDetailService>();
         }
     }
 }

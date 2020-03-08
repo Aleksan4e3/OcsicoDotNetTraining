@@ -1,16 +1,21 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
+using ViewModels;
+using WebPresentation.Session;
 
 namespace WebPresentation.Controllers
 {
     public class MenuController : Controller
     {
         private readonly IProductService productService;
+        private readonly IOrderDetailService orderDetailService;
 
-        public MenuController(IProductService productService)
+        public MenuController(IProductService productService,
+            IOrderDetailService orderDetailService)
         {
             this.productService = productService;
+            this.orderDetailService = orderDetailService;
         }
 
         [HttpGet]
@@ -19,6 +24,14 @@ namespace WebPresentation.Controllers
             var products = await productService.GetAsync();
 
             return View(products);
+        }
+
+        [HttpPost]
+        public IActionResult Add([Bind(Prefix = "item")]OrderDetailViewModel model)
+        {
+            HttpContext.Session.Set(model.Id.ToString(), model);
+
+            return Ok();
         }
     }
 }

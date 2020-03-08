@@ -1,5 +1,4 @@
 using System;
-using EntityModels;
 
 namespace ViewModels
 {

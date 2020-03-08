@@ -5,7 +5,7 @@ namespace EntityModels
     public class OrderDetail : IBaseEntity
     {
         public Guid Id { get; set; }
-        public Guid OrderId { get; set; }
+        public Guid? OrderId { get; set; }
         public Guid ProductId { get; set; }
 
         public int Weight { get; set; }
