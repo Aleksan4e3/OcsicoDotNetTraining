@@ -1,4 +1,4 @@
-@model List<ProductViewModel>
+@model List<ProductForOrderViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -7,14 +7,18 @@
 
 @foreach (var item in Model)
 {
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="card">
-                <img  src="@item.ImageUrl" class="card-img-top">
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="@item.ImageUrl" class="card-img">
+            </div>
+            <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">@item.Description</p>
-                    <a href="#" class="btn btn-primary" >Buy</a>
+                    <input asp-for="@item.Weight" />
+                    <input asp-for="@item.Quantity" />
+                    <a href="#" class="btn btn-primary">Buy</a>
                 </div>
             </div>
         </div>

@@ -43,11 +43,11 @@ namespace ShopBLL.Services
             return model;
         }
 
-        public async Task<List<ProductViewModel>> GetAsync()
+        public async Task<List<ProductForOrderViewModel>> GetAsync()
         {
             var products = await productRepository.GetQuery().ToListAsync();
 
-            return mapper.Map<List<ProductViewModel>>(products);
+            return mapper.Map<List<ProductForOrderViewModel>>(products);
         }
 
         private async Task<string> SaveImageAsync(IFormFile uploadedFile)

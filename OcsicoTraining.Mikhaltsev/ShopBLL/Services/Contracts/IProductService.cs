@@ -7,6 +7,6 @@ namespace ShopBLL.Services.Contracts
     public interface IProductService
     {
         Task<CreateProductViewModel> CreateAsync(CreateProductViewModel model);
-        Task<List<ProductViewModel>> GetAsync();
+        Task<List<ProductForOrderViewModel>> GetAsync();
     }
 }
