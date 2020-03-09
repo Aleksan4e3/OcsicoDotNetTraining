@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using EntityModels;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
 using ViewModels;
@@ -31,11 +32,18 @@ namespace WebPresentation.Controllers
                 var item = HttpContext.Session.Get<OrderDetailViewModel>(key);
                 var product = await productService.GetAsync(Guid.Parse(key));
                 item.Product = product;
+                item.CalculateTotal();
 
                 collection.Add(item);
             }
 
             return View(collection);
+        }
+
+        [HttpPost]
+        public IActionResult PostOrder([Bind(Prefix = "item")]List<OrderDetail> orders)
+        {
+            return new EmptyResult();
         }
     }
 }

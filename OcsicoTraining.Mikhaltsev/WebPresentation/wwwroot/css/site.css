@@ -110,6 +110,7 @@ body {
 .delete-btn,
 .like-btn {
    display: inline-block;
+   margin-top: 15px;
    Cursor: pointer;
 }
 
@@ -188,8 +189,10 @@ body {
 
 .quantity {
    padding-top: 20px;
-   margin-right: 60px;
-   margin-left: 50px;
+   margin-top: 25px;
+   margin-right: 30px;
+   margin-left: 30px;
+   font-size: 30px;
 }
 
    .quantity input {

@@ -6,39 +6,98 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div class="shopping-cart">
-    <div class="title">
-        Shopping Bag
-    </div>
-    @foreach (var item in Model)
-    {
-        <div class="item">
-            <div class="buttons">
-                <span class="delete-btn"></span>
-            </div>
-
-            <div class="image">
-                <img src="@item.Product.ImageUrl" />
-            </div>
-
-            <div class="description">
-                <span>@item.Product.Name</span>
-                <span>@item.Product.Description</span>
-                <span>@item.Weight</span>
-                <span>@item.Product.Price</span>
-            </div>
-
-            <div class="quantity">
-                <button class="minus-btn" type="button" name="button">
-                    
-                </button>
-                <input asp-for="@item.Quantity">
-                <button class="plus-btn" type="button" name="button">
-                    
-                </button>
-            </div>
-
-            <div class="total-price"></div>
+<form asp-action="PostOrder">
+    <div class="shopping-cart">
+        <div class="title">
+            Shopping Bag
         </div>
-    }
-</div>
+        @foreach (var item in Model)
+        {
+            <div class="item">
+                <div class="buttons">
+                    <span class="delete-btn"></span>
+                </div>
+
+                <input type="hidden" asp-for="@item.Product.Id"/>
+
+                <div class="image">
+                    <img src="@item.Product.ImageUrl" />
+                </div>
+
+                <div class="description">
+                    <span>@item.Product.Name</span>
+                    <span>@item.Product.Description</span>
+                    <span id="price">@item.Product.Price</span>
+                    <input asp-for="@item.Weight" disabled="disabled" />
+                </div>
+
+                <div class="quantity">
+                    <button class="minus-btn" type="button" name="button">
+                    </button>
+                    <input asp-for="@item.Quantity" disabled="disabled" />
+                    <button class="plus-btn" type="button" name="button">
+                    </button>
+                </div>
+
+                <div class="total-price">@item.TotalPrice</div>
+            </div>
+        }
+    </div>
+    <input type="submit" value="Оформить заказ"/>
+</form>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.minus-btn').on('click', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $quantity = $this.closest('div').find('input');
+                var $weight = $this.closest('.item').find('#item_Weight');
+                var $price = $this.closest('.item').find('#price');
+                var $total = $this.closest('.item').find('.total-price');
+
+                var quantity = parseInt($quantity.val());
+                var weight = parseInt($weight.val());
+                var price = parseFloat($price.text());
+
+                if (quantity > 1) {
+                    quantity = quantity - 1;
+                } else {
+                    quantity = 0;
+                }
+
+                var total = quantity * weight * price / 1000;
+
+                $quantity.attr("value", quantity);
+                $total.text(total);
+            });
+
+            $('.plus-btn').on('click', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $quantity = $this.closest('div').find('input');
+                var $weight = $this.closest('.item').find('#item_Weight');
+                var $price = $this.closest('.item').find('#price');
+                var $total = $this.closest('.item').find('.total-price');
+
+                var quantity = parseInt($quantity.val());
+                var weight = parseInt($weight.val());
+                var price = parseFloat($price.text());
+
+                if (quantity < 5) {
+                    quantity = quantity + 1;
+                } else {
+                    quantity = 5;
+                }
+
+                var total = quantity * weight * price / 1000;
+
+                $quantity.attr("value", quantity);
+                $total.text(total);
+            });
+        });
+    </script>
+}
