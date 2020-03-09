@@ -29,6 +29,12 @@ namespace WebPresentation.Controllers
         [HttpPost]
         public IActionResult Add([Bind(Prefix = "item")]OrderDetailViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                //todo
+                return new EmptyResult();
+            }
+
             HttpContext.Session.Set(model.Id.ToString(), model);
 
             return Ok();
