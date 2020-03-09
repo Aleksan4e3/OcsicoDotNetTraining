@@ -35,7 +35,7 @@ namespace WebPresentation.Controllers
                 return new EmptyResult();
             }
 
-            HttpContext.Session.Set(model.Id.ToString(), model);
+            HttpContext.Session.Set(model.ProductId.ToString(), model);
 
             return Ok();
         }

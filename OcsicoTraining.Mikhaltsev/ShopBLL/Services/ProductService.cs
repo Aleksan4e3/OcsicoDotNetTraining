@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -48,6 +49,15 @@ namespace ShopBLL.Services
             var products = await productRepository.GetQuery().ToListAsync();
 
             return mapper.Map<List<ProductForOrderViewModel>>(products);
+        }
+
+        public async Task<ProductViewModel> GetAsync(Guid id)
+        {
+            var product = await productRepository
+                .GetQuery()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return mapper.Map<ProductViewModel>(product);
         }
 
         private async Task<string> SaveImageAsync(IFormFile uploadedFile)

@@ -1,0 +1,44 @@
+@model List<OrderDetailViewModel>
+
+@{
+    ViewData["Title"] = "Shop basket";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="shopping-cart">
+    <div class="title">
+        Shopping Bag
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="item">
+            <div class="buttons">
+                <span class="delete-btn"></span>
+            </div>
+
+            <div class="image">
+                <img src="@item.Product.ImageUrl" />
+            </div>
+
+            <div class="description">
+                <span>@item.Product.Name</span>
+                <span>@item.Product.Description</span>
+                <span>@item.Weight</span>
+                <span>@item.Product.Price</span>
+            </div>
+
+            <div class="quantity">
+                <button class="minus-btn" type="button" name="button">
+                    
+                </button>
+                <input asp-for="@item.Quantity">
+                <button class="plus-btn" type="button" name="button">
+                    
+                </button>
+            </div>
+
+            <div class="total-price"></div>
+        </div>
+    }
+</div>

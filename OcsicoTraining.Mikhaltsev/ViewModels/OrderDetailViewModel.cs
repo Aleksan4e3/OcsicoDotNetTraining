@@ -4,8 +4,10 @@ namespace ViewModels
 {
     public class OrderDetailViewModel
     {
-        public Guid Id { get; set; }
+        public Guid ProductId { get; set; }
         public int Weight { get; set; }
         public int Quantity { get; set; }
+
+        public ProductViewModel Product { get; set; }
     }
 }

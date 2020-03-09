@@ -7,19 +7,19 @@
 
 @foreach (var item in Model)
 {
-    <div class="card mb-3">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <img src="@item.ImageUrl" class="card-img">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">@item.Description</p>
-                    <label asp-for="@item.Price"></label>
-                    <span class="text-success">@item.Price</span>
-                    <form data-ajax="true" data-ajax-method="Post" data-ajax-url="@Url.Action("Add")">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form data-ajax="true" data-ajax-method="Post" data-ajax-url="@Url.Action("Add")">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="@item.ImageUrl" class="card-img">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <label asp-for="@item.Price"></label>
+                        <span class="text-success">@item.Price</span>
                         <div class="form-group">
                             <label asp-for="@item.Weight"></label>
                             <input asp-for="@item.Weight" min="500" step="100" />
@@ -27,16 +27,16 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="@item.Quantity"></label>
-                            <input asp-for="@item.Quantity" min="1"/>
+                            <input asp-for="@item.Quantity" min="1" />
                             <span asp-validation-for="@item.Quantity"></span>
                         </div>
-                        <input type="hidden" asp-for="@item.Id" />
+                        <input type="hidden" asp-for="@item.ProductId" />
                         <input type="submit" />
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 }
 
 @section Scripts {

@@ -3,9 +3,9 @@ using ViewModels;
 
 namespace Validators
 {
-    public class OrderDetailValidator : AbstractValidator<OrderDetailViewModel>
+    public class ProductForOrderValidator : AbstractValidator<ProductForOrderViewModel>
     {
-        public OrderDetailValidator()
+        public ProductForOrderValidator()
         {
             RuleFor(x => x.ProductId)
                 .NotNull().NotEmpty();
