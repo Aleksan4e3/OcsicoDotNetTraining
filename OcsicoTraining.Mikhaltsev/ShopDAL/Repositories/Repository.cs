@@ -19,6 +19,8 @@ namespace ShopDAL.Repositories
 
         public IQueryable<T> GetQuery() => EntitiesSet;
 
+        public async ValueTask<T> GetAsync(Guid id) => await EntitiesSet.FindAsync(id);
+
         public async Task AddAsync(T entity)
         {
             if (entity == null)
@@ -54,7 +56,7 @@ namespace ShopDAL.Repositories
 
         public async Task RemoveAsync(Guid id)
         {
-            var entity = await EntitiesSet.FindAsync(id);
+            var entity = await GetAsync(id);
             Remove(entity);
         }
     }

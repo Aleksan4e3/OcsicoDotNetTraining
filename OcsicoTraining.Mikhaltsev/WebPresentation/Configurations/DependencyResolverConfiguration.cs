@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ShopBLL.Services;
 using ShopBLL.Services.Contracts;
 using ShopDAL.Repositories;
+using WebPresentation.Infrastructure.Context;
 
 namespace WebPresentation.Configurations
 {
@@ -17,6 +18,10 @@ namespace WebPresentation.Configurations
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IOrderDetailService, OrderDetailService>();
+            services.AddTransient<IContextService, HttpContextService>();
+            services.AddTransient<IBasketService, BasketService>();
+
+            services.AddHttpContextAccessor();
         }
     }
 }

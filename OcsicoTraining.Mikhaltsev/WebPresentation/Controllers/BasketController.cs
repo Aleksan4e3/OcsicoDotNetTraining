@@ -6,7 +6,6 @@ using EntityModels;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
 using ViewModels;
-using WebPresentation.Session;
 
 namespace WebPresentation.Controllers
 {
@@ -14,36 +13,27 @@ namespace WebPresentation.Controllers
     {
         private readonly IProductService productService;
         private readonly IMapper mapper;
+        private readonly IBasketService basketService;
 
         public BasketController(IProductService productService,
-            IMapper mapper)
+            IMapper mapper,
+            IBasketService basketService)
         {
             this.productService = productService;
             this.mapper = mapper;
+            this.basketService = basketService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var keys = HttpContext.Session.Keys;
-            var collection = new List<OrderDetailViewModel>();
-
-            foreach (var key in keys)
-            {
-                var item = HttpContext.Session.Get<OrderDetailViewModel>(key);
-                var product = await productService.GetAsync(Guid.Parse(key));
-                item.Product = product;
-                item.CalculateTotal();
-
-                collection.Add(item);
-            }
-
-            return View(collection);
+            var orders = await basketService.GetOrdersAsync();
+            return View(orders);
         }
 
         [HttpPost]
-        public IActionResult PostOrder([Bind(Prefix = "item")]List<OrderDetail> orders)
+        public IActionResult PostOrder(List<OrderDetailViewModel> orders)
         {
-            return new EmptyResult();
+            return Json(orders);
         }
     }
 }

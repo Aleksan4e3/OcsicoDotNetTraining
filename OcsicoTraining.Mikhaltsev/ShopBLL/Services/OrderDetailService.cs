@@ -30,5 +30,12 @@ namespace ShopBLL.Services
             await orderDetailRepository.AddAsync(orderDetail);
             await dataContext.SaveChangesAsync();
         }
+
+        public OrderDetailViewModel CalculateTotal(OrderDetailViewModel model)
+        {
+            model.TotalPrice = model.Weight * model.Quantity * model.Product.Price / 1000;
+
+            return model;
+        }
     }
 }

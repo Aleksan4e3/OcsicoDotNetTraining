@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
 using ViewModels;
-using WebPresentation.Session;
 
 namespace WebPresentation.Controllers
 {
@@ -10,12 +9,15 @@ namespace WebPresentation.Controllers
     {
         private readonly IProductService productService;
         private readonly IOrderDetailService orderDetailService;
+        private readonly IBasketService _basketService;
 
         public MenuController(IProductService productService,
-            IOrderDetailService orderDetailService)
+            IOrderDetailService orderDetailService,
+            IBasketService basketService)
         {
             this.productService = productService;
             this.orderDetailService = orderDetailService;
+            _basketService = basketService;
         }
 
         [HttpGet]
@@ -30,12 +32,12 @@ namespace WebPresentation.Controllers
         public IActionResult Add([Bind(Prefix = "item")]OrderDetailViewModel model)
         {
             if (!ModelState.IsValid)
-            {
+            {   
                 //todo
                 return new EmptyResult();
             }
 
-            HttpContext.Session.Set(model.ProductId.ToString(), model);
+            _basketService.AddOrder(model);
 
             return Ok();
         }

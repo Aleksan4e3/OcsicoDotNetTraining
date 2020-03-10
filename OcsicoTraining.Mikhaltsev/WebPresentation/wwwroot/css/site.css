@@ -120,17 +120,6 @@ body {
    background: url("../Images/delete.png") no-repeat center;
 }
 
-.like-btn {
-   position: absolute;
-   top: 9px;
-   left: 15px;
-   background: url('twitter-heart.png');
-   width: 60px;
-   height: 60px;
-   background-size: 2900%;
-   background-repeat: no-repeat;
-}
-
 .is-active {
    animation-name: animate;
    animation-duration: .8s;

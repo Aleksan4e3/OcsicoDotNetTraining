@@ -1,9 +1,9 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 
-namespace WebPresentation.Session
+namespace WebPresentation.Infrastructure.Utilities
 {
-    public static class SessionExtensions
+    public static class SessionUtility
     {
         public static void Set<T>(this ISession session, string key, T value)
         {

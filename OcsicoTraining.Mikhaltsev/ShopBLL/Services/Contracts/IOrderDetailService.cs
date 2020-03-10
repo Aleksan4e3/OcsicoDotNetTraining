@@ -6,5 +6,6 @@ namespace ShopBLL.Services.Contracts
     public interface IOrderDetailService
     {
         Task AddAsync(OrderDetailViewModel model);
+        OrderDetailViewModel CalculateTotal(OrderDetailViewModel model);
     }
 }
