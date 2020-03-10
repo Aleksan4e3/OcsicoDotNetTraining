@@ -7,56 +7,16 @@
 <h1>@ViewData["Title"]</h1>
 
 <form asp-action="PostOrderDetails" asp-controller="Basket">
-    <div class="shopping-cart">
-        <div class="title">
-            Shopping Bag
-        </div>
-        @for (var i = 0; i < Model.Count; i++)
-        {
-            <div class="basket-item">
-                <input type="hidden" asp-for="@Model[i].Product.Id" />
-                <input type="hidden" asp-for="@Model[i].ProductId" />
-                <input type="hidden" asp-for="@Model[i].Weight" readonly class="disabled weight" />
-                <input type="hidden" asp-for="@Model[i].Product.Price" readonly class="disabled price" />
-                <input type="hidden" asp-for="@Model[i].TotalPrice" readonly class="disabled total-price" />
 
-                <div class="item">
-                    <div class="buttons">
-                        <span class="delete-btn"></span>
-                    </div>
-
-                    <div class="image">
-                        <img src="@Model[i].Product.ImageUrl" />
-                    </div>
-
-                    <div class="description">
-                        <span>@Model[i].Product.Name</span>
-                        <span>@Model[i].Product.Description</span>
-                        <span>@Model[i].Product.Price</span>
-                        <span>@Model[i].Weight</span>
-                    </div>
-
-                    <div class="quantity">
-                        <button class="minus-btn" type="button" name="button"></button>
-                        <input asp-for="@Model[i].Quantity" readonly class="disabled quantity-value" />
-                        <button class="plus-btn" type="button" name="button"></button>
-                    </div>
-
-                    <div class="total-price">@Model[i].TotalPrice</div>
-                </div>
-            </div>
-        }
-        <span>К оплате:</span>
-        <span class="final-price"></span>
-    </div>
+    <partial name="_ShoppingCart" for="@Model"/>
 
     @if (User.Identity.IsAuthenticated)
     {
-        <input type="submit" value="Оформить заказ" class="btn btn-primary" />
+        <input type="submit" value="Оформить заказ" class="btn btn-primary"/>
     }
     else
     {
         <p>Для оформления заказа войдите в личный кабинет</p>
-        <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Index","Basket")">Sign in</a>
+        <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Index", "Basket")">Sign in</a>
     }
 </form>

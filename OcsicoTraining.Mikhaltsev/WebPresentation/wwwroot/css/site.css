@@ -107,8 +107,7 @@ body {
    margin-right: 60px;
 }
 
-.delete-btn,
-.like-btn {
+.delete-btn {
    display: inline-block;
    margin-top: 15px;
    Cursor: pointer;

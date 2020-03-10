@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -31,6 +32,16 @@ namespace WebPresentation.Controllers
         {
             var orders = await basketService.GetOrdersAsync();
             return View(orders);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id, int weight)
+        {
+            basketService.DeleteOrder(id, weight);
+
+            var orders = await basketService.GetOrdersAsync();
+
+            return PartialView("_ShoppingCart", orders);
         }
 
         [Authorize]

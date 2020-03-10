@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -59,5 +60,17 @@ namespace ShopBLL.Services
         }
 
         public void RewriteOrders(List<OrderDetailViewModel> orders) => contextService.PutOrders(orders);
+
+        public void DeleteOrder(Guid id, int weight)
+        {
+            var orders = contextService.GetOrders();
+            var order = orders.Find(x => x.ProductId == id && x.Weight == weight);
+
+            if (order != null)
+            {
+                orders.Remove(order);
+                contextService.PutOrders(orders);
+            }
+        }
     }
 }
