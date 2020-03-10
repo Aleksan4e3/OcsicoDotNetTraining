@@ -26,7 +26,6 @@ namespace WebPresentation.Controllers
             this.basketService = basketService;
         }
 
-        //[Authorize]
         [HttpGet]
         public async Task<IActionResult> Index()
         {

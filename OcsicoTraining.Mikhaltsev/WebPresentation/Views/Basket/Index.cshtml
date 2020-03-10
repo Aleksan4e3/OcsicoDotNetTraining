@@ -49,5 +49,14 @@
         <span>К оплате:</span>
         <span class="final-price"></span>
     </div>
-    <input type="submit" value="Оформить заказ" class="btn btn-primary" />
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <input type="submit" value="Оформить заказ" class="btn btn-primary" />
+    }
+    else
+    {
+        <p>Для оформления заказа войдите в личный кабинет</p>
+        <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Index","Basket")">Sign in</a>
+    }
 </form>
