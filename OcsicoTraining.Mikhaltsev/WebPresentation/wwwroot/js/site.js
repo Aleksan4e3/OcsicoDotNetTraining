@@ -23,10 +23,10 @@ function changeCountOfItem($container, changeCountFn) {
 }
 
 function decrementItem(quantity) {
-   if (quantity > 1) {
+   if (quantity > 2) {
       quantity = quantity - 1;
    } else {
-      quantity = 0;
+      quantity = 1;
    }
    return quantity;
 }
@@ -40,19 +40,26 @@ function incrementItem(quantity) {
    return quantity;
 }
 
-$(document).ready(function () {
+function calculatePrice() {
    var finalPrice = 0;
-   $("div.total-price").each(function (i, val) {
+
+   $("div.total-price").each(function () {
       finalPrice += parseFloat($(this).html());
-      console.log($(this).text());
    });
+
    $('.final-price').text(finalPrice);
+}
+
+$(document).ready(function () {
+   calculatePrice();
 
    $('.minus-btn').on('click', function () {
       changeCountOfItem($(this).closest('.basket-item'), decrementItem);
+      calculatePrice();
    });
 
    $('.plus-btn').on('click', function () {
       changeCountOfItem($(this).closest('.basket-item'), incrementItem);
+      calculatePrice();
    });
 });
