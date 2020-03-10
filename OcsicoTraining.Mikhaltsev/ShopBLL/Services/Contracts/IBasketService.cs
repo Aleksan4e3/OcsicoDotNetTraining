@@ -8,5 +8,6 @@ namespace ShopBLL.Services.Contracts
     {
         Task<List<OrderDetailViewModel>> GetOrdersAsync();
         void AddOrder(OrderDetailViewModel order);
+        void RewriteOrders(List<OrderDetailViewModel> orders);
     }
 }

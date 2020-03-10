@@ -41,6 +41,13 @@ function incrementItem(quantity) {
 }
 
 $(document).ready(function () {
+   var finalPrice = 0;
+   $("div.total-price").each(function (i, val) {
+      finalPrice += parseFloat($(this).html());
+      console.log($(this).text());
+   });
+   $('.final-price').text(finalPrice);
+
    $('.minus-btn').on('click', function () {
       changeCountOfItem($(this).closest('.basket-item'), decrementItem);
    });

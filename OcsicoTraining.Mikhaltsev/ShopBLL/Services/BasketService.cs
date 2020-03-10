@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContractsDAL.Repositories;
@@ -30,7 +29,6 @@ namespace ShopBLL.Services
         {
             var orders = contextService.GetOrders();
 
-            // business logic
             foreach (var order in orders)
             {
                 var product = await productRepository.GetAsync(order.ProductId);
@@ -48,11 +46,18 @@ namespace ShopBLL.Services
         public void AddOrder(OrderDetailViewModel order)
         {
             var orders = contextService.GetOrders();
+            var sameOrder = orders.Find(x => x.ProductId == order.ProductId && x.Weight == order.Weight);
 
-            // Business Logic
+            if (sameOrder != null)
+            {
+                orders.Remove(sameOrder);
+                order.Quantity += sameOrder.Quantity;
+            }
+
             orders.Add(order);
-
             contextService.PutOrders(orders);
         }
+
+        public void RewriteOrders(List<OrderDetailViewModel> orders) => contextService.PutOrders(orders);
     }
 }

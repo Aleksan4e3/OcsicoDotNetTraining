@@ -6,7 +6,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="PostOrder" asp-controller="Basket">
+<form asp-action="PostOrderDetails" asp-controller="Basket">
     <div class="shopping-cart">
         <div class="title">
             Shopping Bag
@@ -46,14 +46,8 @@
                 </div>
             </div>
         }
+        <span>К оплате:</span>
+        <span class="final-price"></span>
     </div>
     <input type="submit" value="Оформить заказ" class="btn btn-primary" />
 </form>
-
-
-@section Scripts
-{
-    <script>
-
-    </script>
-}

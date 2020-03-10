@@ -10,7 +10,5 @@ namespace ViewModels
         public double TotalPrice { get; set; }
 
         public ProductViewModel Product { get; set; }
-
-        public void CalculateTotal() => TotalPrice = Weight * Quantity * Product.Price / 1000;
     }
 }

@@ -9,7 +9,7 @@ namespace WebPresentation.Controllers
     {
         private readonly IProductService productService;
         private readonly IOrderDetailService orderDetailService;
-        private readonly IBasketService _basketService;
+        private readonly IBasketService basketService;
 
         public MenuController(IProductService productService,
             IOrderDetailService orderDetailService,
@@ -17,7 +17,7 @@ namespace WebPresentation.Controllers
         {
             this.productService = productService;
             this.orderDetailService = orderDetailService;
-            _basketService = basketService;
+            this.basketService = basketService;
         }
 
         [HttpGet]
@@ -37,7 +37,7 @@ namespace WebPresentation.Controllers
                 return new EmptyResult();
             }
 
-            _basketService.AddOrder(model);
+            basketService.AddOrder(model);
 
             return Ok();
         }

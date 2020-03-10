@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using EntityModels.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using ShopBLL.Services.Contracts;
 using ViewModels;
@@ -11,14 +13,17 @@ namespace ShopBLL.Services
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly IHttpContextAccessor contextAccessor;
         private readonly IMapper mapper;
 
         public UserService(UserManager<User> userManager,
             SignInManager<User> signInManager,
+            IHttpContextAccessor contextAccessor,
             IMapper mapper)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.contextAccessor = contextAccessor;
             this.mapper = mapper;
         }
 
@@ -27,6 +32,14 @@ namespace ShopBLL.Services
             var user = mapper.Map<User>(model);
 
             return await userManager.CreateAsync(user, model.Password);
+        }
+
+        public Guid GetUserId()
+        {
+            var user = contextAccessor.HttpContext.User;
+            var userId = Guid.Parse(userManager.GetUserId(user));
+
+            return userId;
         }
 
         public async Task LogInAsync(RegisterViewModel model)
