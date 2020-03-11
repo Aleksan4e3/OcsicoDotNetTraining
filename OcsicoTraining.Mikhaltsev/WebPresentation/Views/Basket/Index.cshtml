@@ -8,11 +8,13 @@
 
 <form asp-action="PostOrderDetails" asp-controller="Basket">
 
-    <partial name="_ShoppingCart" for="@Model"/>
+    <div class="shopping-cart">
+        <partial name="_ShoppingCart" for="@Model" />
+    </div>
 
     @if (User.Identity.IsAuthenticated)
     {
-        <input type="submit" value="Оформить заказ" class="btn btn-primary"/>
+        <input type="submit" value="Оформить заказ" class="btn btn-primary" />
     }
     else
     {

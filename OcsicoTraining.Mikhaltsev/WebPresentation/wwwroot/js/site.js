@@ -53,13 +53,17 @@ function calculatePrice() {
 $(document).ready(function () {
    calculatePrice();
 
-   $('.minus-btn').on('click', function () {
-      changeCountOfItem($(this).closest('.basket-item'), decrementItem);
-      calculatePrice();
-   });
-
-   $('.plus-btn').on('click', function () {
-      changeCountOfItem($(this).closest('.basket-item'), incrementItem);
-      calculatePrice();
-   });
+   $('.shopping-cart')
+      .on('click', '.minus-btn', function () {
+         changeCountOfItem($(this).closest('.basket-item'), decrementItem);
+         calculatePrice();
+      })
+      .on('click', '.plus-btn', function () {
+         changeCountOfItem($(this).closest('.basket-item'), incrementItem);
+         calculatePrice();
+      })
+      .on('click', '.delete-link', function () {
+         console.log('calculate');
+         calculatePrice();
+      });
 });
