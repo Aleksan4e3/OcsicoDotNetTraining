@@ -1,4 +1,22 @@
+@model List<ArticleViewModel>
 
-<form method="post" asp-action="Post">
-    <input type="submit" value="Send"/>
-</form>
+@{
+    ViewData["Title"] = "Новости и акции";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="card-deck">
+
+    @foreach (var item in Model)
+    {<div class="col-4">
+            <div class="card">
+                <img src="@item.ImageUrl" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Text</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

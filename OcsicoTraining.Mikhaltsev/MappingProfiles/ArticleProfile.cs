@@ -10,6 +10,8 @@ namespace MappingProfiles
         {
             CreateMap<CreateArticleViewModel, Article>()
                 .ForMember(x => x.ImageUrl, act => act.Ignore());
+
+            CreateMap<Article, ArticleViewModel>();
         }
     }
 }

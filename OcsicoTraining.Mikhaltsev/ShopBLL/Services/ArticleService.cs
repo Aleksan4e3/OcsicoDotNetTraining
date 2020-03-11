@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,6 +7,7 @@ using ContractsDAL.Repositories;
 using EntityModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ShopBLL.Services.Contracts;
 using ViewModels;
 
@@ -27,6 +29,13 @@ namespace ShopBLL.Services
             this.dataContext = dataContext;
             this.hostingEnvironment = hostingEnvironment;
             this.mapper = mapper;
+        }
+
+        public async Task<List<ArticleViewModel>> GetAsync()
+        {
+            var articles = await articleRepository.GetQuery().ToListAsync();
+
+            return mapper.Map<List<ArticleViewModel>>(articles);
         }
 
         public async Task<CreateArticleViewModel> CreateAsync(CreateArticleViewModel model)

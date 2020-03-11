@@ -60,6 +60,11 @@ namespace WebPresentation.Controllers
         [HttpPost]
         public IActionResult PostOrder(OrderViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Order", model);
+            }
+
             return Json(model);
         }
     }
