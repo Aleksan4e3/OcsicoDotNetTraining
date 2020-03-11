@@ -13,6 +13,8 @@
     <Compile Remove="Context\Migrations\20200305142955_IdentityUserRoleHasKey.Designer.cs" />
     <Compile Remove="Context\Migrations\20200308172158_asd.cs" />
     <Compile Remove="Context\Migrations\20200308172158_asd.Designer.cs" />
+    <Compile Remove="Context\Migrations\20200311190124_ChangeArticle.cs" />
+    <Compile Remove="Context\Migrations\20200311190124_ChangeArticle.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
