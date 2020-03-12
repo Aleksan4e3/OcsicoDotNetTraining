@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using EntityModels.Enums;
 using EntityModels.Identity;
 
 namespace EntityModels
@@ -12,7 +13,7 @@ namespace EntityModels
         public string Address { get; set; }
         public string Comment { get; set; }
         public DateTime Date { get; set; }
-        public string Status { get; set; }
+        public OrderStatus Status { get; set; }
 
 
         public virtual User User { get; set; }
