@@ -7,6 +7,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <form asp-action="PostOrderDetails" asp-controller="Basket">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="shopping-cart">
         <partial name="_ShoppingCart" for="@Model" />

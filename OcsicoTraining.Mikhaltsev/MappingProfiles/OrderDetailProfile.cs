@@ -8,7 +8,8 @@ namespace MappingProfiles
     {
         public OrderDetailProfile()
         {
-            CreateMap<OrderDetailViewModel, OrderDetail>();
+            CreateMap<OrderDetailViewModel, OrderDetail>()
+                .ForMember(x => x.Product, act => act.Ignore());
         }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
@@ -11,20 +10,17 @@ namespace WebPresentation.Controllers
 {
     public class BasketController : Controller
     {
-        private readonly IProductService productService;
         private readonly IUserService userService;
-        private readonly IMapper mapper;
         private readonly IBasketService basketService;
+        private readonly IOrderService orderService;
 
-        public BasketController(IProductService productService,
-            IUserService userService,
-            IMapper mapper,
-            IBasketService basketService)
+        public BasketController(IUserService userService,
+            IBasketService basketService,
+            IOrderService orderService)
         {
-            this.productService = productService;
             this.userService = userService;
-            this.mapper = mapper;
             this.basketService = basketService;
+            this.orderService = orderService;
         }
 
         [HttpGet]
@@ -48,6 +44,16 @@ namespace WebPresentation.Controllers
         [HttpPost]
         public IActionResult PostOrderDetails(List<OrderDetailViewModel> orderDetails)
         {
+            if (orderDetails.Count == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Нет товаров для заказа");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Index", orderDetails);
+            }
+
             basketService.RewriteOrders(orderDetails);
 
             var userId = userService.GetUserId();
@@ -58,13 +64,19 @@ namespace WebPresentation.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult PostOrder(OrderViewModel model)
+        public async Task<IActionResult> PostOrder(OrderViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("Order", model);
             }
 
+            model.OrderDetails = await basketService.GetOrdersAsync();
+            model.Status = OrderStatus.Accepted;
+
+            await orderService.CreateAsync(model);
+
+            //todo go to personal page
             return Json(model);
         }
     }

@@ -21,6 +21,7 @@ namespace WebPresentation.Configurations
             services.AddTransient<IContextService, HttpContextService>();
             services.AddTransient<IBasketService, BasketService>();
             services.AddTransient<IArticleService, ArticleService>();
+            services.AddTransient<IOrderService, OrderService>();
 
             services.AddHttpContextAccessor();
         }

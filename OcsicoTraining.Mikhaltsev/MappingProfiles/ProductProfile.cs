@@ -23,6 +23,8 @@ namespace MappingProfiles
                     act => act.MapFrom(x => x.Id));
 
             CreateMap<Product, ProductViewModel>();
+
+            CreateMap<ProductViewModel, Product>();
         }
     }
 }
