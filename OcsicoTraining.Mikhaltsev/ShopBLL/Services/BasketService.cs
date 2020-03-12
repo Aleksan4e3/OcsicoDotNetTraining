@@ -11,17 +11,17 @@ namespace ShopBLL.Services
     public class BasketService : IBasketService
     {
         private readonly IContextService contextService;
-        private readonly IOrderDetailService orderDetailService;
+        private readonly ICalculateService calculateService;
         private readonly IProductRepository productRepository;
         private readonly IMapper mapper;
 
         public BasketService(IContextService contextService,
-            IOrderDetailService orderDetailService,
+            ICalculateService calculateService,
             IProductRepository productRepository,
             IMapper mapper)
         {
             this.contextService = contextService;
-            this.orderDetailService = orderDetailService;
+            this.calculateService = calculateService;
             this.productRepository = productRepository;
             this.mapper = mapper;
         }
@@ -37,7 +37,7 @@ namespace ShopBLL.Services
                 if (product != null)
                 {
                     order.Product = mapper.Map<ProductViewModel>(product);
-                    orderDetailService.CalculateTotal(order);
+                    calculateService.CalculateTotal(order);
                 }
             }
 

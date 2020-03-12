@@ -11,6 +11,7 @@ namespace ViewModels
         public string Comment { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
+        public double FinalPrice { get; set; }
 
         public ICollection<OrderDetailViewModel> OrderDetails { get; set; }
     }

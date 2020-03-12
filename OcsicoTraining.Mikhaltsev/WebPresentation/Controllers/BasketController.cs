@@ -76,8 +76,7 @@ namespace WebPresentation.Controllers
 
             await orderService.CreateAsync(model);
 
-            //todo go to personal page
-            return Json(model);
+            return RedirectToAction("Index", "PersonalInfo");
         }
     }
 }

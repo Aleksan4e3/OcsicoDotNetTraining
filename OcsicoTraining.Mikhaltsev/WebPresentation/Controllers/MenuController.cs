@@ -8,15 +8,12 @@ namespace WebPresentation.Controllers
     public class MenuController : Controller
     {
         private readonly IProductService productService;
-        private readonly IOrderDetailService orderDetailService;
         private readonly IBasketService basketService;
 
         public MenuController(IProductService productService,
-            IOrderDetailService orderDetailService,
             IBasketService basketService)
         {
             this.productService = productService;
-            this.orderDetailService = orderDetailService;
             this.basketService = basketService;
         }
 
@@ -32,7 +29,7 @@ namespace WebPresentation.Controllers
         public IActionResult Add([Bind(Prefix = "item")]OrderDetailViewModel model)
         {
             if (!ModelState.IsValid)
-            {   
+            {
                 //todo
                 return new EmptyResult();
             }

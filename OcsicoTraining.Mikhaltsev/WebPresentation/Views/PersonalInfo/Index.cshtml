@@ -12,10 +12,11 @@
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">@Html.DisplayNameForInnerType((OrderViewModel item) => item.Date)</th>
-                <th scope="col">@Html.DisplayNameForInnerType((OrderViewModel item) => item.Address)</th>
-                <th scope="col">@Html.DisplayNameForInnerType((OrderViewModel item) => item.Comment)</th>
-                <th scope="col">@Html.DisplayNameForInnerType((OrderViewModel item) => item.Status)</th>
+                <th scope="col">@Html.DisplayNameFor(x => order.Date)</th>
+                <th scope="col">@Html.DisplayNameFor(x => order.Address)</th>
+                <th scope="col">@Html.DisplayNameFor(x => order.Comment)</th>
+                <th scope="col">@Html.DisplayNameFor(x => order.Status)</th>
+                <th scope="col">@Html.DisplayNameFor(x => order.FinalPrice)</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                 <td>@order.Address</td>
                 <td>@order.Comment</td>
                 <td>@order.Status</td>
+                <td>@order.FinalPrice</td>
             </tr>
         </tbody>
     </table>
@@ -35,6 +37,7 @@
                 <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Product.Price)</th>
                 <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Weight)</th>
                 <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Quantity)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.TotalPrice)</th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +48,7 @@
                     <td>@details.Product.Price</td>
                     <td>@details.Weight</td>
                     <td>@details.Quantity</td>
+                    <td>@details.TotalPrice</td>
                 </tr>
             }
         </tbody>

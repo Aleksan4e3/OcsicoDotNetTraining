@@ -17,11 +17,11 @@ namespace WebPresentation.Configurations
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IOrderDetailService, OrderDetailService>();
             services.AddTransient<IContextService, HttpContextService>();
             services.AddTransient<IBasketService, BasketService>();
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<ICalculateService, CalculateService>();
 
             services.AddHttpContextAccessor();
         }
