@@ -1,3 +1,4 @@
+using System;
 using EntityModels.Identity;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;

@@ -15,7 +15,7 @@ function changeCountOfItem($container, changeCountFn) {
 
    quantity = changeCountFn(quantity);
 
-   var total = quantity * weight * price / 1000;
+   var total = (quantity * weight * price / 1000);
 
    $quantity.val(quantity);
    $total.text(total);
@@ -44,10 +44,10 @@ function calculatePrice() {
    var finalPrice = 0;
 
    $("div.total-price").each(function () {
-      finalPrice += parseFloat($(this).html());
+      finalPrice += parseFloat($(this).html().replace(/,/, '.'));
    });
 
-   $('.final-price').text(finalPrice);
+   $('.final-price').text(finalPrice.toLocaleString('ru-RU'));
 }
 
 $(document).ready(function () {

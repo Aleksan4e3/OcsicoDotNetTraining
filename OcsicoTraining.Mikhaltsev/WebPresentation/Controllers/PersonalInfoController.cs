@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using EntityModels.Enums;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
 
@@ -23,7 +24,7 @@ namespace WebPresentation.Controllers
         {
             var orders = await orderService.GetAsync();
 
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole(Roles.Admin))
             {
                 calculateService.CalculateTotal(orders);
 
