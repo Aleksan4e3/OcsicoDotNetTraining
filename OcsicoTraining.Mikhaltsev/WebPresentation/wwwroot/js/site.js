@@ -61,9 +61,5 @@ $(document).ready(function () {
       .on('click', '.plus-btn', function () {
          changeCountOfItem($(this).closest('.basket-item'), incrementItem);
          calculatePrice();
-      })
-      .on('click', '.delete-link', function () {
-         console.log('calculate');
-         calculatePrice();
       });
 });
