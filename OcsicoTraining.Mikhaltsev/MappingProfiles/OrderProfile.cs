@@ -9,6 +9,8 @@ namespace MappingProfiles
         public OrderProfile()
         {
             CreateMap<OrderViewModel, Order>();
+
+            CreateMap<Order, OrderViewModel>();
         }
     }
 }

@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContractsDAL.Context;
 using ContractsDAL.Repositories;
 using EntityModels;
+using Microsoft.EntityFrameworkCore;
 using ShopBLL.Services.Contracts;
 using ViewModels;
 
@@ -31,6 +35,23 @@ namespace ShopBLL.Services
             await dataContext.SaveChangesAsync();
 
             return model;
+        }
+
+        public async Task<List<OrderViewModel>> GetAsync()
+        {
+            var orders = await orderRepository.GetQuery().ToListAsync();
+
+            return mapper.Map<List<OrderViewModel>>(orders);
+        }
+
+        public async Task<List<OrderViewModel>> GetAsync(Guid userId)
+        {
+            var orders = await orderRepository
+                .GetQuery()
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            return mapper.Map<List<OrderViewModel>>(orders);
         }
     }
 }

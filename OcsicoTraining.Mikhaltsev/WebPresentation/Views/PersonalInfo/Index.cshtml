@@ -1,0 +1,52 @@
+@model List<OrderViewModel>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+@foreach (var order in Model)
+{
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderViewModel item) => item.Date)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderViewModel item) => item.Address)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderViewModel item) => item.Comment)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderViewModel item) => item.Status)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">@order.Date</th>
+                <td>@order.Address</td>
+                <td>@order.Comment</td>
+                <td>@order.Status</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Product.Name)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Product.Price)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Weight)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Quantity)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var details in order.OrderDetails)
+            {
+                <tr>
+                    <th scope="row">@details.Product.Name</th>
+                    <td>@details.Product.Price</td>
+                    <td>@details.Weight</td>
+                    <td>@details.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

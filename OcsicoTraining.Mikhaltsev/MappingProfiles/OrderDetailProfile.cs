@@ -10,6 +10,8 @@ namespace MappingProfiles
         {
             CreateMap<OrderDetailViewModel, OrderDetail>()
                 .ForMember(x => x.Product, act => act.Ignore());
+
+            CreateMap<OrderDetail, OrderDetailViewModel>();
         }
     }
 }
