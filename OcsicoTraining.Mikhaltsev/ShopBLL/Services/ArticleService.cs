@@ -1,12 +1,9 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContractsDAL.Context;
 using ContractsDAL.Repositories;
 using EntityModels;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ShopBLL.Services.Contracts;
 using ViewModels;
@@ -17,17 +14,17 @@ namespace ShopBLL.Services
     {
         private readonly IArticleRepository articleRepository;
         private readonly IDataContext dataContext;
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IFileConverter fileConverter;
         private readonly IMapper mapper;
 
         public ArticleService(IArticleRepository articleRepository,
             IDataContext dataContext,
-            IHostingEnvironment hostingEnvironment,
+            IFileConverter fileConverter,
             IMapper mapper)
         {
             this.articleRepository = articleRepository;
             this.dataContext = dataContext;
-            this.hostingEnvironment = hostingEnvironment;
+            this.fileConverter = fileConverter;
             this.mapper = mapper;
         }
 
@@ -42,29 +39,12 @@ namespace ShopBLL.Services
         {
             var article = mapper.Map<Article>(model);
 
-            article.ImageUrl = await SaveImageAsync(model.ImageUrl);
+            article.ImageUrl = await fileConverter.SaveFileAsync(model.ImageUrl);
 
             await articleRepository.AddAsync(article);
             await dataContext.SaveChangesAsync();
 
             return model;
-        }
-
-        private async Task<string> SaveImageAsync(IFormFile uploadedFile)
-        {
-            var path = string.Empty;
-
-            if (uploadedFile != null)
-            {
-                path = "/Images/" + uploadedFile.FileName;
-
-                using (var fileStream = new FileStream(hostingEnvironment.WebRootPath + path, FileMode.Create))
-                {
-                    await uploadedFile.CopyToAsync(fileStream);
-                }
-            }
-
-            return path;
         }
     }
 }

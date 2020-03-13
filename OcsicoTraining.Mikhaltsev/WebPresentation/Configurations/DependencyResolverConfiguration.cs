@@ -22,6 +22,7 @@ namespace WebPresentation.Configurations
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICalculateService, CalculateService>();
+            services.AddTransient<IFileConverter, FileConverter>();
 
             services.AddHttpContextAccessor();
         }

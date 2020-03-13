@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContractsDAL.Context;
 using ContractsDAL.Repositories;
 using EntityModels;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ShopBLL.Services.Contracts;
 using ViewModels;
@@ -18,25 +15,25 @@ namespace ShopBLL.Services
     {
         private readonly IDataContext dataContext;
         private readonly IProductRepository productRepository;
+        private readonly IFileConverter fileConverter;
         private readonly IMapper mapper;
-        private readonly IHostingEnvironment hostingEnvironment;
 
         public ProductService(IDataContext dataContext,
             IProductRepository productRepository,
-            IMapper mapper,
-            IHostingEnvironment hostingEnvironment)
+            IFileConverter fileConverter,
+            IMapper mapper)
         {
             this.dataContext = dataContext;
             this.productRepository = productRepository;
+            this.fileConverter = fileConverter;
             this.mapper = mapper;
-            this.hostingEnvironment = hostingEnvironment;
         }
 
         public async Task<CreateProductViewModel> CreateAsync(CreateProductViewModel model)
         {
             var product = mapper.Map<Product>(model);
 
-            product.ImageUrl = await SaveImageAsync(model.Image);
+            product.ImageUrl = await fileConverter.SaveFileAsync(model.Image);
 
             await productRepository.AddAsync(product);
             await dataContext.SaveChangesAsync();
@@ -58,23 +55,6 @@ namespace ShopBLL.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return mapper.Map<ProductViewModel>(product);
-        }
-
-        private async Task<string> SaveImageAsync(IFormFile uploadedFile)
-        {
-            var path = string.Empty;
-
-            if (uploadedFile != null)
-            {
-                path = "/Images/" + uploadedFile.FileName;
-
-                using (var fileStream = new FileStream(hostingEnvironment.WebRootPath + path, FileMode.Create))
-                {
-                    await uploadedFile.CopyToAsync(fileStream);
-                }
-            }
-
-            return path;
         }
     }
 }
