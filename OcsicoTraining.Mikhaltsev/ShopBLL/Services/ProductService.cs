@@ -71,7 +71,7 @@ namespace ShopBLL.Services
                 .Where(x => !collectionId.Contains(x.Id))
                 .ToListAsync();
 
-            return mapper.Map<List<ProductForOrderViewModel>>(products);
+            return products.Select(Map).ToList();
         }
 
         public async Task<ProductViewModel> GetAsync(Guid id)
@@ -81,6 +81,18 @@ namespace ShopBLL.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return mapper.Map<ProductViewModel>(product);
+        }
+
+        private ProductForOrderViewModel Map(Product model)
+        {
+            return new ProductForOrderViewModel
+            {
+                ProductId = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                Price = model.Price,
+                ImageUrl = fileConverter.ToBase64(model.ImageUrl)
+            };
         }
     }
 }

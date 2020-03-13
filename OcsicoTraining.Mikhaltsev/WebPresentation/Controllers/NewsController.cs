@@ -1,11 +1,10 @@
 using System;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ShopBLL.Services.Contracts;
-using ViewModels;
 
 namespace WebPresentation.Controllers
 {
@@ -30,14 +29,15 @@ namespace WebPresentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Post(Guid id)
+        public async Task<IActionResult> Publish(Guid id)
         {
             var article = await articleService.GetAsync(id);
-            var json = JsonSerializer.Serialize(article);
-            var content = new StringContent(json, Encoding.Unicode, "application/json");
 
+            var json = JsonConvert.SerializeObject(article);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var url = "https://httpbin.org/post";
             var client = factory.CreateClient();
-            var url = "http://kawaii.local/news/index";
 
             var response = await client.PostAsync(url, content);
             var result = await response.Content.ReadAsStringAsync();

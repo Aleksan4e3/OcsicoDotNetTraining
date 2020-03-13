@@ -1,5 +1,5 @@
-@using EntityModels.Enums
 @model List<ProductForOrderViewModel>
+
 @{
     ViewData["Title"] = "Pies";
 }
@@ -13,7 +13,7 @@
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="@item.ImageUrl" class="card-img">
+                    <img src="data:image/png;base64,@item.ImageUrl" class="card-img">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
