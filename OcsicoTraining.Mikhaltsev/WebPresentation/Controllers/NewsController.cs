@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -20,6 +21,7 @@ namespace WebPresentation.Controllers
             this.articleService = articleService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var articles = await articleService.GetAsync();
@@ -27,11 +29,12 @@ namespace WebPresentation.Controllers
             return View(articles);
         }
 
-        public async Task<IActionResult> Post()
+        [HttpGet]
+        public async Task<IActionResult> Post(Guid id)
         {
-            var article = new ArticleViewModel { Title = "NewPie", Text = "Very tasty" };
+            var article = await articleService.GetAsync(id);
             var json = JsonSerializer.Serialize(article);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var content = new StringContent(json, Encoding.Unicode, "application/json");
 
             var client = factory.CreateClient();
             var url = "http://kawaii.local/news/index";

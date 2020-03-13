@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -35,6 +36,13 @@ namespace ShopBLL.Services
             return Map(articles);
         }
 
+        public async Task<ArticleViewModel> GetAsync(Guid id)
+        {
+            var article = await articleRepository.GetAsync(id);
+
+            return Map(article);
+        }
+
         public async Task<CreateArticleViewModel> CreateAsync(CreateArticleViewModel model)
         {
             var article = mapper.Map<Article>(model);
@@ -47,19 +55,24 @@ namespace ShopBLL.Services
             return model;
         }
 
+        private ArticleViewModel Map(Article model)
+        {
+            return new ArticleViewModel
+            {
+                Id = model.Id,
+                Title = model.Title,
+                Text = model.Text,
+                ImageBase64 = fileConverter.ToBase64(model.ImageUrl)
+            };
+        }
+
         private List<ArticleViewModel> Map(List<Article> models)
         {
             var articles = new List<ArticleViewModel>();
 
             foreach (var model in models)
             {
-                articles.Add(new ArticleViewModel
-                {
-                    Id = model.Id,
-                    Title = model.Title,
-                    Text = model.Text,
-                    ImageBase64 = fileConverter.ToBase64(model.ImageUrl)
-                });
+                articles.Add(Map(model));
             }
 
             return articles;

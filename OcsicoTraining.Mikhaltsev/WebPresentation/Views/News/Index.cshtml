@@ -1,3 +1,4 @@
+@using EntityModels.Enums
 @model List<ArticleViewModel>
 
 @{
@@ -16,6 +17,10 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.Title</h5>
                     <p class="card-text">@item.Text</p>
+                    @if (User.IsInRole(Roles.Admin))
+                    {
+                        <a asp-action="Post" asp-route-id="@item.Id" class="btn btn-primary">Запостить</a>
+                    }
                 </div>
             </div>
         </div>
