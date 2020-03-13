@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using EntityModels.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
 using ViewModels;
@@ -40,6 +42,7 @@ namespace WebPresentation.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -49,6 +52,7 @@ namespace WebPresentation.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         public async Task<IActionResult> Edit([FromForm]ProductViewModel model)
         {

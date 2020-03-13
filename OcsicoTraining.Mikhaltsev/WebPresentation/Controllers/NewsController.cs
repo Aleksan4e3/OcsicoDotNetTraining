@@ -2,6 +2,8 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using EntityModels.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShopBLL.Services.Contracts;
@@ -28,6 +30,7 @@ namespace WebPresentation.Controllers
             return View(articles);
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet]
         public async Task<IActionResult> Publish(Guid id)
         {

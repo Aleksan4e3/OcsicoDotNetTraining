@@ -1,12 +1,13 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using EntityModels.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopBLL.Services.Contracts;
 using ViewModels;
 
 namespace WebPresentation.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class AdminController : Controller
     {
         private readonly IProductService productService;
