@@ -72,5 +72,7 @@ namespace ShopBLL.Services
                 contextService.PutOrders(orders);
             }
         }
+
+        public void DeleteOrders() => contextService.PutOrders(new List<OrderDetailViewModel>());
     }
 }

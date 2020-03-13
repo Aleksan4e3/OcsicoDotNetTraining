@@ -76,6 +76,7 @@ namespace WebPresentation.Controllers
             model.Status = OrderStatus.Accepted;
 
             await orderService.CreateAsync(model);
+            basketService.DeleteOrders();
 
             return RedirectToAction("Index", "PersonalInfo");
         }

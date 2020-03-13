@@ -11,5 +11,6 @@ namespace ShopBLL.Services.Contracts
         void AddOrder(OrderDetailViewModel order);
         void RewriteOrders(List<OrderDetailViewModel> orders);
         void DeleteOrder(Guid id, int weight);
+        void DeleteOrders();
     }
 }
