@@ -1,5 +1,6 @@
 using AutoMapper;
 using EntityModels;
+using ShopBLL.Utilites;
 using ViewModels;
 
 namespace MappingProfiles
@@ -10,8 +11,6 @@ namespace MappingProfiles
         {
             CreateMap<CreateArticleViewModel, Article>()
                 .ForMember(x => x.ImageUrl, act => act.Ignore());
-
-            CreateMap<Article, ArticleViewModel>();
         }
     }
 }

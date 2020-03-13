@@ -9,9 +9,10 @@
 <div class="card-deck">
 
     @foreach (var item in Model)
-    {<div class="col-4">
+    {
+        <div class="col-4">
             <div class="card">
-                <img src="@item.ImageUrl" class="card-img-top">
+                <img src="data:image/png;base64,@item.ImageBase64" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">@item.Title</h5>
                     <p class="card-text">@item.Text</p>

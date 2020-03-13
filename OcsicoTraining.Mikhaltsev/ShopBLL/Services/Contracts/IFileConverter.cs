@@ -6,5 +6,6 @@ namespace ShopBLL.Services.Contracts
     public interface IFileConverter
     {
         Task<string> SaveFileAsync(IFormFile uploadedFile);
+        string ToBase64(string path);
     }
 }

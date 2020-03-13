@@ -32,7 +32,7 @@ namespace ShopBLL.Services
         {
             var articles = await articleRepository.GetQuery().ToListAsync();
 
-            return mapper.Map<List<ArticleViewModel>>(articles);
+            return Map(articles);
         }
 
         public async Task<CreateArticleViewModel> CreateAsync(CreateArticleViewModel model)
@@ -45,6 +45,24 @@ namespace ShopBLL.Services
             await dataContext.SaveChangesAsync();
 
             return model;
+        }
+
+        private List<ArticleViewModel> Map(List<Article> models)
+        {
+            var articles = new List<ArticleViewModel>();
+
+            foreach (var model in models)
+            {
+                articles.Add(new ArticleViewModel
+                {
+                    Id = model.Id,
+                    Title = model.Title,
+                    Text = model.Text,
+                    ImageBase64 = fileConverter.ToBase64(model.ImageUrl)
+                });
+            }
+
+            return articles;
         }
     }
 }
