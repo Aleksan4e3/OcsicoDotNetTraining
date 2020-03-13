@@ -28,10 +28,7 @@ namespace WebPresentation.Controllers
         [HttpGet]
         public IActionResult CreateProduct()
         {
-            //todo
-            var product = new CreateProductViewModel { ProductParents = new List<SelectListItem>() };
-
-            return View(product);
+            return View(new CreateProductViewModel());
         }
 
         [HttpPost]

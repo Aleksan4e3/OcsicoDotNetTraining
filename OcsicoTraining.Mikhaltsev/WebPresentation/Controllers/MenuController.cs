@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
@@ -20,7 +21,7 @@ namespace WebPresentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var products = await productService.GetAsync();
+            var products = await productService.GetForMenuAsync();
 
             return View(products);
         }
@@ -37,6 +38,28 @@ namespace WebPresentation.Controllers
             basketService.AddOrder(model);
 
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var product = await productService.GetAsync(id);
+            product.ParentProductId = id;
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromForm]ProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await productService.CreateAsync(model);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

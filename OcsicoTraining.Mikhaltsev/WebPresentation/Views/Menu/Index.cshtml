@@ -1,3 +1,4 @@
+@using EntityModels.Enums
 @model List<ProductForOrderViewModel>
 @{
     ViewData["Title"] = "Pies";
@@ -31,7 +32,11 @@
                             <span asp-validation-for="@item.Quantity"></span>
                         </div>
                         <input type="hidden" asp-for="@item.ProductId" />
-                        <input type="submit" />
+                        <input type="submit" value="В корзину" />
+                        @if (User.IsInRole(Roles.Admin))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.ProductId">Изменить</a>
+                        }
                     </div>
                 </div>
             </div>
