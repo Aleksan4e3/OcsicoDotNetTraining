@@ -1,6 +1,5 @@
 using AutoMapper;
 using EntityModels;
-using ShopBLL.Utilites;
 using ViewModels;
 
 namespace MappingProfiles

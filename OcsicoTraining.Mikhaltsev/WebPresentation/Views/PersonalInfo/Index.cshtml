@@ -7,25 +7,26 @@
 <h1>@ViewData["Title"]</h1>
 
 
-@foreach (var order in Model)
+@for (var i = 0; i < Model.Count; i++)
 {
     <table class="table">
+        <caption class="table-caption">Order @(i + 1)</caption>
         <thead class="thead-dark">
             <tr>
-                <th scope="col">@Html.DisplayNameFor(x => order.Date)</th>
-                <th scope="col">@Html.DisplayNameFor(x => order.Address)</th>
-                <th scope="col">@Html.DisplayNameFor(x => order.Comment)</th>
-                <th scope="col">@Html.DisplayNameFor(x => order.Status)</th>
-                <th scope="col">@Html.DisplayNameFor(x => order.FinalPrice)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].Date)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].Address)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].Comment)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].Status)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].FinalPrice)</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th scope="row">@order.Date</th>
-                <td>@order.Address</td>
-                <td>@order.Comment</td>
-                <td>@order.Status</td>
-                <td>@order.FinalPrice</td>
+                <th scope="row">@Model[i].Date</th>
+                <td>@Model[i].Address</td>
+                <td>@Model[i].Comment</td>
+                <td>@Model[i].Status</td>
+                <td>@Model[i].FinalPrice</td>
             </tr>
         </tbody>
     </table>
@@ -41,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var details in order.OrderDetails)
+            @foreach (var details in Model[i].OrderDetails)
             {
                 <tr>
                     <th scope="row">@details.Product.Name</th>
