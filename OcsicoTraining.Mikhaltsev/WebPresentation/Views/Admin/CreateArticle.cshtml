@@ -1,10 +1,12 @@
+@inject IViewLocalizer Localizer
+
 @model CreateArticleViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = Localizer["WriteNews"];
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>@Localizer["WriteNews"]</h1>
 
 <form asp-action="CreateArticle" enctype="multipart/form-data">
     <div class="row">
@@ -25,7 +27,7 @@
                 <input asp-for="ImageUrl" type="file" class="form-control-file">
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["BtnPublish"]" class="btn btn-primary" />
             </div>
         </div>
     </div>

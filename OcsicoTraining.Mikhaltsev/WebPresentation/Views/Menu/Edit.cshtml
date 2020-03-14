@@ -1,9 +1,11 @@
+@inject IViewLocalizer Localizer
+
 @model ProductViewModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = Localizer["Edit"];
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>@Localizer["Edit"]</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -22,7 +24,7 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Изменить" class="btn btn-primary" />
+                <input type="submit" value="@Localizer["BtnChange"]" class="btn btn-primary" />
             </div>
         </form>
     </div>

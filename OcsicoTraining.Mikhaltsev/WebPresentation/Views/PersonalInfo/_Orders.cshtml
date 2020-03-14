@@ -1,3 +1,5 @@
+@inject IViewLocalizer Localizer
+
 @model List<OrderViewModel>
 
 @for (var i = 0; i < Model.Count; i++)
@@ -11,7 +13,7 @@
                    data-ajax-url="@Url.Action("Change",new{id=Model[i].Id})"
                    data-ajax-update="#orders"
                    class="btn btn-primary">
-                    Изменить статус
+                    @Localizer["BtnChange"]
                 </a>
             }
         </caption>

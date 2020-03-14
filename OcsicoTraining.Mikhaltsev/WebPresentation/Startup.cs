@@ -1,8 +1,10 @@
 using System;
+using System.Globalization;
 using EntityModels.Identity;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +33,9 @@ namespace WebPresentation
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.ConfigureMapper();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddControllersWithViews()
+                .AddViewLocalization()
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<RegisterValidator>());
         }
 
@@ -50,6 +54,18 @@ namespace WebPresentation
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("ru")
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("ru"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

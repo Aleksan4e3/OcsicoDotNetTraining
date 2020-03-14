@@ -1,10 +1,13 @@
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
 @model List<ArticleViewModel>
 
 @{
-    ViewData["Title"] = "Новости и акции";
+    ViewData["Title"] = SharedLocalizer["Article"];
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>@SharedLocalizer["Article"]</h1>
 
 <div class="card-deck">
 
@@ -18,7 +21,7 @@
                     <p class="card-text">@item.Text</p>
                     @if (User.IsInRole(Roles.Admin))
                     {
-                        <a asp-action="Publish" asp-route-id="@item.Id" class="btn btn-primary">Запостить </a>
+                        <a asp-action="Publish" asp-route-id="@item.Id" class="btn btn-primary">@Localizer["Publish"] </a>
                     }
                 </div>
             </div>

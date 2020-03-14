@@ -1,7 +1,9 @@
+@inject IViewLocalizer Localizer
+
 @model List<OrderDetailViewModel>
 
 <div class="title">
-    Shopping Bag
+    @Localizer["Bag"]
 </div>
 
 @for (var i = 0; i < Model.Count; i++)
@@ -48,5 +50,5 @@
     </div>
 }
 
-<span>К оплате:</span>
+<span>@Localizer["Total"]</span>
 <span class="final-price"></span>

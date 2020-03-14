@@ -1,10 +1,12 @@
+@inject IViewLocalizer Localizer
+
 @model LoginViewModel
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = Localizer["Login"];
 }
 
-<h2>Вход в личный кабинет</h2>
+<h2>@Localizer["Login"]</h2>
 
 <form asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
@@ -23,7 +25,7 @@
         <input asp-for="IsRemember" />
     </div>
     <div>
-        <input type="submit" value="Войти" />
+        <input type="submit" value="@Localizer["BtnLogin"]" />
     </div>
 </form>
 

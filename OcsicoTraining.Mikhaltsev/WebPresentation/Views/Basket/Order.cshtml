@@ -1,9 +1,11 @@
+@inject IViewLocalizer Localizer
+
 @model OrderViewModel
 @{
-    ViewData["Title"] = "Order";
+    ViewData["Title"] = Localizer["Order"];
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>@Localizer["Order"]</h1>
 
 <form asp-action="PostOrder" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -24,5 +26,5 @@
         <input asp-for="Comment" class="form-control" />
         <span asp-validation-for="Comment" class="text-danger"></span>
     </div>
-    <input type="submit" value="Заказать" />
+    <input type="submit" value="@Localizer["BtnPost"]" />
 </form>

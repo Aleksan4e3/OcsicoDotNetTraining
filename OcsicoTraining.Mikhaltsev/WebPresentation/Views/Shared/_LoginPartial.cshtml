@@ -1,22 +1,24 @@
+@inject IViewLocalizer Localizer
+
 <ul class="navbar-nav">
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="PersonalInfo" asp-action="Index">Hello @User.Identity.Name!</a>
+            <a class="nav-link text-dark" asp-controller="PersonalInfo" asp-action="Index">@Localizer["Welcome"] @User.Identity.Name!</a>
         </li>
         <li class="nav-item">
             <form class="form-inline" method="post" asp-controller="Account" asp-action="Logout">
-                <button type="submit" class="nav-link text-dark">Sign out</button>
+                <button type="submit" class="nav-link text-dark">@Localizer["SignOut"]</button>
             </form>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Registration</a>
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">@Localizer["Registration"]</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Sign in</a>
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">@Localizer["SignIn"]</a>
         </li>
     }
 </ul>
