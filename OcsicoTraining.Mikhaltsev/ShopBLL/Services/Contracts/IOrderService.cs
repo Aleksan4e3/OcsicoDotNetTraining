@@ -10,5 +10,6 @@ namespace ShopBLL.Services.Contracts
         Task<OrderViewModel> CreateAsync(OrderViewModel model);
         Task<List<OrderViewModel>> GetAsync();
         Task<List<OrderViewModel>> GetAsync(Guid userId);
+        Task EditAsync(Guid id);
     }
 }

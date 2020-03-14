@@ -9,6 +9,8 @@ namespace MappingProfiles
         public UserProfile()
         {
             CreateMap<RegisterViewModel, User>();
+
+            CreateMap<User, UserViewModel>();
         }
     }
 }

@@ -8,7 +8,9 @@ namespace MappingProfiles
     {
         public OrderProfile()
         {
-            CreateMap<OrderViewModel, Order>();
+            CreateMap<OrderViewModel, Order>()
+                .ForMember(x => x.Id, act => act.Ignore())
+                .ForMember(x => x.User, act => act.Ignore());
 
             CreateMap<Order, OrderViewModel>();
         }

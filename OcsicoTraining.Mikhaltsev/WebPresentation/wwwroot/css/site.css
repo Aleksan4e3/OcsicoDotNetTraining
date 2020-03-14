@@ -78,6 +78,11 @@ body {
    font-size: 2rem;
 }
 
+#orders td,
+#orders thead th {
+   text-align: center;
+}
+
 /* Shop basket styles */
 .shopping-cart {
    width: 750px;

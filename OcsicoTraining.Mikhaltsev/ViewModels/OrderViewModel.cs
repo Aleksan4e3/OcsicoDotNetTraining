@@ -6,6 +6,7 @@ namespace ViewModels
 {
     public class OrderViewModel
     {
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
 
         public string Address { get; set; }
@@ -14,6 +15,7 @@ namespace ViewModels
         public OrderStatus Status { get; set; }
         public double FinalPrice { get; set; }
 
+        public virtual UserViewModel User { get; set; }
         public ICollection<OrderDetailViewModel> OrderDetails { get; set; }
     }
 }

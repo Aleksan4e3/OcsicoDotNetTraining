@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using EntityModels.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopBLL.Services.Contracts;
 
@@ -9,34 +11,39 @@ namespace WebPresentation.Controllers
     {
         private readonly IUserService userService;
         private readonly IOrderService orderService;
-        private readonly ICalculateService calculateService;
 
         public PersonalInfoController(IUserService userService,
-            IOrderService orderService,
-            ICalculateService calculateService)
+            IOrderService orderService)
         {
             this.userService = userService;
             this.orderService = orderService;
-            this.calculateService = calculateService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var orders = await orderService.GetAsync();
 
             if (User.IsInRole(Roles.Admin))
             {
-                calculateService.CalculateTotal(orders);
-
                 return View(orders);
             }
 
             var userId = userService.GetUserId();
             var userOrders = await orderService.GetAsync(userId);
 
-            calculateService.CalculateTotal(userOrders);
-
             return View(userOrders);
+        }
+
+        [Authorize(Roles = Roles.Admin)]
+        [HttpGet]
+        public async Task<IActionResult> Change(Guid id)
+        {
+            await orderService.EditAsync(id);
+
+            var orders = await orderService.GetAsync();
+
+            return PartialView("_Orders", orders);
         }
     }
 }
