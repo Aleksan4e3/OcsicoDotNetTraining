@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ViewModels
@@ -14,16 +13,16 @@ namespace ViewModels
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [DisplayName("Price")]
+        [Display(Name = "Price")]
         public double Price { get; set; }
 
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
 
-        [DisplayName("Weight")]
+        [Display(Name = "Weight")]
         public int Weight { get; set; }
 
-        [DisplayName("Quantity")]
+        [Display(Name = "Quantity")]
         public int Quantity { get; set; }
     }
 }

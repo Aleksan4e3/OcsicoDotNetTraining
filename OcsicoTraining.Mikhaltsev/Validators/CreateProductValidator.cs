@@ -1,23 +1,28 @@
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 using ViewModels;
 
 namespace Validators
 {
     public class CreateProductValidator : AbstractValidator<CreateProductViewModel>
     {
-        public CreateProductValidator()
+        public CreateProductValidator(IStringLocalizer<DataAnnotationResource> localizer)
         {
             RuleFor(x => x.Name)
-                .NotNull().NotEmpty();
+                .NotNull().NotEmpty()
+                .WithName(x => localizer["ProductName"]);
 
             RuleFor(x => x.Description)
-                .NotNull().NotEmpty();
+                .NotNull().NotEmpty()
+                .WithName(x => localizer["Description"]);
 
             RuleFor(x => x.Price)
-                .NotNull().NotEmpty();
+                .NotNull().NotEmpty()
+                .WithName(x => localizer["Price"]);
 
             RuleFor(x => x.Image)
-                .NotNull().NotEmpty();
+                .NotNull().NotEmpty()
+                .WithName(x => localizer["Image"]);
         }
     }
 }

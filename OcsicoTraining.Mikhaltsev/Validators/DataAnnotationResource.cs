@@ -1,4 +1,4 @@
-namespace WebPresentation
+namespace Validators
 {
     public class DataAnnotationResource
     {

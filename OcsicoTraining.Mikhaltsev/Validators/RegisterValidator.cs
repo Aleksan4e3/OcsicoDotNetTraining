@@ -1,25 +1,29 @@
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 using ViewModels;
 
 namespace Validators
 {
     public class RegisterValidator : AbstractValidator<RegisterViewModel>
     {
-        public RegisterValidator()
+        public RegisterValidator(IStringLocalizer<DataAnnotationResource> localizer)
         {
             RuleFor(x => x.Email)
                 .NotNull().NotEmpty()
                 .EmailAddress();
 
             RuleFor(x => x.UserName)
-                .NotNull().NotEmpty();
+                .NotNull().NotEmpty()
+                .WithName(x => localizer["Login"]);
 
             RuleFor(x => x.Password)
-                .NotNull().NotEmpty();
+                .NotNull().NotEmpty()
+                .WithName(x => localizer["Password"]);
 
             RuleFor(x => x.PasswordConfirm)
                 .NotNull().NotEmpty()
-                .Equal(x => x.Password);
+                .Equal(x => x.Password)
+                .WithName(x => localizer["RepeatPassword"]);
         }
     }
 }
