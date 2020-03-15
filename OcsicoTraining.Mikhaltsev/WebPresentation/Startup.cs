@@ -1,9 +1,12 @@
 using System;
 using System.Globalization;
+using System.Threading.Tasks;
+using EntityModels.Enums;
 using EntityModels.Identity;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +43,7 @@ namespace WebPresentation
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseSession();
 
@@ -80,6 +83,44 @@ namespace WebPresentation
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+            string[] roleNames = { Roles.Admin, Roles.User };
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(roleName);
+
+                if (!roleExist)
+                {
+                    await roleManager.CreateAsync(new Role { Name = roleName });
+                }
+            }
+
+            var user = new User
+            {
+                UserName = "Admin",
+                Email = "Admin@gmail.com"
+            };
+            var password = "Asd_123";
+            var admin = await userManager.FindByEmailAsync(user.Email);
+
+            if (admin == null)
+            {
+                var createResult = await userManager.CreateAsync(user, password);
+
+                if (createResult.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, Roles.Admin);
+                }
+            }
         }
     }
 }
