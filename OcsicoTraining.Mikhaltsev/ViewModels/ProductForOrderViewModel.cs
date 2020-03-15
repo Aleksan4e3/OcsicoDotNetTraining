@@ -8,22 +8,22 @@ namespace ViewModels
     {
         public Guid ProductId { get; set; }
 
-        [Display(Name = "Название")]
+        [Display(Name = "ProductName")]
         public string Name { get; set; }
 
-        [Display(Name = "Описание")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [DisplayName("Цена")]
+        [DisplayName("Price")]
         public double Price { get; set; }
 
-        [Display(Name = "Изображение")]
+        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
 
-        [DisplayName("Вес")]
+        [DisplayName("Weight")]
         public int Weight { get; set; }
 
-        [DisplayName("Количество")]
+        [DisplayName("Quantity")]
         public int Quantity { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace ViewModels
     {
         public string UserName { get; set; }
 
-        [Display(Name = "Заказчик")]
+        [Display(Name = "Customer")]
         public string Email { get; set; }
     }
 }

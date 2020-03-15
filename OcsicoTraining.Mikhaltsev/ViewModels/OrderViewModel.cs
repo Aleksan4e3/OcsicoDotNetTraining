@@ -10,19 +10,19 @@ namespace ViewModels
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
 
-        [Display(Name = "Адрес")]
+        [Display(Name = "Address")]
         public string Address { get; set; }
 
-        [Display(Name = "Комментарий")]
+        [Display(Name = "Comment")]
         public string Comment { get; set; }
 
-        [Display(Name = "Время доставки")]
+        [Display(Name = "DeliveryTime")]
         public DateTime Date { get; set; }
 
-        [Display(Name = "Статус заказа")]
+        [Display(Name = "OrderStatus")]
         public OrderStatus Status { get; set; }
 
-        [Display(Name = "Итоговая цена")]
+        [Display(Name = "FinalPrice")]
         public double FinalPrice { get; set; }
 
         public virtual UserViewModel User { get; set; }

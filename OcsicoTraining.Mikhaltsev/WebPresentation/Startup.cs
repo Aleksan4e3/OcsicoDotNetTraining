@@ -39,6 +39,13 @@ namespace WebPresentation
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddControllersWithViews()
                 .AddViewLocalization()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        return factory.Create(typeof(DataAnnotationResource));
+                    };
+                })
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<RegisterValidator>());
         }
 

@@ -7,13 +7,13 @@ namespace ViewModels
     {
         public Guid ProductId { get; set; }
 
-        [Display(Name = "Вес")]
+        [Display(Name = "Weight")]
         public int Weight { get; set; }
 
-        [Display(Name = "Количество")]
+        [Display(Name = "Quantity")]
         public int Quantity { get; set; }
 
-        [Display(Name = "Стоимость")]
+        [Display(Name = "TotalPrice")]
         public double TotalPrice { get; set; }
 
         public ProductViewModel Product { get; set; }

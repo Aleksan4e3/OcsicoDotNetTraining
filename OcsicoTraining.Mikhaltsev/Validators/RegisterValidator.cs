@@ -9,23 +9,17 @@ namespace Validators
         {
             RuleFor(x => x.Email)
                 .NotNull().NotEmpty()
-                .WithMessage("Поле {PropertyName} не должно быть пустым!")
-                .EmailAddress()
-                .WithMessage("Здесь должен быть Email!");
+                .EmailAddress();
 
             RuleFor(x => x.UserName)
-                .NotNull().NotEmpty()
-                .WithMessage("Поле {PropertyName} не должно быть пустым!");
+                .NotNull().NotEmpty();
 
             RuleFor(x => x.Password)
-                .NotNull().NotEmpty()
-                .WithMessage("Поле {PropertyName} не должно быть пустым!");
+                .NotNull().NotEmpty();
 
             RuleFor(x => x.PasswordConfirm)
                 .NotNull().NotEmpty()
-                .WithMessage("Поле {PropertyName} не должно быть пустым!")
-                .Equal(x => x.Password)
-                .WithMessage("Не совпадает с полем {ComparisonName}");
+                .Equal(x => x.Password);
         }
     }
 }

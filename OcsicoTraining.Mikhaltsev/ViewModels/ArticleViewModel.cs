@@ -7,13 +7,13 @@ namespace ViewModels
     {
         public Guid Id { get; set; }
 
-        [Display(Name = "Заголовок")]
+        [Display(Name = "ArticleName")]
         public string Title { get; set; }
 
-        [Display(Name = "Текст")]
+        [Display(Name = "Text")]
         public string Text { get; set; }
 
-        [Display(Name = "Изображение")]
+        [Display(Name = "Image")]
         public string ImageBase64 { get; set; }
     }
 }

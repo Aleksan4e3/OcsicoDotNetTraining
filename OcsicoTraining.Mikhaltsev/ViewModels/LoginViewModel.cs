@@ -4,14 +4,14 @@ namespace ViewModels
 {
     public class LoginViewModel
     {
-        [Display(Name = "Логин")]
+        [Display(Name = "Login")]
         public string UserName { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Запомнить?")]
+        [Display(Name = "Remember")]
         public bool IsRemember { get; set; }
 
         public string ReturnUrl { get; set; }

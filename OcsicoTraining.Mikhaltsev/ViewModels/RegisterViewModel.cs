@@ -6,15 +6,15 @@ namespace ViewModels
     {
         public string Email { get; set; }
 
-        [Display(Name = "Имя")]
+        [Display(Name = "Login")]
         public string UserName { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Подтвердить пароль")]
+        [Display(Name = "RepeatPassword")]
         public string PasswordConfirm { get; set; }
     }
 }

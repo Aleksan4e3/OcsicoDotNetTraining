@@ -8,16 +8,16 @@ namespace ViewModels
         public Guid Id { get; set; }
         public Guid ParentProductId { get; set; }
 
-        [Display(Name = "Название")]
+        [Display(Name = "ProductName")]
         public string Name { get; set; }
 
-        [Display(Name = "Описание")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Display(Name = "Цена")]
+        [Display(Name = "Price")]
         public double Price { get; set; }
 
-        [Display(Name = "Изображение")]
+        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
     }
 }

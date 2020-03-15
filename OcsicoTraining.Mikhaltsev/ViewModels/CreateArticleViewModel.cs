@@ -5,13 +5,13 @@ namespace ViewModels
 {
     public class CreateArticleViewModel
     {
-        [Display(Name = "Заголовок")]
+        [Display(Name = "ArticleName")]
         public string Title { get; set; }
 
-        [Display(Name = "Текст")]
+        [Display(Name = "Text")]
         public string Text { get; set; }
 
-        [Display(Name = "Изображение")]
+        [Display(Name = "Image")]
         public IFormFile ImageUrl { get; set; }
     }
 }
