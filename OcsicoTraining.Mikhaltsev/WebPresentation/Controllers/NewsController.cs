@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,29 @@ namespace WebPresentation.Controllers
 
             var json = JsonConvert.SerializeObject(article);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var url = configuration["UrlPublish"];
+            var client = factory.CreateClient();
+
+            var response = await client.PostAsync(url, content);
+            var result = await response.Content.ReadAsStringAsync();
+
+            return Content(result);
+        }
+
+        [Authorize(Roles = Roles.Admin)]
+        [HttpGet]
+        public async Task<IActionResult> PublishSecond(Guid id)
+        {
+            var article = await articleService.GetAsync(id);
+
+            var values = new Dictionary<string, string>
+            {
+                { nameof(article.Id), article.Id.ToString() },
+                { nameof(article.Title), article.Title },
+                { nameof(article.Text), article.Text }
+            };
+            var content = new FormUrlEncodedContent(values);
 
             var url = configuration["UrlPublish"];
             var client = factory.CreateClient();
