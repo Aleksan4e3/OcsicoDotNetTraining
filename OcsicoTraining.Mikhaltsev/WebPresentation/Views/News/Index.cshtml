@@ -1,13 +1,13 @@
 @inject IViewLocalizer Localizer
-@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@inject IStringLocalizer<SharedResource> StringLocalizer
 
 @model List<ArticleViewModel>
 
 @{
-    ViewData["Title"] = SharedLocalizer["Article"];
+    ViewData["Title"] = StringLocalizer["Article"];
 }
 
-<h1>@SharedLocalizer["Article"]</h1>
+<h1 class="main-caption">@StringLocalizer["Article"]</h1>
 
 <div class="card-deck">
 
@@ -16,7 +16,7 @@
         <div class="col-4">
             <div class="card">
                 <img src="data:image/png;base64,@item.ImageBase64" class="card-img-top">
-                <div class="card-body">
+                <div class="card-body card-custom">
                     <h5 class="card-title">@item.Title</h5>
                     <p class="card-text">@item.Text</p>
                     @if (User.IsInRole(Roles.Admin))

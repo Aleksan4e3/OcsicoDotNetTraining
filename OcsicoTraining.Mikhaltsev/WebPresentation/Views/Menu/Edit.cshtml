@@ -1,11 +1,12 @@
 @inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> StringLocalizer
 
 @model ProductViewModel
 @{
     ViewData["Title"] = Localizer["Edit"];
 }
 
-<h1>@Localizer["Edit"]</h1>
+<h1 class="main-caption">@Localizer["Edit"]</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -29,3 +30,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync(StringLocalizer["Scripts"]);}
+}

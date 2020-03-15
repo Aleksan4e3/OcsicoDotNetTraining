@@ -1,19 +1,19 @@
 @inject IViewLocalizer Localizer
-@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@inject IStringLocalizer<SharedResource> StringLocalizer
 
 @model List<ProductForOrderViewModel>
 
 @{
-    ViewData["Title"] = SharedLocalizer["Menu"];
+    ViewData["Title"] = StringLocalizer["Menu"];
 }
 
-<h1>@SharedLocalizer["Menu"]</h1>
+<h1 class="main-caption">@StringLocalizer["Menu"]</h1>
 
 @foreach (var item in Model)
 {
     <form data-ajax="true" data-ajax-method="Post" data-ajax-url="@Url.Action("Add")">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="card mb-3">
+        <div class="card mb-3 card-custom">
             <div class="row no-gutters">
                 <div class="col-md-4">
                     <img src="data:image/png;base64,@item.ImageUrl" class="card-img">
@@ -48,5 +48,5 @@
 }
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync(StringLocalizer["Scripts"]);}
 }

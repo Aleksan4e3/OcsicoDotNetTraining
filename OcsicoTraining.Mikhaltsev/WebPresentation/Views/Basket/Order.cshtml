@@ -1,30 +1,39 @@
 @inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> StringLocalizer
 
 @model OrderViewModel
 @{
     ViewData["Title"] = Localizer["Order"];
 }
 
-<h1>@Localizer["Order"]</h1>
+<h1 class="main-caption">@Localizer["Order"]</h1>
 
-<form asp-action="PostOrder" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="UserId" />
-    <input type="hidden" asp-for="Status" />
-    <div class="form-group">
-        <label asp-for="Date"></label>
-        <input asp-for="Date" class="form-control" />
-        <span asp-validation-for="Date" class="text-danger"></span>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PostOrder" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="Status" />
+            <div class="form-group">
+                <label asp-for="Date"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <input type="submit" value="@Localizer["BtnPost"]" class="btn btn-primary" />
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Comment"></label>
-        <input asp-for="Comment" class="form-control" />
-        <span asp-validation-for="Comment" class="text-danger"></span>
-    </div>
-    <input type="submit" value="@Localizer["BtnPost"]" />
-</form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync(StringLocalizer["Scripts"]);}
+}

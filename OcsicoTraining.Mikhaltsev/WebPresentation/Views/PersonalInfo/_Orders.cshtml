@@ -17,7 +17,7 @@
                 </a>
             }
         </caption>
-        <thead class="thead-dark">
+        <thead class="thead-light">
             <tr>
                 <th scope="col">@Html.DisplayNameFor(x => Model[i].User.Email)</th>
                 <th scope="col">@Html.DisplayNameFor(x => Model[i].Date)</th>
@@ -40,7 +40,7 @@
     </table>
 
     <table class="table">
-        <thead class="thead-light">
+        <thead>
             <tr>
                 <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Product.Name)</th>
                 <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Product.Price)</th>
@@ -62,4 +62,6 @@
             }
         </tbody>
     </table>
+
+    <hr class="hr-line" />
 }

@@ -1,4 +1,5 @@
 @inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> StringLocalizer
 
 @model LoginViewModel
 
@@ -6,7 +7,7 @@
     ViewData["Title"] = Localizer["Login"];
 }
 
-<h2>@Localizer["Login"]</h2>
+<h2 class="main-caption">@Localizer["Login"]</h2>
 
 <form asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
@@ -25,7 +26,10 @@
         <input asp-for="IsRemember" />
     </div>
     <div>
-        <input type="submit" value="@Localizer["BtnLogin"]" />
+        <input type="submit" value="@Localizer["BtnLogin"]" class="btn btn-primary" />
     </div>
 </form>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync(StringLocalizer["Scripts"]);}
+}

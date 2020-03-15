@@ -135,4 +135,10 @@
   <data name="Menu" xml:space="preserve">
     <value>Меню</value>
   </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Заказы</value>
+  </data>
+  <data name="Scripts" xml:space="preserve">
+    <value>_ValidationScriptsPartial</value>
+  </data>
 </root>
