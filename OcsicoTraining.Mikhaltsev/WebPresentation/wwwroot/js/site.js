@@ -19,7 +19,7 @@ function changeCountOfItem($container, changeCountFn) {
 
    $quantity.val(quantity);
    $total.text(total);
-   $total.val(total);
+   $total.val(total.toLocaleString('ru-RU'));
 }
 
 function decrementItem(quantity) {
