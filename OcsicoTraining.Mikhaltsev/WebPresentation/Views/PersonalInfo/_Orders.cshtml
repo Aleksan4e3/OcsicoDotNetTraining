@@ -6,7 +6,7 @@
 {
     <table class="table">
         <caption class="table-caption">
-            Order @(i + 1)
+            @Localizer["OrderNumber"]@(i + 1)
             @if (User.IsInRole(Roles.Admin))
             {
                 <a href="" data-ajax="true"

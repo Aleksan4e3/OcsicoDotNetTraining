@@ -120,4 +120,7 @@
   <data name="BtnChange" xml:space="preserve">
     <value>Изменить статус</value>
   </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Заказ №</value>
+  </data>
 </root>
