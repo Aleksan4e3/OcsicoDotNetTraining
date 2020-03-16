@@ -29,11 +29,11 @@ namespace WebPresentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add([Bind(Prefix = "item")]OrderDetailViewModel model)
+        public IActionResult Add(OrderDetailViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return new EmptyResult();
+                return PartialView("_MenuItem", model);
             }
 
             basketService.AddOrder(model);

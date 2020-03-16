@@ -1,7 +1,6 @@
-@inject IViewLocalizer Localizer
 @inject IStringLocalizer<SharedResource> StringLocalizer
 
-@model List<ProductForOrderViewModel>
+@model List<OrderDetailViewModel>
 
 @{
     ViewData["Title"] = StringLocalizer["Menu"];
@@ -9,44 +8,14 @@
 
 <h1 class="main-caption">@StringLocalizer["Menu"]</h1>
 
-@foreach (var item in Model)
+@for (int i = 0; i < Model.Count; i++)
 {
-    <form data-ajax="true" data-ajax-method="Post" data-ajax-url="@Url.Action("Add")">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="card mb-3 card-custom">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="data:image/png;base64,@item.ImageUrl" class="card-img">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Name</h5>
-                        <p class="card-text">@item.Description</p>
-                        <label asp-for="@item.Price"></label>
-                        <span class="text-success">@item.Price</span>
-                        <div class="form-group">
-                            <label asp-for="@item.Weight"></label>
-                            <input asp-for="@item.Weight" min="500" max="2000" step="100" />
-                            <span asp-validation-for="@item.Weight"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@item.Quantity"></label>
-                            <input asp-for="@item.Quantity" min="1" max="5" />
-                            <span asp-validation-for="@item.Quantity"></span>
-                        </div>
-                        <input type="hidden" asp-for="@item.ProductId" />
-                        <input type="submit" value="@Localizer["Add"]" class="btn btn-primary" />
-                        @if (User.IsInRole(Roles.Admin))
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">@Localizer["LinkChange"]</a>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    <div class="menu-item">
+        <partial name="_MenuItem" model="@Model[i]" />
+    </div>
 }
 
 @section Scripts {
+    <script src="js/menuItem.js"></script>
     @{await Html.RenderPartialAsync(StringLocalizer["Scripts"]);}
 }

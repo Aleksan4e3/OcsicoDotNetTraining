@@ -52,14 +52,7 @@ namespace ShopBLL.Services
             return model;
         }
 
-        public async Task<List<ProductForOrderViewModel>> GetAsync()
-        {
-            var products = await productRepository.GetQuery().ToListAsync();
-
-            return mapper.Map<List<ProductForOrderViewModel>>(products);
-        }
-
-        public async Task<List<ProductForOrderViewModel>> GetForMenuAsync()
+        public async Task<List<OrderDetailViewModel>> GetForMenuAsync()
         {
             var collectionId = await productRepository
                 .GetQuery()
@@ -71,7 +64,11 @@ namespace ShopBLL.Services
                 .Where(x => !collectionId.Contains(x.Id))
                 .ToListAsync();
 
-            return products.Select(Map).ToList();
+            var mapProducts = mapper.Map<List<OrderDetailViewModel>>(products);
+
+            mapProducts.ForEach(x => x.Product.ImageUrl = fileConverter.ToBase64(x.Product.ImageUrl));
+
+            return mapProducts;
         }
 
         public async Task<ProductViewModel> GetAsync(Guid id)
@@ -81,18 +78,6 @@ namespace ShopBLL.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return mapper.Map<ProductViewModel>(product);
-        }
-
-        private ProductForOrderViewModel Map(Product model)
-        {
-            return new ProductForOrderViewModel
-            {
-                ProductId = model.Id,
-                Name = model.Name,
-                Description = model.Description,
-                Price = model.Price,
-                ImageUrl = fileConverter.ToBase64(model.ImageUrl)
-            };
         }
     }
 }

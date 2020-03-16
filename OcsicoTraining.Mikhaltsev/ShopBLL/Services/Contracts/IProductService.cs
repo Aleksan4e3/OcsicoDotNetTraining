@@ -9,8 +9,7 @@ namespace ShopBLL.Services.Contracts
     {
         Task<CreateProductViewModel> CreateAsync(CreateProductViewModel model);
         Task<ProductViewModel> CreateAsync(ProductViewModel model);
-        Task<List<ProductForOrderViewModel>> GetAsync();
         Task<ProductViewModel> GetAsync(Guid id);
-        Task<List<ProductForOrderViewModel>> GetForMenuAsync();
+        Task<List<OrderDetailViewModel>> GetForMenuAsync();
     }
 }

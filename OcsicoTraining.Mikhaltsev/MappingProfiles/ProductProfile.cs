@@ -18,13 +18,15 @@ namespace MappingProfiles
                     act => act.MapFrom(src => src.ParentProductId))
                 .ForMember(x => x.Image, act => act.Ignore());
 
-            CreateMap<Product, ProductForOrderViewModel>()
-                .ForMember(x => x.ProductId,
-                    act => act.MapFrom(x => x.Id));
-
             CreateMap<Product, ProductViewModel>();
 
             CreateMap<ProductViewModel, Product>();
+
+            CreateMap<Product, OrderDetailViewModel>()
+                .ForMember(x => x.Product,
+                    act => act.MapFrom(src => src))
+                .ForMember(x => x.ProductId,
+                    act => act.MapFrom(src => src.Id));
         }
     }
 }
