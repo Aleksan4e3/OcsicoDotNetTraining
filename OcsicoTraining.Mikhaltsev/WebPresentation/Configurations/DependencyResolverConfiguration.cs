@@ -23,6 +23,7 @@ namespace WebPresentation.Configurations
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICalculateService, CalculateService>();
             services.AddTransient<IFileConverter, FileConverter>();
+            services.AddTransient<IEmailService, EmailService>();
 
             services.AddHttpContextAccessor();
         }

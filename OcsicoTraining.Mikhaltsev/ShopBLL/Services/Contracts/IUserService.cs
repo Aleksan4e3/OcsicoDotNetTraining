@@ -9,6 +9,7 @@ namespace ShopBLL.Services.Contracts
     {
         Task<IdentityResult> CreateAsync(RegisterViewModel model);
         Guid GetUserId();
+        Task<string> GetEmail();
         Task LogInAsync(RegisterViewModel model);
         Task<SignInResult> PasswordLogInAsync(LoginViewModel model);
         Task LogOutAsync();

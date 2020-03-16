@@ -42,6 +42,14 @@ namespace ShopBLL.Services
             return userId;
         }
 
+        public async Task<string> GetEmail()
+        {
+            var userClaims = contextAccessor.HttpContext.User;
+            var user = await userManager.GetUserAsync(userClaims);
+
+            return await userManager.GetEmailAsync(user);
+        }
+
         public async Task LogInAsync(RegisterViewModel model)
         {
             await signInManager.PasswordSignInAsync(model.UserName,

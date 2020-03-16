@@ -14,14 +14,20 @@ namespace WebPresentation.Controllers
         private readonly IUserService userService;
         private readonly IBasketService basketService;
         private readonly IOrderService orderService;
+        private readonly IEmailService emailService;
+        private readonly ICalculateService calculateService;
 
         public BasketController(IUserService userService,
             IBasketService basketService,
-            IOrderService orderService)
+            IOrderService orderService,
+            IEmailService emailService,
+            ICalculateService calculateService)
         {
             this.userService = userService;
             this.basketService = basketService;
             this.orderService = orderService;
+            this.emailService = emailService;
+            this.calculateService = calculateService;
         }
 
         [HttpGet]
@@ -74,9 +80,14 @@ namespace WebPresentation.Controllers
 
             model.OrderDetails = await basketService.GetOrdersAsync();
             model.Status = OrderStatus.Accepted;
+            calculateService.CalculateTotal(model);
 
             await orderService.CreateAsync(model);
             basketService.DeleteOrders();
+
+            var email = await userService.GetEmail();
+
+            await emailService.SendEmailAsync(email, model);
 
             return RedirectToAction("Index", "PersonalInfo");
         }
