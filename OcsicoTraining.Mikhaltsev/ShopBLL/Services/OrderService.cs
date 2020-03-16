@@ -65,13 +65,15 @@ namespace ShopBLL.Services
             return orderModels;
         }
 
-        public async Task EditAsync(Guid id)
+        public async Task<OrderViewModel> EditAsync(Guid id)
         {
             var order = await orderRepository.GetAsync(id);
 
             ChangeStatus(order);
             orderRepository.Update(order);
             await dataContext.SaveChangesAsync();
+
+            return mapper.Map<OrderViewModel>(order);
         }
 
         private void ChangeStatus(Order order)

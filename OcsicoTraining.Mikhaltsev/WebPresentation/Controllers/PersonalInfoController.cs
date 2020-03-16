@@ -11,12 +11,15 @@ namespace WebPresentation.Controllers
     {
         private readonly IUserService userService;
         private readonly IOrderService orderService;
+        private readonly IEmailService emailService;
 
         public PersonalInfoController(IUserService userService,
-            IOrderService orderService)
+            IOrderService orderService,
+            IEmailService emailService)
         {
             this.userService = userService;
             this.orderService = orderService;
+            this.emailService = emailService;
         }
 
         [HttpGet]
@@ -39,7 +42,9 @@ namespace WebPresentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Change(Guid id)
         {
-            await orderService.EditAsync(id);
+            var order = await orderService.EditAsync(id);
+
+            await emailService.SendEmailChangeStatusAsync(order.User.Email, order);
 
             var orders = await orderService.GetAsync();
 
