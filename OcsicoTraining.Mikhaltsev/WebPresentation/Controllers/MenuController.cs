@@ -33,7 +33,6 @@ namespace WebPresentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //todo
                 return new EmptyResult();
             }
 
