@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using EntityModels.Enums;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 using ShopBLL.Services.Contracts;
 using ViewModels;
@@ -10,6 +11,13 @@ namespace ShopBLL.Services
 {
     public class EmailService : IEmailService
     {
+        private readonly IConfiguration configuration;
+
+        public EmailService(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public async Task SendEmailAsync(string email, OrderViewModel model)
         {
             var text = $"Поступил заказ на сумму {model.FinalPrice} BYN.{Environment.NewLine}" +
@@ -29,7 +37,7 @@ namespace ShopBLL.Services
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("PiesShop", "buypie365@gmail.com"));
+            emailMessage.From.Add(new MailboxAddress("PiesShop", configuration["EmailToSend"]));
             emailMessage.To.Add(new MailboxAddress("", email));
 
             emailMessage.Subject = "Пироги";
