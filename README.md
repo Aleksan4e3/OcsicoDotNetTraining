@@ -7,3 +7,5 @@ The admin can add a new product to the menu, change the price of the product,
 change the status of the order, add news to the site, publish the news on another site.
 Admin in your account sees all orders.
 Added localization.
+
+Project to run WebPresentation
