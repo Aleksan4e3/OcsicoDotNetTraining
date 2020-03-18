@@ -1,0 +1,11 @@
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    ViewData["Title"] = SharedLocalizer["Admin"];
+}
+
+<h1 class="main-caption">@SharedLocalizer["Admin"]</h1>
+
+<a asp-action="CreateProduct" class="btn btn-primary">@Localizer["BtnAddProduct"]</a>
+<a asp-action="CreateArticle" class="btn btn-primary">@Localizer["BtnAddArticle"]</a>

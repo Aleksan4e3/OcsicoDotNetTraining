@@ -1,0 +1,38 @@
+@inject IViewLocalizer Localizer
+
+@model OrderDetailViewModel
+
+<form data-ajax="true" data-ajax-method="Post" data-ajax-url="@Url.Action("Add")" data-ajax-success="success($(this))">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card mb-3 card-custom">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="data:image/png;base64,@Model.Product.ImageUrl" class="card-img">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Product.Name</h5>
+                    <p class="card-text">@Model.Product.Description</p>
+                    <label asp-for="@Model.Product.Price"></label>
+                    <span class="text-success">@Model.Product.Price</span>
+                    <div class="form-group">
+                        <label asp-for="@Model.Weight"></label>
+                        <input asp-for="@Model.Weight" min="500" max="2000" step="100" />
+                        <span asp-validation-for="@Model.Weight"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Quantity"></label>
+                        <input asp-for="@Model.Quantity" min="1" max="5" />
+                        <span asp-validation-for="@Model.Quantity"></span>
+                    </div>
+                    <input type="hidden" asp-for="@Model.ProductId" />
+                    <input type="submit" value="@Localizer["Add"]" class="btn btn-primary" />
+                    @if (User.IsInRole(Roles.Admin))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-primary">@Localizer["LinkChange"]</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,13 @@
+@inject IStringLocalizer<SharedResource> StringLocalizer
+
+@model List<OrderViewModel>
+
+@{
+    ViewData["Title"] = StringLocalizer["Orders"];
+}
+
+<h1 class="main-caption">@StringLocalizer["Orders"]</h1>
+
+<div id="orders">
+    <partial name="_Orders" model="@Model" />
+</div>

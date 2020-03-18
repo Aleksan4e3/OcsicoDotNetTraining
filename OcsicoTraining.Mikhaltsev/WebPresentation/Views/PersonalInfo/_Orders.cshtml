@@ -1,0 +1,67 @@
+@inject IViewLocalizer Localizer
+
+@model List<OrderViewModel>
+
+@for (var i = 0; i < Model.Count; i++)
+{
+    <table class="table">
+        <caption class="table-caption">
+            @Localizer["OrderNumber"]@(i + 1)
+            @if (User.IsInRole(Roles.Admin))
+            {
+                <a href="" data-ajax="true"
+                   data-ajax-url="@Url.Action("Change",new{id=Model[i].Id})"
+                   data-ajax-update="#orders"
+                   class="btn btn-primary">
+                    @Localizer["BtnChange"]
+                </a>
+            }
+        </caption>
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].User.Email)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].Date)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].Address)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].Comment)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].Status)</th>
+                <th scope="col">@Html.DisplayNameFor(x => Model[i].FinalPrice)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">@Model[i].User.Email</th>
+                <td>@Model[i].Date</td>
+                <td>@Model[i].Address</td>
+                <td>@Model[i].Comment</td>
+                <td class="table-success">@Model[i].Status</td>
+                <td>@Model[i].FinalPrice</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Product.Name)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Product.Price)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Weight)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.Quantity)</th>
+                <th scope="col">@Html.DisplayNameForInnerType((OrderDetailViewModel item) => item.TotalPrice)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var details in Model[i].OrderDetails)
+            {
+                <tr>
+                    <th scope="row">@details.Product.Name</th>
+                    <td>@details.Product.Price</td>
+                    <td>@details.Weight</td>
+                    <td>@details.Quantity</td>
+                    <td>@details.TotalPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr class="hr-line" />
+}

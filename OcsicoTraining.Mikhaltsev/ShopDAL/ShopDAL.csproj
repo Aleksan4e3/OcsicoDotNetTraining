@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Context\Migrations\20200304134855_Initial.cs" />
+    <Compile Remove="Context\Migrations\20200304134855_Initial.Designer.cs" />
+    <Compile Remove="Context\Migrations\20200304150529_Initial.cs" />
+    <Compile Remove="Context\Migrations\20200304150529_Initial.Designer.cs" />
+    <Compile Remove="Context\Migrations\20200305142955_IdentityUserRoleHasKey.cs" />
+    <Compile Remove="Context\Migrations\20200305142955_IdentityUserRoleHasKey.Designer.cs" />
+    <Compile Remove="Context\Migrations\20200308172158_asd.cs" />
+    <Compile Remove="Context\Migrations\20200308172158_asd.Designer.cs" />
+    <Compile Remove="Context\Migrations\20200311190124_ChangeArticle.cs" />
+    <Compile Remove="Context\Migrations\20200311190124_ChangeArticle.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ContractsDAL\ContractsDAL.csproj" />
+    <ProjectReference Include="..\EntityModels\EntityModels.csproj" />
+  </ItemGroup>
+
+</Project>

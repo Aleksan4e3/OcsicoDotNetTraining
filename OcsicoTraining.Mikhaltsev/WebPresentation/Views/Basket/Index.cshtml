@@ -1,0 +1,38 @@
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> StringLocalizer
+
+@model List<OrderDetailViewModel>
+
+@{
+    ViewData["Title"] = StringLocalizer["Basket"];
+}
+
+<h1 class="main-caption">@StringLocalizer["Basket"]</h1>
+
+<form asp-action="PostOrderDetails" asp-controller="Basket">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="shopping-cart">
+        <partial name="_ShoppingCart" for="@Model" />
+    </div>
+    <div class="text-center">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input type="submit" value="@Localizer["BtnPost"]" class="btn btn-primary text-center" />
+        }
+        else
+        {
+            <p class="text-success text-dark">@Localizer["Message"]</p>
+            <a asp-controller="Account"
+               asp-action="Login"
+               asp-route-returnUrl="@Url.Action("Index", "Basket")"
+               class="btn btn-primary">
+                @Localizer["BtnSignIn"]
+            </a>
+        }
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync(StringLocalizer["Scripts"]);}
+}

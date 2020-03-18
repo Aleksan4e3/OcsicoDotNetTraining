@@ -351,3 +351,5 @@ MigrationBackup/
 
 # ignore an entire directory
 /OcsicoTraining.Mikhaltsev/AspApplication/wwwroot/lib
+/OcsicoTraining.Mikhaltsev/WebPresentation/wwwroot/lib
+/OcsicoTraining.Mikhaltsev/WebPresentation/wwwroot/Images

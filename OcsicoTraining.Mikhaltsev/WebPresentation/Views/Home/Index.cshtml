@@ -1,0 +1,10 @@
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Main"];
+}
+
+<div class="text-center main-caption">
+    <h1 class="display-4">@Localizer["Welcome"]</h1>
+    <h2>@Localizer["Name"]</h2>
+</div>
